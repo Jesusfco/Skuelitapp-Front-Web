@@ -3,7 +3,7 @@ export class PaymentType {
     name: String = '';
     description: String;
     quantity: Number;
-    mount: Number;
+    amount: Number;
     created_at: String;
     updated_at: String;
 
