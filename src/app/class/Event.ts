@@ -5,12 +5,12 @@ export class Event {
     name: String = '';
     description: String = '';
     img: String;
-    from: String;
-    to: String;
+    date: String;
+    hour: String;
     type: Number;
     created_at: String;
     updated_at: String;
 
     constructor() {}
-    
+
 }

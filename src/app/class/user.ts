@@ -8,10 +8,11 @@ export class User {
     password: String = '';
     group_id: Number;
     money: Number;
-    id_subjects: Array<Number> = [];
+    subjects_id: Array<Number> = [];
     students_id: Array<Number> = [];
     user_type: Number;
     address_id: Number;
+    cash_register_id: Number;
     created_at: String;
     updated_at: String;
 
@@ -27,7 +28,7 @@ export class User {
         this.group_id = parseFloat(data.group_id);
         this.money = parseFloat(data.money);
         this.students_id = this.setArrayNumberFromData(data.students_id);
-        this.id_subjects = this.setArrayNumberFromData(data.id_subjects);
+        this.subjects_id = this.setArrayNumberFromData(data.id_subjects);
         this.user_type = parseFloat(data.user_type);
         this.address_id = parseFloat(data.address_id);
         this.created_at = data.created_at;
