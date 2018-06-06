@@ -26,11 +26,11 @@ import { Url } from '../url';
     
     trigger('space', [
       state('initial', style({
-        padding: '60px 0px 0px 250px'
+        padding: '45px 0px 0px 250px'
       })),
 
       state('final' ,style({
-        padding: '60px 0px 0px 0px'
+        padding: '45px 0px 0px 0px'
       })),
 
       transition('initial <=> final' , animate('200ms ease-out')),
@@ -51,7 +51,7 @@ export class NavegationComponent implements OnInit {
       inventario: true,
       caja: false,
       puntoVenta: false,
-    }
+    };
 
     public menuBoolean: Boolean = false;
 
@@ -60,7 +60,7 @@ export class NavegationComponent implements OnInit {
     sideNav(){
         if(window.screen.width < 750){
           this.stateMenu = (this.stateMenu === 'initial' ? 'final' : 'initial');
-          // this.statePanel = (this.statePanel === 'initial' ? 'final' : 'initial');
+          this.statePanel = (this.statePanel === 'initial' ? 'final' : 'initial');
   
         } else {
           this.stateMenu = (this.stateMenu === 'initial' ? 'final' : 'initial');
@@ -79,8 +79,8 @@ export class NavegationComponent implements OnInit {
         this.statePanel = 'initial';
       }
 
-      this.stateMenu = "final";
-        this.statePanel = 'final';
+      // this.stateMenu = "final";
+      //   this.statePanel = 'final';
 
     }
 

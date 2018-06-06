@@ -13,6 +13,7 @@ export class User {
     user_type: Number;
     address_id: Number;
     cash_register_id: Number;
+    status: Number;
     created_at: String;
     updated_at: String;
 

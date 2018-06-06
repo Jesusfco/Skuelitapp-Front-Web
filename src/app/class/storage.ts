@@ -8,14 +8,8 @@ export class Storage {
     userPhone: string;
 
     constructor(){
-
         this.token = localStorage.getItem('token');
         this.tokenUrl = '?token=' + this.token;
-        this.userName = localStorage.getItem('userName');
-        this.userEmail = localStorage.getItem('userEmail');
-        this.userId = parseInt(localStorage.getItem('userId'));
-        this.userType = parseInt(localStorage.getItem('userType'));
-        this.userPhone = localStorage.getItem('userPhone');
     }
 
     storageToken(token){
@@ -27,24 +21,26 @@ export class Storage {
     }
 
     storageUserData(data){
-        localStorage.setItem('userName', data.name);
-        localStorage.setItem('userEmail', data.email);
-        localStorage.setItem('userId', data.id);
-        localStorage.setItem('userType', data.level);
-        
+        localStorage.setItem('userData', JSON.stringify(data));
     }
-    
 
     getName(){
-        return localStorage.getItem('userName');
+        let data = JSON.parse(localStorage.getItem('userData'));
+        if(data == null || data == undefined) return '';
+        return data.name;
     }
     getEmail(){
-        return localStorage.getItem('userEmail');
+
+        let data = JSON.parse(localStorage.getItem('userData'));
+        if(data == null || data == undefined) return '';
+        return data.email;
     }
 
     
     getUserType(){
-        return parseInt(localStorage.getItem('userType'));
+        let data = JSON.parse(localStorage.getItem('userData'));
+        if(data == null || data == undefined) return '';
+        return data.user_type;
     }
 
     

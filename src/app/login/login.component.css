@@ -13,7 +13,7 @@
 
 .cardSpace {
     background: white;
-    background-image: url(http://www.lilianapineda.com/images/texture.png);
+    background-image: url(https://thumbs.dreamstime.com/b/seamless-school-background-20246066.jpg);
 }
 
 .alert {
@@ -53,15 +53,15 @@ input {
 }
 
 #btnLogin:hover {
-    background: #7f2061;
+    background: #6b0f11;
 }
 
 #btnLog:focus+div {
-    background: #7f2061;
+    background: #6b0f11;
 }
 
 #btnLogin {
-    background: #7f2061;
+    background: #6b0f11;
 }
 
 #btnFacebook {

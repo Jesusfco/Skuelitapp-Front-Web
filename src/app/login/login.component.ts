@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '../class/storage';
-import { User } from '../class/user';
+import { User } from '../class/User';
 import { LoginService } from './login.service';
 import { useAnimation } from '@angular/animations';
 import { Url } from '../url';
@@ -53,10 +53,10 @@ export class LoginComponent implements OnInit {
 
         this.storage.storageToken(data.token);
         this.storage.storageUserData(data.user);
-        this.user.storageData(data.user);
-        this.router.navigate(['/myAlbums']);
+        this.router.navigate(['/resume']);
         sessionStorage.setItem('login', '1');
       },
+
       error => {
 
         if(error.status == 401) {
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
     if(this.data.email == '') {
       this.form.email = 1;
       this.form.form = false;
-    }    
+    }
   }
 
   validatePassword(){

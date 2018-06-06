@@ -1,6 +1,6 @@
 ﻿<!-- [ngClass]="{ 'active': menuBoolean }" -->
 
-<div class="shadow" id="shadowMenu" (click)="menuAction()"></div>
+<!-- <div class="shadow" id="shadowMenu" (click)="menuAction()"></div> -->
 
 <nav class="nav bodyMove" id="bodyMove1">
 
@@ -12,9 +12,6 @@
 
     <div class="links">
 
-        <div [routerLink]="['./myAlbums']" class="lines">
-            <p>Mis Albumes</p>
-        </div>
 
         <div (click)="cerrarSesion()" class="lines">
             <p>Cerrar Sesión</p>
@@ -31,7 +28,7 @@
 
 
 <div class="menuPhone">
-    <img class="logoPrincipal" <img src="{{url.basicUrl}}images/logo.png">
+    <img class="logoPrincipal" src="{{url.basicUrl}}images/logo.png">
 
     <div class="moveLinks">
         <a [routerLink]="['./myAlbums']" (click)="menuAction()">
@@ -55,14 +52,18 @@
 
 
 <div class="sideNav" [@menu]='stateMenu'>
-    <div style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYiLcbhsWY4HlvDpIMKzJP2OB-QG0yYopa1_lhsgA7CErzcxkG)" id="userInfSection">
+    <div id="userInfSection">
         <div>
             <img src="https://www.w3schools.com/w3css/img_avatar3.png">
-            <p>{{userData.getName() | lowercase}}</p>
-            <p id="emailInf">{{userData.getEmail() | lowercase}}</p>
+            <p>{{userData.getName() | lowercase}} </p>
+            <p id="emailInf">{{ userData.getEmail() | lowercase}}</p>
             <div id="userTypeInf">
-                <p *ngIf="userData.getUserType() == 0">Cliente</p>
-                <p *ngIf="userData.getUserType() == 1">Administrador</p>
+
+                <p *ngIf="userData.getUserType() == 1">Alumno</p>
+                <p *ngIf="userData.getUserType() == 2">Padre/Madre</p>
+                <p *ngIf="userData.getUserType() == 3">Profesor</p>
+                <p *ngIf="userData.getUserType() == 4">Cajero</p>
+                <p *ngIf="userData.getUserType() == 5">Administrador</p>
 
 
             </div>
@@ -70,18 +71,39 @@
         </div>
     </div>
 
+    <h5>APLICACIÓN</h5>
+    <ul>
+
+        <li [routerLink]="['/resume']"><button>Inicio</button></li>
+
+        <li [routerLink]="['/users']"><button>Usuarios</button></li>
+
+        <li [routerLink]="['/schedules']"><button>Horarios</button></li>
+
+        <li [routerLink]="['/receipt']"><button>Recibos</button></li>
+
+        <li [routerLink]="['/events']"><button>Eventos</button></li>
+
+
+    </ul>
+    <h5>USUARIO</h5>
+    <ul>
+        <li><button mat-button (click)="cerrarSesion()">Cerrar Sesión</button></li>
+
+    </ul>
+
 
 
 
 </div>
 
-<!-- <div class="principal" [@space]="statePanel"> -->
-<div class="principalCard" id="bodyMove2">
+<div class="principal" [@space]="statePanel">
+    <div class="principalCard" id="bodyMove2">
 
-    <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
+
+    </div>
 
 </div>
-
-<!-- </div> -->
 
 <app-notification></app-notification>
