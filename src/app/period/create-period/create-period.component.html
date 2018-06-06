@@ -11,29 +11,62 @@
         <h1 align="center">Crear Periodo</h1>
 
         <div class="container">
-            <form class="flexRow" (submit)="createPeriod()" enctype="multipart/form-data" autocomplete="off">
+            <form *ngIf="form == 1" class="flexRow" (submit)="createPeriod()" enctype="multipart/form-data" autocomplete="off">
 
                 <div class="formData l6 m6">
                     <label>Cantidad de Parciales:</label><br>
-                    <input [(ngModel)]="period.partials" name="partials" type="number">
+                    <input [(ngModel)]="period.partials" name="partials" type="number" [ngClass]="{ 'inputError': period.validations.partials > 0, 'inputValidate': period.validations.partials < 0 }">
+                    <small class="error" *ngIf="period.validations.partials == 1">Requerido/ Mayor a 0</small>
                 </div>
 
 
 
                 <div class="formData l6 m6">
                     <label>Inicio del Periodo:</label><br>
-                    <input [(ngModel)]="period.from" name="from" type="date">
+                    <input [(ngModel)]="period.from" name="from" type="date" [ngClass]="{ 'inputError': period.validations.from > 0 }">
+                    <small class="error" *ngIf="period.validations.from == 1">Requerido</small>
+                    <small class="error" *ngIf="period.validations.from == 2">La fecha tiene que ser menor al Fin del periodo</small>
                 </div>
 
                 <div class="formData l6 m6">
                     <label>Fin del Periodo:</label><br>
-                    <input [(ngModel)]="period.to" name="to" type="date">
+                    <input [(ngModel)]="period.to" name="to" type="date" [ngClass]="{ 'inputError': period.validations.to > 0 }">
+                    <small class="error" *ngIf="period.validations.to == 1">Requerido</small>
+                    <small class="error" *ngIf="period.validations.to == 2">La fecha tiene que ser Mayor al Inicio del periodo</small>
                 </div>
 
 
 
 
-                <button type="submit" class="btn formBtn">Crear Periodo</button>
+                <button type="submit" class="btn btnAccept">Crear Periodo</button>
+
+            </form>
+
+
+            <form *ngIf="form == 2" (submit)="partialForm()">
+                <div *ngFor="let part of period.partialsArray" class="flexRow">
+
+                    <h4 class="centerText l12"> Parcial #{{ part.partial }}</h4>
+
+                    <div class="formData l6 m6">
+                        <label>Inicio del Parcial</label><br>
+                        <input [(ngModel)]="part.from" name="from" type="date" [ngClass]="{ 'inputError': part.validations.from > 0 }">
+                        <small class="error" *ngIf="part.validations.from == 1">Requerido</small>
+                        <small class="error" *ngIf="part.validations.from == 2">La fecha tiene que ser Menor al Final del parcial</small>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Fin del Parcial:</label><br>
+                        <input [(ngModel)]="part.to" name="to" type="date" [ngClass]="{ 'inputError': part.validations.to > 0 }">
+                        <small class="error" *ngIf="part.validations.to == 1">Requerido</small>
+                        <small class="error" *ngIf="part.validations.to == 2">La fecha tiene que ser Mayor al Inicio del parcial</small>
+                    </div>
+
+
+
+                </div>
+
+                <button type="submit" class="btn btnAccept">Crear Periodo</button>
 
             </form>
 

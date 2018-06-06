@@ -20,4 +20,10 @@ export class PeriodService {
       .toPromise();
   }
 
+  storePeriod(period) {
+    return this._http.post(this.link.url + 'period/create' + this.token.getTokenUrl(), period)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

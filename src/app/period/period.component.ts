@@ -12,6 +12,8 @@ export class PeriodComponent implements OnInit {
   public periods: Array<Period> = [];
   public request: Boolean = false;
 
+  public newPeriodObserver: any;
+
   public parameters: any = {
     from: '',
     to: ''
@@ -19,6 +21,7 @@ export class PeriodComponent implements OnInit {
 
   constructor(private _http: PeriodService) { 
     this.getData();
+    this.setNewPeriodObserver();
   }
 
   ngOnInit() {
@@ -44,6 +47,19 @@ export class PeriodComponent implements OnInit {
       error => sessionStorage.setItem('request', error)
 
     );
+
+  }
+
+  setNewPeriodObserver() {
+    this.newPeriodObserver = setInterval(() => this.newPeriodObserverLogic(), 1000);
+  }
+
+  newPeriodObserverLogic(){
+    if(sessionStorage.getItem('newPeriod') == undefined) return;
+
+    let newPeriod = JSON.parse(sessionStorage.getItem('newPeriod'));
+    this.periods.unshift(newPeriod);
+    sessionStorage.removeItem('newPeriod');
 
   }
 
