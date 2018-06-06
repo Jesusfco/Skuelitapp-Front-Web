@@ -38,8 +38,8 @@ export class EditPeriodComponent implements OnInit {
     this._http.showPeriod(this.original.id).then(
 
       data => {
-        this.original = data;
-        this.edit = data;
+        this.original.setDataEdit(data);
+        this.edit.setDataEdit(data);
       }
 
     ).then(
@@ -54,14 +54,30 @@ export class EditPeriodComponent implements OnInit {
 
   }
 
+  
+
   editPeriod(){
+
+    if(!this.edit.validatePartialArray() || !this.edit.validateAll()) {
+      console.log('validation');
+      return;
+    }
+
     this.request = true;
 
     this._http.updatePeriod(this.edit).then(
 
       data => {
-        // this.original = data;
-        // this.edit = data;
+        sessionStorage.setItem('editedPeriod', JSON.stringify(data));
+
+        let not = {
+          title: 'Periodo Actualizado',
+          description: 'Los datos han sido guardados en el servidor',
+          status: 200
+        };
+
+        sessionStorage.setItem('request', JSON.stringify(not));
+
       }
 
     ).then(
@@ -73,6 +89,24 @@ export class EditPeriodComponent implements OnInit {
       error => sessionStorage.setItem('request', JSON.stringify(error))
 
     );
+    
   }
 
+  editPartial(id) {
+    
+    for(let i = 0; i < this.edit.partialsArray.length; i++) {
+
+      if(this.edit.partialsArray[i].id == id) {
+
+        this.edit.partialsArray[i].edit = true;
+
+      } else {
+
+        this.edit.partialsArray[i].edit = false;
+
+      }
+
+    }
+
+  }
 }

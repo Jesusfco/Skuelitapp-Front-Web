@@ -19,6 +19,25 @@ export class Period {
 
     constructor() {}
 
+    setDataEdit(data){
+        this.id = parseFloat(data.id);
+        this.partials = parseFloat(data.partials);
+        this.from = data.from;
+        this.to = data.to;
+        this.created_at = data.created_at;
+        this.updated_at = data.updated_ad;
+
+        this.partialsArray = [];
+
+        for(let p of data.partialsArray) {
+
+            let x: Partial = new Partial();
+            x.setData(p);
+            this.partialsArray.push(x);
+        }
+        
+    }
+
     setArrayPartials() {
 
         this.partialsArray = [];
