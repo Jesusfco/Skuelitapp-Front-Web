@@ -6,6 +6,42 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.route';
 
+import {
+  MatAutocompleteModule,
+  // MatButtonModule,
+  // MatButtonToggleModule,
+  // MatCardModule,
+  // MatCheckboxModule,
+  // MatChipsModule,  
+  // MatDatepickerModule,
+  // MatDialogModule,
+  // MatExpansionModule,
+  // MatGridListModule,
+  // MatIconModule,
+  // MatInputModule,
+  // MatListModule,
+  // MatMenuModule,
+  // MatNativeDateModule,
+  // MatPaginatorModule,
+  // MatProgressBarModule,
+  // MatProgressSpinnerModule,
+  // MatRadioModule,
+  // MatRippleModule,
+  // MatSelectModule,
+  // MatSidenavModule,
+  // MatSliderModule,
+  // MatSlideToggleModule,
+  // MatSnackBarModule,
+  // MatSortModule,
+  // MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  // MatTooltipModule,
+} from '@angular/material';
+
+
+
+
 import { AppComponent } from './app.component';
 import { NavegationComponent } from './navegation/navegation.component';
 import { LoginComponent } from './login/login.component';
@@ -47,6 +83,41 @@ import { ResumeService } from './resume/resume.service';
     JsonpModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule, 
+
+    
+    // MatAutocompleteModule,
+    // MatButtonModule,
+    // MatButtonToggleModule,
+    // MatCardModule,
+    // MatCheckboxModule,
+    // MatChipsModule,
+    // MatPaginatorModule,
+    // MatIconModule,
+
+    // MatDatepickerModule,
+    // MatDialogModule,
+    // MatExpansionModule,
+    // MatGridListModule,
+    
+    // MatInputModule,
+    // MatListModule,
+    // MatMenuModule,
+    // MatNativeDateModule,
+    
+    // MatProgressBarModule,
+    // MatProgressSpinnerModule,
+    // MatRadioModule,
+    // MatRippleModule,
+    // MatSelectModule,
+    // MatSidenavModule,
+    // MatSliderModule,
+    // MatSlideToggleModule,
+    // MatSnackBarModule,
+    // MatSortModule,
+    // MatTableModule,
+    // MatTabsModule,
+    // MatToolbarModule,
+    // MatTooltipModule,
   ],
   providers: [
     LoginService,

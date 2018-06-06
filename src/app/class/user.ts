@@ -3,6 +3,7 @@ export class User {
     name: String = '';
     patern_surname: String = '';
     matern_surname: String = '';
+    phone: String = '';
     email: String = '';
     CURP: String = '';
     password: String = '';
@@ -10,12 +11,25 @@ export class User {
     money: Number;
     subjects_id: Array<Number> = [];
     students_id: Array<Number> = [];
-    user_type: Number;
+    user_type: Number = 1;
     address_id: Number;
     cash_register_id: Number;
     status: Number;
+    gender: Number = 1;
+    birthday: String;
     created_at: String;
     updated_at: String;
+
+    validations: any  = {
+        name: 0,
+        patern_surname: 0,
+        matern_surname: 0,
+        email: 0,
+        password: 0,
+        birthday: 0,
+        validate: true
+    };
+        
 
     constructor(){ }
 
@@ -62,4 +76,21 @@ export class User {
         return array;
 
     }
+
+    setValidations() {
+        this.validations = {
+            name: 0,
+            patern_surname: 0,
+            matern_surname: 0,
+            email: 0,
+            password: 0,
+            birthday: 0,
+            validate: true
+        };
+    }
+
+    validatePhoneFormat(){
+        this.phone = this.phone.replace(/\D/g, '');
+    }
+
 }
