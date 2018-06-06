@@ -126,7 +126,7 @@ trigger('principal', [
         animate('550ms ease-out')
         ]),
 
-        transition('void => *', [
+        transition(':leave', [
         style({
             transform: 'translate3d(100%,0,0)',          
         }),

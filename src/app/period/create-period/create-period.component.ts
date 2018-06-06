@@ -52,7 +52,10 @@ export class CreatePeriodComponent implements OnInit {
         };
 
         sessionStorage.setItem('request', JSON.stringify(not));
+        sessionStorage.setItem('newPeriod', JSON.stringify(data));
 
+        this.closeWindow();
+        
       }
 
     ).then(

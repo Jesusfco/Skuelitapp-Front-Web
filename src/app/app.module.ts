@@ -62,6 +62,7 @@ import { ResumeService } from './resume/resume.service';
 import { PeriodComponent } from './period/period.component';
 import { CreatePeriodComponent } from './period/create-period/create-period.component';
 import { PeriodService } from './period/period.service';
+import { EditPeriodComponent } from './period/edit-period/edit-period.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { PeriodService } from './period/period.service';
     EditSubjectComponent,
     PaymentComponent,
     PeriodComponent,
-    CreatePeriodComponent
+    CreatePeriodComponent,
+    EditPeriodComponent
   ],
   imports: [
     BrowserModule,

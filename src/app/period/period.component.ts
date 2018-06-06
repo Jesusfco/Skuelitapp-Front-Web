@@ -13,6 +13,7 @@ export class PeriodComponent implements OnInit {
   public request: Boolean = false;
 
   public newPeriodObserver: any;
+  public editPeriodObserver: any;
 
   public parameters: any = {
     from: '',
@@ -22,6 +23,7 @@ export class PeriodComponent implements OnInit {
   constructor(private _http: PeriodService) { 
     this.getData();
     this.setNewPeriodObserver();
+    this.setEditPeriodObserver();
   }
 
   ngOnInit() {
@@ -62,5 +64,26 @@ export class PeriodComponent implements OnInit {
     sessionStorage.removeItem('newPeriod');
 
   }
+
+  setEditPeriodObserver() {
+    this.editPeriodObserver = setInterval(() => this.editPeriodObserverLogic(), 1000);
+  }
+
+  editPeriodObserverLogic() {
+    if(sessionStorage.getItem('editedPeriod') == undefined) return;
+
+    let editerPeriod = JSON.parse(sessionStorage.getItem('editedPeriod'));
+
+    for(let i = 0; i < this.periods.length; i++) {
+      if(this.periods[i].id == editerPeriod.id) {
+        this.periods[i] = editerPeriod;
+        break;
+      }
+    }
+
+    sessionStorage.removeItem('editedPeriod');
+
+  }
+
 
 }

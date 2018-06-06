@@ -26,4 +26,16 @@ export class PeriodService {
       .toPromise();
   }
 
+  showPeriod(id) {
+    return this._http.get(this.link.url + 'period/' + id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  updatePeriod(period) {
+    return this._http.post(this.link.url + 'period/update' + this.token.getTokenUrl(), period)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

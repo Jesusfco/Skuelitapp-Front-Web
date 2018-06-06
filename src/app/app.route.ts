@@ -12,6 +12,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 
 import { PeriodComponent } from './period/period.component';
 import { CreatePeriodComponent } from './period/create-period/create-period.component';
+import { EditPeriodComponent } from './period/edit-period/edit-period.component';
 
 export const routes: Routes = [
     
@@ -31,7 +32,7 @@ export const routes: Routes = [
         path: 'periodos', component: PeriodComponent,
         children: [
             {   path: 'create', component: CreatePeriodComponent },
-        // {path: 'edit/:id', component: EditUserComponent },
+            {   path: 'edit/:id', component: EditPeriodComponent },
         ]
     },
 
@@ -45,5 +46,5 @@ export const routes: Routes = [
     // },
     
     { path: '**', component:  PageNotFoundComponent },
-    
+
 ];
