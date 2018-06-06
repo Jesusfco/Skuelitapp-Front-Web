@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../class/user';
-import { Address } from '../../class/address';
+import { User } from '../../class/User';
+import { Address } from '../../class/Address';
 import { FadeAnimation, SlideAnimation } from '../../animations';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';

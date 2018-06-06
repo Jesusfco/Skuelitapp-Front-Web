@@ -27,6 +27,7 @@ export class PeriodComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
 

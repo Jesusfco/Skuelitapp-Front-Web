@@ -14,6 +14,11 @@ import { PeriodComponent } from './period/period.component';
 import { CreatePeriodComponent } from './period/create-period/create-period.component';
 import { EditPeriodComponent } from './period/edit-period/edit-period.component';
 
+import { PaymentAdministrationComponent } from './payment-administration/payment-administration.component';
+import { CreatePaymentTypeComponent } from './payment-administration/create-payment-type/create-payment-type.component';
+import { EditPaymentComponent } from './payment-administration/edit-payment/edit-payment.component';
+import { DatePaymentComponent } from './payment-administration/date-payment/date-payment.component';
+
 export const routes: Routes = [
     
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,8 +36,16 @@ export const routes: Routes = [
     {   
         path: 'periodos', component: PeriodComponent,
         children: [
-            {   path: 'create', component: CreatePeriodComponent },
+            {   path: 'create', component: CreatePaymentTypeComponent },
             {   path: 'edit/:id', component: EditPeriodComponent },
+        ]
+    },
+
+    {
+        path: 'administracion-de-pagos', component: PaymentAdministrationComponent,
+        children: [
+            {   path: 'create', component: CreatePeriodComponent },
+            {   path: 'edit/:id', component: EditPaymentComponent },
         ]
     },
 

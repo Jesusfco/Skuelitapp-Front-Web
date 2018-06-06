@@ -55,14 +55,17 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
-import { PaymentComponent } from './payment/payment.component';
+import { PaymentAdministrationComponent } from './payment-administration/payment-administration.component';
 import { UserService } from './user/user.service';
-import { PaymentService } from './payment/payment.service';
+import { PaymentService } from './payment-administration/payment.service';
 import { ResumeService } from './resume/resume.service';
 import { PeriodComponent } from './period/period.component';
 import { CreatePeriodComponent } from './period/create-period/create-period.component';
 import { PeriodService } from './period/period.service';
 import { EditPeriodComponent } from './period/edit-period/edit-period.component';
+import { CreatePaymentTypeComponent } from './payment-administration/create-payment-type/create-payment-type.component';
+import { EditPaymentComponent } from './payment-administration/edit-payment/edit-payment.component';
+import { DatePaymentComponent } from './payment-administration/date-payment/date-payment.component';
 
 @NgModule({
   declarations: [
@@ -78,10 +81,13 @@ import { EditPeriodComponent } from './period/edit-period/edit-period.component'
     SubjectComponent,
     CreateSubjectComponent,
     EditSubjectComponent,
-    PaymentComponent,
+    PaymentAdministrationComponent,
     PeriodComponent,
     CreatePeriodComponent,
-    EditPeriodComponent
+    EditPeriodComponent,
+    CreatePaymentTypeComponent,
+    EditPaymentComponent,
+    DatePaymentComponent
   ],
   imports: [
     BrowserModule,

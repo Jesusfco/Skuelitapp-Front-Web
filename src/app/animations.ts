@@ -115,24 +115,24 @@ export const BackgroundLogo =
   export const SlideAnimation: AnimationEntryMetadata = 
 
 trigger('principal', [                
-        state('*' ,style({
-        transform: 'translate3d(0,0,0)',               
+          state('*' ,style({
+          transform: 'translate3d(0,0,0)',               
         })),      
         
         transition(':enter', [
-        style({
-            transform: 'translate3d(100%,0,0)',
-        }),
-        animate('550ms ease-out')
-        ]),
+          style({
+              transform: 'translate3d(100%,0,0)',
+          }),
+          animate('550ms ease-out')
+          ]),
 
         transition(':leave', [
-        style({
-            transform: 'translate3d(100%,0,0)',          
-        }),
-        animate('350ms ease-in')
-        ]),
-    ]);
+            style({
+                transform: 'translate3d(100%,0,0)',          
+            }),
+            animate('350ms ease-in')
+          ]),
+      ]);
 
 export const FadeAnimation: AnimationEntryMetadata = 
 
