@@ -10,6 +10,9 @@ import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 
+import { PeriodComponent } from './period/period.component';
+import { CreatePeriodComponent } from './period/create-period/create-period.component';
+
 export const routes: Routes = [
     
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +24,14 @@ export const routes: Routes = [
         children: [
             {path: 'create', component: CreateUserComponent },
             {path: 'edit/:id', component: EditUserComponent },
+        ]
+    },
+
+    {   
+        path: 'periodos', component: PeriodComponent,
+        children: [
+            {   path: 'create', component: CreatePeriodComponent },
+        // {path: 'edit/:id', component: EditUserComponent },
         ]
     },
 

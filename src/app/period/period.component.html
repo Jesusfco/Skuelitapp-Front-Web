@@ -1,0 +1,20 @@
+<div class="responsive-table">
+    <table align="center">
+        <thead>
+            <tr>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Parciales</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let period of periods" [routerLink]="['/periodos/edit', period.id]">
+                <td class="left">{{ period.from }}</td>
+                <td>{{ period.to }}</td>
+                <td>{{ period.partials }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

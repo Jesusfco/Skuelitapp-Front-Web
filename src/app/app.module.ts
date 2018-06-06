@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.route';
 
-import {
-  MatAutocompleteModule,
+// import {
+  // MatAutocompleteModule,
   // MatButtonModule,
   // MatButtonToggleModule,
   // MatCardModule,
@@ -34,10 +34,10 @@ import {
   // MatSnackBarModule,
   // MatSortModule,
   // MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
+  // MatTabsModule,
+  // MatToolbarModule,
   // MatTooltipModule,
-} from '@angular/material';
+// } from '@angular/material';
 
 
 
@@ -59,6 +59,9 @@ import { PaymentComponent } from './payment/payment.component';
 import { UserService } from './user/user.service';
 import { PaymentService } from './payment/payment.service';
 import { ResumeService } from './resume/resume.service';
+import { PeriodComponent } from './period/period.component';
+import { CreatePeriodComponent } from './period/create-period/create-period.component';
+import { PeriodService } from './period/period.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,9 @@ import { ResumeService } from './resume/resume.service';
     SubjectComponent,
     CreateSubjectComponent,
     EditSubjectComponent,
-    PaymentComponent
+    PaymentComponent,
+    PeriodComponent,
+    CreatePeriodComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +129,7 @@ import { ResumeService } from './resume/resume.service';
     ResumeService,
     UserService,
     PaymentService,
+    PeriodService,
   ],
   bootstrap: [AppComponent]
 })
