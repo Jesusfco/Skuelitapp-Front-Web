@@ -29,12 +29,15 @@ export class Period {
 
         this.partialsArray = [];
 
-        for(let p of data.partialsArray) {
+        if(data.partialsArray != undefined)
+        
+            for(let p of data.partialsArray) {
 
-            let x: Partial = new Partial();
-            x.setData(p);
-            this.partialsArray.push(x);
-        }
+                let x: Partial = new Partial();
+                x.setData(p);
+                this.partialsArray.push(x);
+                
+            }
         
     }
 

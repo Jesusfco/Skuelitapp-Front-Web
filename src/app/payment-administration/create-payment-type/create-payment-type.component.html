@@ -1,3 +1,54 @@
-<p>
-  create-payment-type works!
-</p>
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Crear Tipo de Pago</h2>
+
+        <form (submit)="createPaymentType()" class="flexRow" autocomplete="off">
+
+            <div class="formData l12">
+                <label>Nombre</label><br>
+                <input [(ngModel)]="payment.name" name="name" type="text" [ngClass]="{ 'inputError': payment.validations.name > 0, 'inputValidate': payment.validations.name < 0 }">
+                <small class="error" *ngIf="payment.validations.name == 1">Requerido</small>
+            </div>
+
+
+
+            <div class="formData l6 m6">
+                <label>Cantidad de pagos</label><br>
+                <input [(ngModel)]="payment.quantity" name="quantity" type="number" [ngClass]="{ 'inputError': payment.validations.quantity > 0 }">
+                <small class="error" *ngIf="payment.validations.quantity == 1">Requerido</small>
+            </div>
+
+            <div class="formData l6 m6">
+                <label>Monto de cada pago:</label><br>
+                <input [(ngModel)]="payment.amount" name="amount" type="number" [ngClass]="{ 'inputError': payment.validations.amount > 0 }">
+                <small class="error" *ngIf="payment.validations.amount == 1">Requerido</small>
+            </div>
+
+            <div class="formData l12">
+                <label>Descripción:</label><br>
+                <textarea [(ngModel)]="payment.description" name="description"></textarea>
+            </div>
+
+
+            <button type="submit" class="btn btnAccept">Crear Periodo</button>
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>

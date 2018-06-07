@@ -170,7 +170,8 @@ th {
 }
 
 input,
-select {
+select,
+textarea {
     border: none;
     background: #ECECEC;
     padding: 8px;

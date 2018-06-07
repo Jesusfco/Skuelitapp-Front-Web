@@ -20,6 +20,13 @@ export class PaymentService {
       .toPromise();
   }
 
+  periods() {
+    return this._http.post(this.link.url + 'payment/periods' + this.token.getTokenUrl(), 1)
+      .map(data => data.json())
+      .toPromise();
+  }
+
+
   show(id) {
     return this._http.get(this.link.url + 'payment/' + id + this.token.getTokenUrl())
       .map(data => data.json())

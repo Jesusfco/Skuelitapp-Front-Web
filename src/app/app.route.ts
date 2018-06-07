@@ -44,7 +44,7 @@ export const routes: Routes = [
     {
         path: 'administracion-de-pagos', component: PaymentAdministrationComponent,
         children: [
-            {   path: 'create', component: CreatePeriodComponent },
+            {   path: 'create', component: CreatePaymentTypeComponent },
             {   path: 'edit/:id', component: EditPaymentComponent },
         ]
     },

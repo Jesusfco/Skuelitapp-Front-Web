@@ -1,3 +1,26 @@
-<p>
-  payment works!
-</p>
+<h2 class="centerText">Administracion de Pagos</h2>
+
+<div *ngFor="let pay of payments">
+    <h4> {{ pay.name }}</h4>
+    <p>Cantidad de pagos: #{{ pay.quantity }}</p>
+    <p>Monto: #{{ pay.amount }}</p>
+
+    <form (submit)="getDatePayment(pay.id)">
+
+        <div class="formData l6 m6">
+            <label>Seleccionar Periodo</label><br>
+            <select [(ngModel)]="searchPeriod" name="searchPeriod">
+              <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} </option> 
+          </select>
+
+        </div>
+        <button>Obtener Fecha de Pagos</button>
+    </form>
+
+</div>
+
+<div class="botonFloat" [routerLink]="['./create']">
+    <a class="botonA" matTooltip="Crear"><i class="material-icons">add</i></a>
+</div>
+
+<router-outlet></router-outlet>

@@ -11,12 +11,14 @@ import { Period } from '../class/Period';
 export class PaymentAdministrationComponent implements OnInit {
 
   public payments: Array<PaymentType> = [];
-  public periods: Array<Period> = [];  
+  public periods: Array<Period> = [];
   public request: Boolean = false;
 
   public search: any = {
     limit: 0,
   };
+
+  public searchPeriod: any;
 
   public newPaymentObserver: any;
   public editPaymentObserver: any;
@@ -24,6 +26,10 @@ export class PaymentAdministrationComponent implements OnInit {
   constructor(private _http: PaymentService) {
 
     this.getPaymentTypes();
+    this.getLatestPeriods();
+
+    this.setEditPaymentObserver();
+    this.setNewPaymentObserver();
 
    }
 
@@ -48,6 +54,32 @@ export class PaymentAdministrationComponent implements OnInit {
 
         }
         
+      }
+    ).then(
+      () => this.request = false
+    ).catch(
+
+      error => sessionStorage.setItem('request', error)
+
+    );
+  }
+
+  getLatestPeriods() {
+
+    this.request = true;
+
+    this._http.periods().then(
+      data => {
+
+        this.periods = [];
+
+        for(let p of data){
+          
+          let z: Period = new Period();
+          z.setDataEdit(p);
+          this.periods.push(z);
+
+        }
       }
     ).then(
       () => this.request = false
