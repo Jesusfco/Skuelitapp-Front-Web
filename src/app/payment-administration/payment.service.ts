@@ -45,4 +45,11 @@ export class PaymentService {
       .toPromise();
   }
 
+  getDatesPayment(parameters) {
+    return this._http.post(this.link.url + 'payment/datesPayment' + this.token.getTokenUrl(), parameters)
+      .map(data => data.json())
+      .toPromise();
+  }
+  
+
 }

@@ -1,3 +1,31 @@
-<p>
-  date-payment works!
-</p>
+<div class="background" [@background]>
+</div>
+<div id="createCard" @principal>
+
+    <a [routerLink]="['../']">
+        <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
+    </a>
+
+
+    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+        <h1 align="center">Administrar Fecha de Pagos </h1>
+        <h3 align="center">{{ parameters.from }} / {{ parameters.to }}</h3>
+        <h3 align="center">{{ parameters.plan }}</h3>
+
+        <div class="container">
+            <form autocomplete="off">
+
+                <div class="flexRow l12">
+
+
+                </div>
+
+                <button *ngIf="!request" type="submit" class="btn btnAccept">Guardar Fechas</button>
+                <button *ngIf="request" type="submit" class="btn" disabled>Guardar Fechas</button>
+
+
+            </form>
+
+
+        </div>
+    </div>

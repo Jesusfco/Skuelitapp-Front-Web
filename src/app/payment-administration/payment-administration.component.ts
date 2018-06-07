@@ -80,6 +80,11 @@ export class PaymentAdministrationComponent implements OnInit {
           this.periods.push(z);
 
         }
+
+        if(this.periods[0] != undefined) {
+          this.searchPeriod = this.periods[0].id;
+        }
+
       }
     ).then(
       () => this.request = false
@@ -92,8 +97,55 @@ export class PaymentAdministrationComponent implements OnInit {
 
   getDatePayment(id) {
 
+    this.request = true;
 
 
+    
+    this._http.periods().then(
+      data => {
+
+        for(let p of data){
+          
+          let z: Period = new Period();
+          z.setDataEdit(p);
+          this.periods.push(z);
+
+        }
+
+        if(this.periods[0] != undefined) {
+          this.searchPeriod = this.periods[0].id;
+        }
+
+      }
+    ).then(
+      () => this.request = false
+    ).catch(
+
+      error => sessionStorage.setItem('request', error)
+
+    );
+
+  }
+
+  redirectDate(payment) {
+    let parameters = {
+      from: null,
+      to: null,
+      plan: payment.name,
+      quantity: payment.quantity,
+      payment_type_id: payment.id,
+      period_id: this.searchPeriod
+    };
+
+    for(let x of this.periods) {
+      if(x.id == this.searchPeriod) {
+        parameters.from = x.from;
+        parameters.to = x.to;
+        break;
+      }
+    }
+
+    sessionStorage.setItem('parametersDatesPayment', JSON.stringify(parameters));
   }
 
   setNewPaymentObserver() {
