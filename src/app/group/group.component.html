@@ -1,0 +1,51 @@
+<h2 class="centerText">Grupos Escolares</h2>
+
+<form class="formWrap">
+
+    <div class="formData l4 m4">
+        <label>Periodo</label><br>
+        <select [(ngModel)]="search.period_id" name="period_id" (change)="searchGroup()">
+          <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} </option> 
+      </select>
+
+    </div>
+
+    <div class="formData l4 m4">
+        <label>Nivel Escolar</label><br>
+        <select [(ngModel)]="search.level" name="level" (change)="searchGroup()">
+          <option value="">Todos los Niveles</option>
+          <option *ngFor="let level of levels" value="{{level.id}}">{{level.name}}</option> 
+       </select>
+    </div>
+
+</form>
+
+
+<div class="responsive-table">
+    <table align="center">
+        <thead>
+            <tr>
+                <th>Grado</th>
+                <th>Grupo</th>
+                <th>Nivel</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let g of groups" [routerLink]="['./show', g.id]">
+                <td class="left">{{ g.grade }}</td>
+                <td>{{ g.group }}</td>
+                <td>{{ g.school_level_id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="botonFloat" [routerLink]="['./create']">
+    <a class="botonA" matTooltip="Crear"><i class="material-icons">add</i></a>
+</div>
+
+
+<router-outlet></router-outlet>

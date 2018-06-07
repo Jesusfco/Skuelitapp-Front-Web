@@ -66,6 +66,10 @@ import { EditPeriodComponent } from './period/edit-period/edit-period.component'
 import { CreatePaymentTypeComponent } from './payment-administration/create-payment-type/create-payment-type.component';
 import { EditPaymentComponent } from './payment-administration/edit-payment/edit-payment.component';
 import { DatePaymentComponent } from './payment-administration/date-payment/date-payment.component';
+import { GroupComponent } from './group/group.component';
+import { CreateGroupComponent } from './group/create-group/create-group.component';
+import { ShowGroupComponent } from './group/show-group/show-group.component';
+import { GroupService } from './group/group.service';
 
 @NgModule({
   declarations: [
@@ -87,7 +91,10 @@ import { DatePaymentComponent } from './payment-administration/date-payment/date
     EditPeriodComponent,
     CreatePaymentTypeComponent,
     EditPaymentComponent,
-    DatePaymentComponent
+    DatePaymentComponent,
+    GroupComponent,
+    CreateGroupComponent,
+    ShowGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -138,6 +145,7 @@ import { DatePaymentComponent } from './payment-administration/date-payment/date
     UserService,
     PaymentService,
     PeriodService,
+    GroupService,
   ],
   bootstrap: [AppComponent]
 })

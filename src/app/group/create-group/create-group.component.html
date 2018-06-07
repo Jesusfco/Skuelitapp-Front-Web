@@ -1,0 +1,75 @@
+<div class="background" [@background]>
+</div>
+<div id="createCard" @principal>
+
+    <a [routerLink]="['../']">
+        <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
+    </a>
+
+
+    <div class="form container" [ngClass]="{'loadingForm': sendingData == true}">
+        <h1 align="center">Crear Grupos</h1>
+        <h2 align="center">Del periodo {{ information.from }} / {{ information.to }}</h2>
+
+        <div class="flexRow">
+
+            <div class="formData l6">
+                <h5>Niveles Activos</h5>
+                <div *ngFor="let l of levels">
+                    <p *ngIf="l.active">{{ l.name }}</p>
+                </div>
+                <button *ngIf="request == 0" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos de todos los niveles Activos</button>
+                <button *ngIf="request > 0" class="btn" disabled>Crear Todos los Grupos de todos los niveles Activos</button>
+            </div>
+
+            <form class="flexRow l6" autocomplete="off">
+
+                <div class="formData l6 m6">
+                    <label>Grado</label><br>
+
+                    <input [(ngModel)]="newGroup.grade" name="grade" type="number" [ngClass]="{ 'inputError': date.validations.partials > 0, 'inputValidate': date.validations.partials < 0 }">
+                    <!-- <small class="error" *ngIf="date.validations.date == 1">Requerido *</small>
+                    <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small> -->
+                </div>
+
+                <button *ngIf="request == 0" type="submit" class="btn btnAccept">Crear Grupo</button>
+                <button *ngIf="request > 0" type="submit" class="btn" disabled>Crear Grupo</button>
+
+
+            </form>
+
+
+        </div>
+
+
+
+
+
+        <div class="container">
+
+
+
+        </div>
+    </div>
+
+    <div class="responsive-table">
+        <table align="center">
+            <thead>
+                <tr>
+                    <th>Grado</th>
+                    <th>Grupo</th>
+                    <th>Nivel</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let g of groups">
+                    <td>{{ g.grade }}</td>
+                    <td>{{ g.group_view }}</td>
+                    <td>{{ g.level_view }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

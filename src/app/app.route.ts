@@ -19,6 +19,10 @@ import { CreatePaymentTypeComponent } from './payment-administration/create-paym
 import { EditPaymentComponent } from './payment-administration/edit-payment/edit-payment.component';
 import { DatePaymentComponent } from './payment-administration/date-payment/date-payment.component';
 
+import { GroupComponent } from './group/group.component';
+import { CreateGroupComponent } from './group/create-group/create-group.component';
+import { ShowGroupComponent } from './group/show-group/show-group.component';
+
 export const routes: Routes = [
     
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,6 +51,14 @@ export const routes: Routes = [
             {   path: 'date', component: DatePaymentComponent },
             {   path: 'create', component: CreatePaymentTypeComponent },
             {   path: 'edit/:id', component: EditPaymentComponent },
+        ]
+    },
+
+    {
+        path: 'grupos', component: GroupComponent,
+        children: [
+            {   path: 'create', component: CreateGroupComponent },
+            {   path: 'show/:id', component: ShowGroupComponent },
         ]
     },
 
