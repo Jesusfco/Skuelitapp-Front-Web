@@ -21,7 +21,7 @@ export class CreatePeriodComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeWindow() { this.router.navigate(['/users']); }
+  closeWindow() { this.router.navigate(['../periodos']); }
 
   createPeriod() {
 

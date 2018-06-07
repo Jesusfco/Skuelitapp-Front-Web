@@ -7,6 +7,7 @@ export class Group {
     group: String;
     level: Number;
     creator_id: Number;
+    period_id: Number;
     updated_at: String;
     created_at: String;
 

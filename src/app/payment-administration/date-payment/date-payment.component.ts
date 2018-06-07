@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PaymentDate } from '../../class/PaymentDate';
 import { PaymentService } from '../payment.service';
 import { Router } from '@angular/router';
@@ -37,6 +37,10 @@ export class DatePaymentComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    sessionStorage.removeItem('parametersDatesPayment');
   }
 
   closeWindow() { this.router.navigate(['/administracion-de-pagos']); }
@@ -124,7 +128,7 @@ export class DatePaymentComponent implements OnInit {
             let x: PaymentDate = new PaymentDate();
             x.setFromData(d);
             this.dates.push(x);
-            
+
         }
 
       }

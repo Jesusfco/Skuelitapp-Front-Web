@@ -36,7 +36,7 @@ export const routes: Routes = [
     {   
         path: 'periodos', component: PeriodComponent,
         children: [
-            {   path: 'create', component: CreatePaymentTypeComponent },
+            {   path: 'create', component: CreatePeriodComponent },
             {   path: 'edit/:id', component: EditPeriodComponent },
         ]
     },
