@@ -7,17 +7,21 @@
     </a>
 
 
-    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+    <div class="form" (submit)="sendData()" [ngClass]="{'loadingForm': sendingData == true}">
         <h1 align="center">Administrar Fecha de Pagos </h1>
         <h3 align="center">{{ parameters.from }} / {{ parameters.to }}</h3>
         <h3 align="center">{{ parameters.plan }}</h3>
 
         <div class="container">
-            <form autocomplete="off">
+            <form class="flexRow" autocomplete="off">
 
-                <div class="flexRow l12">
-
-
+                <div class="formData l6 m6" *ngFor='let date of dates'>
+                    <label>Fecha de Pago:</label><br>
+                    <p *ngIf="!date.edit && date.date == null" (click)="editDate(date)"> 00/00/0000</p>
+                    <p *ngIf="!date.edit && date.date != null" (click)="editDate(date)"> {{ date.date }}</p>
+                    <input *ngIf="date.edit" [(ngModel)]="date.date" name="date" type="date" [ngClass]="{ 'inputError': date.validations.partials > 0, 'inputValidate': date.validations.partials < 0 }">
+                    <small class="error" *ngIf="date.validations.date == 1">Requerido *</small>
+                    <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small>
                 </div>
 
                 <button *ngIf="!request" type="submit" class="btn btnAccept">Guardar Fechas</button>

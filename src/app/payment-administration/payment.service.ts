@@ -50,6 +50,12 @@ export class PaymentService {
       .map(data => data.json())
       .toPromise();
   }
+
+  postPaymentDates(dates) {
+    return this._http.post(this.link.url + 'payment/storePaymentDates' + this.token.getTokenUrl(), dates)
+    .map(data => data.json())
+    .toPromise();
+  }
   
 
 }
