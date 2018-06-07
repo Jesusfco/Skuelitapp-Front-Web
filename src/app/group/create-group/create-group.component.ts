@@ -25,11 +25,15 @@ export class CreateGroupComponent implements OnInit {
   public parametersObserver: any;
   public groupObsever: any;
 
+  public levelOptions: Array<SchoolLevel> = [];
+
   public information: any = {
     period_id: null,
     from: null,
     to: null,
   };
+
+  public newGroup: Group = new Group();
 
   constructor(private _http: GroupService, private router: Router) {
     this.setLevelObserver();
@@ -77,8 +81,10 @@ export class CreateGroupComponent implements OnInit {
         this.levels.push(level);
       }
     }
+    this.setLevelOption();
 
     clearInterval(this.levelObserver);
+
   }
 
   parameterLogicObserver() {
@@ -170,4 +176,51 @@ export class CreateGroupComponent implements OnInit {
     }
 
   }
+
+  setLevelOption() {
+    this.levelOptions = [];
+    for(let d of this.levels) {
+      if(d.active) {
+        this.levelOptions.push(d);
+      }
+    }
+
+    if(this.levelOptions[0] != undefined) {
+      this.newGroup.school_level_id = this.levelOptions[0].id;
+    }
+
+  }
+
+  setGroupNewGroup() {
+    this.newGroup.group = 1;
+
+    for(let group of this.groups){
+
+      if(group.grade == this.newGroup.grade && group.school_level_id == this.newGroup.school_level_id) {
+
+        this.newGroup.group++;
+        
+      }
+
+    }
+
+    this.newGroup.setGroupView();
+
+  }
+
+  storeSingleGroup() {
+    this.newGroup.restoreValidation();
+    this.newGroup.validateGrade();
+    this.setGroupNewGroup();
+    this.newGroup.setLevelView();
+    
+    if(!this.newGroup.validations.validate) return;
+
+    this.groups.unshift(this.newGroup);
+
+    this.newGroup = new Group();
+    this.setGroupNewGroup();
+
+  }
+
 }

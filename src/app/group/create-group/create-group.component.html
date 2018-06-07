@@ -22,14 +22,26 @@
                 <button *ngIf="request > 0" class="btn" disabled>Crear Todos los Grupos de todos los niveles Activos</button>
             </div>
 
-            <form class="flexRow l6" autocomplete="off">
+            <form (change)="setGroupNewGroup()" (submit)="storeSingleGroup()" class="flexRow l6" autocomplete="off">
 
                 <div class="formData l6 m6">
                     <label>Grado</label><br>
 
-                    <input [(ngModel)]="newGroup.grade" name="grade" type="number" [ngClass]="{ 'inputError': date.validations.partials > 0, 'inputValidate': date.validations.partials < 0 }">
-                    <!-- <small class="error" *ngIf="date.validations.date == 1">Requerido *</small>
-                    <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small> -->
+                    <input [(ngModel)]="newGroup.grade" name="grade" type="number" (keyup)="newGroup.gradeManipulator()" [ngClass]="{ 'inputError': newGroup.validations.grade > 0, 'inputValidate': newGroup.validations.grade < 0 }">
+                    <small class="error" *ngIf="newGroup.validations.grade == 1">Requerido *</small>
+                    <!-- <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small> -->
+                </div>
+
+                <div class="formData l4 m4">
+                    <label>Nivel Escolar</label><br>
+                    <select [(ngModel)]="newGroup.school_level_id" name="school_level_id" (change)="newGroup.levelManipulator()">
+                      <option *ngFor="let level of levelOptions" value="{{level.id}}">{{level.name}}</option> 
+                   </select>
+                </div>
+
+                <div class="formData l4 m4">
+                    <label>Grupo</label><br>
+                    <input [(ngModel)]="newGroup.group_view" name="group_view" disabled>
                 </div>
 
                 <button *ngIf="request == 0" type="submit" class="btn btnAccept">Crear Grupo</button>

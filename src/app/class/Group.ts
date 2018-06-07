@@ -4,13 +4,18 @@ export class Group {
     students_id: Array<Number> = [];
     subjects_id: Array<Number> = [];
     grade: Number;
-    group: number;
+    group: number = 1;
     group_view: String;
     level_view: String;
     school_level_id: Number;    
     period_id: Number;
     updated_at: String;
     created_at: String;
+
+    validations: any = {
+        grade: 0,
+        validate: true
+    };
 
     constructor() {}
 
@@ -65,6 +70,38 @@ export class Group {
         else if(this.school_level_id == 4) {
             this.level_view = 'PREPARATORIA';
         }
+    }
+
+    gradeManipulator() {
+        if(this.grade < 1 ){
+            this.grade = 1;
+        } else if(this.school_level_id == 2 && this.grade > 6) {
+            this.grade = 6;
+        } else if(this.grade > 3 && this.school_level_id != 2) {
+            this.grade = 3;
+        }
+    }
+
+    levelManipulator() {
+        if(this.school_level_id !== 2) {
+            if(this.grade > 3) {
+                this.grade = 3;
+            }
+        }
+    }
+
+    validateGrade() {
+        if(this.grade == null) {
+            this.validations.grade = 1;
+            this.validations.validate = false;
+        }
+    }
+
+    restoreValidation() {
+        this.validations = {
+            grade: 0,
+            validate: true
+        };
     }
 
 }
