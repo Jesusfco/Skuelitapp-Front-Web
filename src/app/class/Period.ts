@@ -6,6 +6,7 @@ export class Period {
     public partials: Number = 1;
     public from: String;
     public to: String;
+    public period_type_id: Number;
     public created_at: String;
     public updated_at: String;
     public partialsArray: Array<Partial> = [];
@@ -36,7 +37,7 @@ export class Period {
                 let x: Partial = new Partial();
                 x.setData(p);
                 this.partialsArray.push(x);
-                
+
             }
         
     }
