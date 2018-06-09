@@ -27,7 +27,13 @@ export class GroupService {
   }
 
   getLevels() {
-    return this._http.get(this.link.url + 'groups/getLevels' + this.token.getTokenUrl())
+    return this._http.get(this.link.url + 'groups/ ' + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  getPeriodType() {
+    return this._http.get(this.link.url + 'periodType' + this.token.getTokenUrl())
       .map(data => data.json())
       .toPromise();
   }

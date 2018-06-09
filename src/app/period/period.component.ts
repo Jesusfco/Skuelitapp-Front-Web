@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Period } from '../class/Period';
 import { PeriodService } from './period.service';
+import { PeriodType } from '../class/PeriodType';
 
 @Component({
   selector: 'app-period',
@@ -11,6 +12,7 @@ export class PeriodComponent implements OnInit {
   
   public periods: Array<Period> = [];
   public request: Boolean = false;
+  public periodsTypes: Array<PeriodType> = [];
 
   public newPeriodObserver: any;
   public editPeriodObserver: any;
@@ -22,6 +24,7 @@ export class PeriodComponent implements OnInit {
 
   constructor(private _http: PeriodService) { 
     this.getData();
+    this.setPeriodType();
     this.setNewPeriodObserver();
     this.setEditPeriodObserver();
   }
@@ -38,7 +41,19 @@ export class PeriodComponent implements OnInit {
     this._http.getPeriods(this.parameters).then(
       
       data => {
-        this.periods = data;
+
+        this.periods = [];
+
+        for(let d of data ) {
+
+          let x: Period = new Period();
+          x.setDataEdit(d);
+          this.periods.push(x);
+
+        }
+        
+        this.setPeriodsTypeView();
+
       }
 
     ).then(
@@ -86,5 +101,48 @@ export class PeriodComponent implements OnInit {
 
   }
 
+  setPeriodType() {
+    this._http.getPeriodType().then(
+      
+      data => {
+
+        this.periodsTypes = [];
+
+        for(let d of data ){
+
+          let x: PeriodType = new PeriodType();
+          x.setData(d);
+          this.periodsTypes.push(x);
+          
+        }
+
+        this.setPeriodsTypeView();
+
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+
+    ).then ( () => this.request = false );
+  }
+
+
+  setPeriodsTypeView() {
+
+    for(let i = 0; i < this.periods.length; i++) {
+
+      for(let type of this.periodsTypes) {
+
+        if(this.periods[i].period_type_id == type.id) {
+
+          this.periods[i].period_type_view = type.name;
+          break;
+
+        }
+
+      }
+
+    }
+
+  }
 
 }

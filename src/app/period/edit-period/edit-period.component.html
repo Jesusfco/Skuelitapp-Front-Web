@@ -35,7 +35,12 @@
                     <small class="error" *ngIf="edit.validations.to == 2">La fecha tiene que ser Mayor al Inicio del periodo</small>
                 </div>
 
-
+                <div class="formData l6 m6">
+                    <label>Tipo de Periodo:</label><br>
+                    <select [(ngModel)]="edit.period_type_id" name="period_type_id" disabled>
+                        <option *ngFor="let type of periodTypes" value="{{type.id}}">{{ type.name }}</option>
+                    </select>
+                </div>
 
 
 

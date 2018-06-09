@@ -3,6 +3,7 @@ import { PeriodService } from '../period.service';
 import { Period } from '../../class/Period';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FadeAnimation, SlideAnimation } from '../../animations';
+import { PeriodType } from '../../class/PeriodType';
 
 @Component({
   selector: 'app-edit-period',
@@ -14,6 +15,7 @@ export class EditPeriodComponent implements OnInit {
 
   public original: Period = new Period();
   public edit: Period = new Period();
+  public periodTypes: Array<PeriodType> = [];
   public request: Boolean = false;
   public observerRef: any;
 
@@ -25,6 +27,8 @@ export class EditPeriodComponent implements OnInit {
       this.original.id = params['id'];
       this.getData();
     });
+
+    this.setPeriodType();
 
    }
 
@@ -40,6 +44,7 @@ export class EditPeriodComponent implements OnInit {
       data => {
         this.original.setDataEdit(data);
         this.edit.setDataEdit(data);
+        console.log(this.edit);
       }
 
     ).then(
@@ -109,4 +114,27 @@ export class EditPeriodComponent implements OnInit {
     }
 
   }
+
+  setPeriodType() {
+    this._http.getPeriodType().then(
+      
+      data => {
+
+        this.periodTypes = [];
+
+        for(let d of data ){
+        
+          let x: PeriodType = new PeriodType();
+          x.setData(d);
+          this.periodTypes.push(x);
+
+        }
+
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+
+    ).then ( () => this.request = false );
+  }
+  
 }

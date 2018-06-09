@@ -6,6 +6,8 @@ export class PaymentType {
     public description: String;
     public quantity: Number;
     public amount: Number;
+    public period_type_id: Number = 1;
+    public period_type_view: String;
     public created_at: String;
     public updated_at: String;
 

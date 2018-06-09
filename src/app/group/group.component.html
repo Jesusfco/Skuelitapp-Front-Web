@@ -5,18 +5,18 @@
     <div class="formData l4 m4">
         <label>Periodo</label><br>
         <select [(ngModel)]="search.period_id" name="period_id" (change)="searchGroup()">
-          <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} </option> 
+          <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} / {{per.period_type_view}} </option> 
       </select>
 
     </div>
 
-    <div class="formData l4 m4">
+    <!-- <div class="formData l4 m4">
         <label>Nivel Escolar</label><br>
         <select [(ngModel)]="search.level" name="level" (change)="searchGroup()">
           <option value="">Todos los Niveles</option>
           <option *ngFor="let level of levels" value="{{level.id}}">{{level.name}}</option> 
        </select>
-    </div>
+    </div> -->
 
 </form>
 

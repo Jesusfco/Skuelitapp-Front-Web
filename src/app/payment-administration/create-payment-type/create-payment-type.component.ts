@@ -3,6 +3,7 @@ import { PaymentType } from '../../class/PaymentType';
 import { PaymentService } from '../payment.service';
 import { Router } from '@angular/router';
 import { cardPop, backgroundOpacity} from '../../animations';
+import { PeriodType } from '../../class/PeriodType';
 
 @Component({
   selector: 'app-create-payment-type',
@@ -13,6 +14,7 @@ import { cardPop, backgroundOpacity} from '../../animations';
 export class CreatePaymentTypeComponent implements OnInit {
 
   public payment: PaymentType = new PaymentType();
+  public periodTypes: Array<PeriodType> = [];
   public request: Boolean = false;
 
   public state = {
@@ -30,7 +32,7 @@ export class CreatePaymentTypeComponent implements OnInit {
 
   constructor(private _http: PaymentService,
               private router: Router) { 
-
+                this.setPeriodType();
   }
 
   ngOnInit() {
@@ -81,4 +83,30 @@ export class CreatePaymentTypeComponent implements OnInit {
 
   }
 
+  setPeriodType() {
+    this._http.getPeriodType().then(
+      
+      data => {
+
+        this.periodTypes = [];
+
+        for(let d of data ){
+
+          if(d.active ){
+
+            let x: PeriodType = new PeriodType();
+            x.setData(d);
+            this.periodTypes.push(x);
+
+          } 
+
+        }
+
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+
+    ).then ( () => this.request = false );
+  }
+  
 }

@@ -19,17 +19,25 @@
 
 
 
-            <div class="formData l6 m6">
+            <div class="formData l4 m6">
                 <label>Cantidad de pagos</label><br>
                 <input [(ngModel)]="payment.quantity" name="quantity" type="number" [ngClass]="{ 'inputError': payment.validations.quantity > 0 }">
                 <small class="error" *ngIf="payment.validations.quantity == 1">Requerido</small>
             </div>
 
-            <div class="formData l6 m6">
-                <label>Monto de cada pago:</label><br>
+            <div class="formData l4 m6">
+                <label>Montos de:</label><br>
                 <input [(ngModel)]="payment.amount" name="amount" type="number" [ngClass]="{ 'inputError': payment.validations.amount > 0 }">
                 <small class="error" *ngIf="payment.validations.amount == 1">Requerido</small>
             </div>
+
+            <div class="formData l4 m6">
+                <label>Tipo de Periodo:</label><br>
+                <select [(ngModel)]="payment.period_type_id" name="period_type_id">
+                    <option *ngFor="let type of periodTypes" value="{{type.id}}">{{ type.name }}</option>
+                </select>
+            </div>
+
 
             <div class="formData l12">
                 <label>Descripción:</label><br>

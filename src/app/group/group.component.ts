@@ -3,6 +3,7 @@ import { Group } from '../class/Group';
 import { GroupService } from './group.service';
 import { Period } from '../class/Period';
 import { SchoolLevel } from '../class/SchoolLevel';
+import { PeriodType } from '../class/PeriodType';
 
 @Component({
   selector: 'app-group',
@@ -12,6 +13,7 @@ import { SchoolLevel } from '../class/SchoolLevel';
 export class GroupComponent implements OnInit {
 
   public groups: Array<Group> = [];
+  public periodTypes: Array<PeriodType> = [];
   public request: number = 0;
   public periods: Array<Period> = [];
   public levels: Array<SchoolLevel> = [];
@@ -26,6 +28,7 @@ export class GroupComponent implements OnInit {
 
     this.setLevels();
     this.setPeriods();
+    this.setPeriodType();
     this.setPeriodObserver();
   }
 
@@ -109,6 +112,8 @@ export class GroupComponent implements OnInit {
 
           }
 
+          this.setViewOfTypes();
+
           sessionStorage.setItem('groups', JSON.stringify(this.groups));
 
       },
@@ -130,6 +135,43 @@ export class GroupComponent implements OnInit {
 
     this.searchGroup();
     clearInterval(this.periodObserver);
+  }
+
+  setPeriodType() {
+    
+    this.request++;
+
+    this._http.getPeriodType().then(
+      
+      data => {
+
+        this.periodTypes = [];
+
+        for(let d of data ){
+        
+          let x: PeriodType = new PeriodType();
+          x.setData(d);
+          this.periodTypes.push(x);
+
+        }
+
+        this.setViewOfTypes();
+
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+
+    ).then ( () => this.request-- );
+  }
+
+  setViewOfTypes() {
+
+    for(let i = 0; i < this.periods.length; i++) {
+
+      this.periods[i].setPeriodTypeView(this.periodTypes);
+
+    }
+
   }
 
 }

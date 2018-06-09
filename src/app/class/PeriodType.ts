@@ -7,4 +7,13 @@ export class PeriodType {
 
     constructor() {}
 
+    setData(data) {
+        
+        this.id = parseFloat(data.id);
+        this.name = data.name;
+        this.months = parseFloat(data.months);
+        this.active = data.active;
+        
+    }
+
 }

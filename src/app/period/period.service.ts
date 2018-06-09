@@ -38,4 +38,10 @@ export class PeriodService {
       .toPromise();
   }
 
+  getPeriodType() {
+    return this._http.get(this.link.url + 'periodType' + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }
