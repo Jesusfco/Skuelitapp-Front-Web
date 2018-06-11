@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Period } from '../../class/Period';
 import { Group } from '../../class/Group';
 import { SchoolLevel } from '../../class/SchoolLevel';
+import { SchoolLevelModality } from '../../class/SchoolLevelModality';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class CreateGroupComponent implements OnInit {
   public periods: Array<Period> = [];
   public groups: Array<Group> = [];
   public levels: Array<SchoolLevel> = [];
+  public schoolLevelModalities: Array<SchoolLevelModality> = [];
+
   public request: number = 0;
 
   public periodObserver: any;
@@ -31,6 +34,7 @@ export class CreateGroupComponent implements OnInit {
     period_id: null,
     from: null,
     to: null,
+    period_type_id: null,
   };
 
   public newGroup: Group = new Group();
@@ -40,6 +44,8 @@ export class CreateGroupComponent implements OnInit {
     this.setParameterObserver();
     this.setPeriodObserver();
     this.setGroupObserver();
+
+    this.setSchoolLevelModality();
   }
 
   ngOnInit() {
@@ -70,6 +76,7 @@ export class CreateGroupComponent implements OnInit {
     this.periods = JSON.parse(sessionStorage.getItem('periods'));    
     clearInterval(this.periodObserver);
     this.setInformation();
+    this.setInformationPeriodTypeId();
   }
 
   levelLogicObserver() {
@@ -177,6 +184,58 @@ export class CreateGroupComponent implements OnInit {
 
   }
 
+  createFirstPreparatoriaPeriod() {
+
+    for(let i = 0; i < 3; i++) {
+
+      let group: Group = new Group();
+      group.period_id = this.information.period_id;
+      group.school_level_id = 4;
+      group.grade = 1 + ( i * 2 ) ;
+      group.group = 1;
+
+      for(let g of this.groups) {
+        if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
+          group.group++;
+        }
+      }
+
+      group.setGroupView();
+      group.setLevelView();
+      this.groups.push(group);
+
+    }
+
+    this.sendGroupsData();
+
+  }
+
+
+
+  createSecondPreparatoriaPeriod() {
+
+    for(let i = 0; i < 3; i++) {
+
+      let group: Group = new Group();
+      group.period_id = this.information.period_id;
+      group.school_level_id = 4;
+      group.grade = 2 + ( i * 2 ) ;
+      group.group = 1;
+
+      for(let g of this.groups) {
+        if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
+          group.group++;
+        }
+      }
+
+      group.setGroupView();
+      group.setLevelView();
+      this.groups.push(group);
+
+    }
+
+  }
+
   setLevelOption() {
     this.levelOptions = [];
     for(let d of this.levels) {
@@ -219,7 +278,159 @@ export class CreateGroupComponent implements OnInit {
     this.groups.unshift(this.newGroup);
 
     this.newGroup = new Group();
+    this.newGroup.school_level_id = this.levels[0].id;
     this.setGroupNewGroup();
+
+  }
+
+  setSchoolLevelModality() {
+
+    this.request++;
+
+    this._http.getSchoolLevelModalities().then(
+
+      data => {
+        
+        this.schoolLevelModalities = [];
+
+        for(let d of data) {
+
+          let x: SchoolLevelModality = new SchoolLevelModality();
+          x.setData(d);
+          this.schoolLevelModalities.push(x);
+
+        }
+        
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+
+    ).then(
+      () => this.request--
+    );
+
+  }
+
+  setInformationPeriodTypeId() {
+
+    for(let d of this.periods ){
+
+      if(d.id == this.information.period_id){
+
+        this.information.period_type_id = d.period_type_id;
+        break;
+
+      }
+
+    }
+
+    this.filterLevel();
+
+  }
+
+  filterLevel() {
+
+    let levels: Array<SchoolLevel> = [];
+
+    for(let i = 0; i < this.schoolLevelModalities.length; i++) {
+
+      if(this.schoolLevelModalities[i].period_type_id == this.information.period_type_id) {
+
+        for(let d of this.levels) {
+
+          if(this.schoolLevelModalities[i].school_level_id == d.id) {
+
+            levels.push(d);
+            break;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    this.levels = levels;
+
+    this.setLevelOption();
+
+  }
+
+  deleteGroup(group) {
+
+
+    if(group.id == null) {
+
+      const i = this.groups.indexOf(group);
+      this.groups.splice(i, 1);
+      return;
+
+    }
+
+    this.request++;
+
+    this._http.deleteGroup(group).then(
+
+      data => {
+
+        const i = this.groups.indexOf(group);
+        this.groups.splice(i, 1);
+
+      }, error => {
+
+
+
+      }
+    ).then(
+      () => this.request--
+    );
+
+    
+  }
+
+  sendGroupsData() {
+
+    
+    let groups = [];
+
+    for(let g of this.groups) {
+
+      if(g.id == null){
+        groups.push(g);
+      }
+      
+    }
+
+    this.request ++;
+
+    this._http.postGroups({groups: groups}).then(
+
+      data => {
+
+        for(let d of data) {
+
+          for(let i = 0; i < this.groups.length; i++) {
+
+            if(this.groups[i].grade == d.grade && this.groups[i].group == d.group && this.groups[i].school_level_id == d.school_level_id) {
+              this.groups[i].setData(d);
+              break;
+            }
+
+          }
+
+        }
+
+
+      }
+
+      ,
+
+      error => sessionStorage.setItem('request', error)
+
+    ).then(
+      () => this.request --
+    );
 
   }
 

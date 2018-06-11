@@ -80,7 +80,7 @@ export class GroupComponent implements OnInit {
             this.search.period_id = this.periods[0].id;
           }
 
-          sessionStorage.setItem('periodSelect', JSON.stringify(this.search.period_id));
+            
           sessionStorage.setItem('periods', JSON.stringify(this.periods));
       },
 
@@ -115,6 +115,7 @@ export class GroupComponent implements OnInit {
           this.setViewOfTypes();
 
           sessionStorage.setItem('groups', JSON.stringify(this.groups));
+          this.changePeriod();
 
       },
 

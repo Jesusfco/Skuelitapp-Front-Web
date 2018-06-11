@@ -8,4 +8,10 @@ export class SchoolLevelModality {
 
     constructor() {}
 
+    setData(data) {
+        this.id = parseFloat(data.id);
+        this.school_level_id = parseFloat(data.school_level_id);
+        this.period_type_id = parseFloat(data.period_type_id);
+    }
+
 }

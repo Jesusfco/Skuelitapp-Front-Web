@@ -9,7 +9,7 @@
 
     <div class="form container" [ngClass]="{'loadingForm': sendingData == true}">
         <h1 align="center">Crear Grupos</h1>
-        <h2 align="center">Del periodo {{ information.from }} / {{ information.to }}</h2>
+        <h2 align="center">Del periodo {{ information.from }} / {{ information.to }} PeriodoTipo {{ information.period_type_id }}</h2>
 
         <div class="flexRow">
 
@@ -18,8 +18,11 @@
                 <div *ngFor="let l of levels">
                     <p *ngIf="l.active">{{ l.name }}</p>
                 </div>
-                <button *ngIf="request == 0" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos de todos los niveles Activos</button>
-                <button *ngIf="request > 0" class="btn" disabled>Crear Todos los Grupos de todos los niveles Activos</button>
+                <button *ngIf="request == 0 && information.period_type_id < 2" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos de todos los niveles Activos</button>
+                <button *ngIf="request > 0 && information.period_type_id < 2" class="btn" disabled>Crear Todos los Grupos de todos los niveles Activos</button>
+
+                <button *ngIf="request == 0 && information.period_type_id > 1" (click)="createFirstPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
+                <button *ngIf="request == 0 && information.period_type_id > 1" (click)="createSecondPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
             </div>
 
             <form (change)="setGroupNewGroup()" (submit)="storeSingleGroup()" class="flexRow l6" autocomplete="off">
@@ -71,6 +74,7 @@
                     <th>Grado</th>
                     <th>Grupo</th>
                     <th>Nivel</th>
+                    <th>Acciones</th>
                 </tr>
 
             </thead>
@@ -79,6 +83,11 @@
                     <td>{{ g.grade }}</td>
                     <td>{{ g.group_view }}</td>
                     <td>{{ g.level_view }}</td>
+
+                    <td>
+                        <i class="material-icons" (click)="deleteGroup(g)">delete</i>
+
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -27,6 +27,9 @@ export class Group {
         this.period_id = parseFloat(data.period_id);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        this.setGroupView();
+        this.setLevelView();
     }
 
     setGroupView() {
@@ -75,9 +78,9 @@ export class Group {
     gradeManipulator() {
         if(this.grade < 1 ){
             this.grade = 1;
-        } else if(this.school_level_id == 2 && this.grade > 6) {
+        } else if(this.school_level_id == 2 || this.school_level_id == 4 && this.grade > 6) {
             this.grade = 6;
-        } else if(this.grade > 3 && this.school_level_id != 2) {
+        } else if(this.grade > 3 && this.school_level_id != 2 || this.school_level_id !== 4) {
             this.grade = 3;
         }
     }

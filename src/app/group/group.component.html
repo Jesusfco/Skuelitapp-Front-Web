@@ -34,8 +34,8 @@
         <tbody>
             <tr *ngFor="let g of groups" [routerLink]="['./show', g.id]">
                 <td class="left">{{ g.grade }}</td>
-                <td>{{ g.group }}</td>
-                <td>{{ g.school_level_id }}</td>
+                <td>{{ g.group_view }}</td>
+                <td>{{ g.level_view }}</td>
             </tr>
         </tbody>
     </table>
@@ -44,7 +44,7 @@
 
 
 <div class="botonFloat" [routerLink]="['./create']">
-    <a class="botonA" matTooltip="Crear"><i class="material-icons">add</i></a>
+    <a class="botonA" matTooltip="Crear"><i class="material-icons">edit</i></a>
 </div>
 
 

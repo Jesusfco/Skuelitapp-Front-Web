@@ -20,6 +20,18 @@ export class GroupService {
       .toPromise();
   }
 
+  postGroups(groups) {
+    return this._http.post(this.link.url + 'groups/storeGroups' + this.token.getTokenUrl(), groups)
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  postGroup(group) {
+    return this._http.post(this.link.url + 'groups/storeGroup' + this.token.getTokenUrl(), group)
+      .map(data => data.json())
+      .toPromise();
+  }
+
   getPeriods() {
     return this._http.get(this.link.url + 'groups/getPeriods' + this.token.getTokenUrl())
       .map(data => data.json())
@@ -27,7 +39,7 @@ export class GroupService {
   }
 
   getLevels() {
-    return this._http.get(this.link.url + 'groups/ ' + this.token.getTokenUrl())
+    return this._http.get(this.link.url + 'groups/getLevels' + this.token.getTokenUrl())
       .map(data => data.json())
       .toPromise();
   }
@@ -36,6 +48,18 @@ export class GroupService {
     return this._http.get(this.link.url + 'periodType' + this.token.getTokenUrl())
       .map(data => data.json())
       .toPromise();
+  } 
+
+  getSchoolLevelModalities() {
+    return this._http.get(this.link.url + 'groups/getSchoolLevelModalities' + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  deleteGroup(group) {
+    return this._http.delete(this.link.url + 'groups/delete/' + group.id + this.token.getTokenUrl())
+              .map(data => data.json())
+              .toPromise();
   }
 
 }
