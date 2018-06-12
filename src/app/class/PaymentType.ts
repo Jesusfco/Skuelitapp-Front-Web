@@ -27,6 +27,7 @@ export class PaymentType {
     }
 
     setData(data) {
+
         this.id = parseFloat(data.id);
         this.name = data.name;
         this.description = data.description;

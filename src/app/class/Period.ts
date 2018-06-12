@@ -8,6 +8,7 @@ export class Period {
     public to: String;
     public period_type_id: Number = 1;
     public period_type_view: String;
+    public status: Number;
     public created_at: String;
     public updated_at: String;
     public partialsArray: Array<Partial> = [];
@@ -27,6 +28,7 @@ export class Period {
         this.from = data.from;
         this.to = data.to;
         this.period_type_id = parseFloat(data.period_type_id);
+        this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_ad;
 

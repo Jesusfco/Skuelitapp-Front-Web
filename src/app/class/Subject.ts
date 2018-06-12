@@ -9,6 +9,7 @@ export class Subject {
     grade: Number;
     created_at: String;
     updated_at: String;
+    select: Boolean = false;
 
     validations: any = {
         name: 0,
@@ -66,7 +67,7 @@ export class Subject {
     validateName(){
 
         this.name = this.name.replace(/\s+$/, '');
-        
+
         if(this.name == "") {
             this.validations.name = 1;
             this.validations.validate = false;

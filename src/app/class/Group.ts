@@ -1,14 +1,17 @@
 export class Group {
 
     id: Number;
-    students_id: Array<Number> = [];
-    subjects_id: Array<Number> = [];
+    students_id: String;
+    students_id_array: Array<Number> = [];
+    subjects_id: String;
+    subjects_id_array: Array<Number> = [];
     grade: Number;
     group: number = 1;
     group_view: String;
     level_view: String;
     school_level_id: Number;    
     period_id: Number;
+    status: Number = 1;
     updated_at: String;
     created_at: String;
 
@@ -25,9 +28,12 @@ export class Group {
         this.group = parseFloat(data.group);
         this.school_level_id = parseFloat(data.school_level_id);
         this.period_id = parseFloat(data.period_id);
+        this.subjects_id = data.subjects_id;
+        this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
 
+        this.setSubjectIdArray();
         this.setGroupView();
         this.setLevelView();
     }
@@ -105,6 +111,47 @@ export class Group {
             grade: 0,
             validate: true
         };
+    }
+
+    pushSubject(id) {
+
+        for(let i = 0; i < this.subjects_id_array.length; i++) {
+
+            if(this.subjects_id_array[i] == id) {
+                this.subjects_id_array.splice(i, 1);
+                this.setSubjectId();
+                return;
+            }
+
+        }
+
+        this.subjects_id_array.push(id);
+        this.setSubjectId();
+
+    }
+
+    setSubjectId(){
+
+        this.subjects_id = '';
+
+        for(let i of this.subjects_id_array){
+            this.subjects_id += '<' + i + '>';
+        }
+    }
+
+    setSubjectIdArray() {
+
+        if(this.subjects_id == null) return;
+
+        let str = this.subjects_id.split('>');
+        str.splice(str.length - 1, 1);
+
+        for(let s of str) {
+
+            let res = s.split('<');
+            this.subjects_id_array.push(parseFloat(res[1]));
+        }
+
     }
 
 }

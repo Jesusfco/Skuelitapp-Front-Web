@@ -13,7 +13,7 @@
 
         <div id="formSpace">
 
-            <form (submit)="accesar()" [ngClass]="{ 'loadingForm': sendingData == true}">
+            <form (submit)="accesar()" [ngClass]="{ 'loadingForm': sendingData == true}" autocomplete="off">
                 <p *ngIf="form.email == 1">* Correo/Tel Requerido </p>
                 <p *ngIf="form.password == 1">* Contraseña Requerida</p>
                 <p class="alert" *ngIf="form.credentials == 1">Correo/Tel o Contraseña incorrectos</p>

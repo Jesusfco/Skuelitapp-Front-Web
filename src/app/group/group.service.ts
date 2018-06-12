@@ -62,4 +62,22 @@ export class GroupService {
               .toPromise();
   }
 
+  showGroup(group) {
+    return this._http.get(this.link.url + 'groups/show/' + group.id + this.token.getTokenUrl())
+              .map(data => data.json())
+              .toPromise();
+  }
+
+  getSubjectsFromGroup(group) {
+    return this._http.get(this.link.url + 'groups/allSubjects/' + group.id + this.token.getTokenUrl())
+              .map(data => data.json())
+              .toPromise();
+  }
+
+  postSubjectsFromGroup(group) {
+    return this._http.post(this.link.url + 'groups/updateSubjects' + this.token.getTokenUrl(), group)
+              .map(data => data.json())
+              .toPromise();
+  }
+
 }

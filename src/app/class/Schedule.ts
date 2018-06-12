@@ -7,7 +7,6 @@ export class Schedule {
     check_out: String;
     day: Number;
     teacher_id: Number;
-    creator_id: Number;
     created_at: String;
     updated_at: String;
 

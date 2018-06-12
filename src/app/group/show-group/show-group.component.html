@@ -1,3 +1,29 @@
-<p>
-  show-group works!
-</p>
+<div class="background" [@background]>
+</div>
+<div id="createCard" @principal>
+
+    <a [routerLink]="['../../']">
+        <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
+    </a>
+
+
+    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+        <h1 align="center">Grupo {{ group.grade }} - {{ group.group_view }}</h1>
+
+        <div class="container">
+            <form class="flexRow" autocomplete="off">
+
+
+                <button type="submit" class="btn formBtn">Crear Usuario</button>
+
+            </form>
+
+            <h2 class="centerText">Selecciona Materias</h2>
+            <p class="subjectSelect" *ngFor="let sub of subjects" (click)="selectSubject(sub)" [ngClass]="{ 'selected': sub.select}"> {{ sub.name }}
+                <i class="material-icons" *ngIf="sub.select">check_box</i>
+                <i class="material-icons" *ngIf="!sub.select">check_box_outline_blank</i>
+            </p>
+
+
+        </div>
+    </div>
