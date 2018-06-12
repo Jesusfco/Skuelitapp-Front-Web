@@ -55,6 +55,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
+import { SubjectService } from './subject/subject.service';
 import { PaymentAdministrationComponent } from './payment-administration/payment-administration.component';
 import { UserService } from './user/user.service';
 import { PaymentService } from './payment-administration/payment.service';
@@ -146,6 +147,7 @@ import { GroupService } from './group/group.service';
     PaymentService,
     PeriodService,
     GroupService,
+    SubjectService,
   ],
   bootstrap: [AppComponent]
 })

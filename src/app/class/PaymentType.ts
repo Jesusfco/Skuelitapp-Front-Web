@@ -31,9 +31,12 @@ export class PaymentType {
         this.name = data.name;
         this.description = data.description;
         this.quantity = data.quantity;
+        this.period_type_id = parseFloat(data.period_type_id);
         this.amount = parseFloat(data.amount);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        this.setPeriodTypeView();
     }
 
     restoreValidation() {
@@ -74,6 +77,19 @@ export class PaymentType {
         this.validateAmount();
 
         return this.validations.validate;
+
+    }
+
+    setPeriodTypeView() {
+
+        if(this.period_type_id == 1) {
+            this.period_type_view = "ANUAL";
+        } else if (this.period_type_id == 2) {
+            this.period_type_view = "SEMESTRAL";
+        } else if (this.period_type_id == 3) {
+            this.period_type_view = "CUATRIMESTRAL";
+        }
+        
 
     }
 

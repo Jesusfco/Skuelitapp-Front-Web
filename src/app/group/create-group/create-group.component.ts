@@ -182,6 +182,8 @@ export class CreateGroupComponent implements OnInit {
 
     }
 
+    this.sendGroupsData();
+
   }
 
   createFirstPreparatoriaPeriod() {
@@ -233,6 +235,8 @@ export class CreateGroupComponent implements OnInit {
       this.groups.push(group);
 
     }
+
+    this.sendGroupsData();
 
   }
 

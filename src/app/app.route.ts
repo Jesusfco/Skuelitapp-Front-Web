@@ -23,6 +23,10 @@ import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
 import { ShowGroupComponent } from './group/show-group/show-group.component';
 
+import { SubjectComponent } from './subject/subject.component';
+import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
+import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
+
 export const routes: Routes = [
     
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -60,16 +64,16 @@ export const routes: Routes = [
             {   path: 'create', component: CreateGroupComponent },
             {   path: 'show/:id', component: ShowGroupComponent },
         ]
+    }, 
+
+    {
+        path: 'materias', component: SubjectComponent ,
+        children: [
+            {   path: 'create', component: CreateSubjectComponent },
+            {   path: 'show/:id', component: EditSubjectComponent },
+        ]
     },
 
-    // { path: 'album/:id', component: AlbumComponent, 
-    //     children: [
-    //         { path: 'show/:id', component: PhotoViewComponent },
-    //         { path: 'selected', component: SelectedPhotosComponent },
-    //         { path: 'confirm', component: ConfirmSelectedComponent },
-
-    //     ] 
-    // },
     
     { path: '**', component:  PageNotFoundComponent },
 

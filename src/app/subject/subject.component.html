@@ -1,3 +1,50 @@
-<p>
-  subject works!
-</p>
+<h2 class="centerText">Lista de Materias</h2>
+
+<div class="divSearch">
+    <input [(ngModel)]="search" (keyup)="searchInput()" placeholder="Buscar Usuario" name="word" type="search">
+
+    <br>
+    <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
+    <mat-icon *ngIf="search.searchWord !== ''" (click)="search.searchWord = ''">close</mat-icon> -->
+</div>
+
+<div class="responsive-table">
+    <table align="center">
+        <thead>
+            <tr>
+                <th class="left">Nombre</th>
+                <th>Grado</th>
+                <th>Nivel Academico</th>
+                <th>Acciones</th>
+            </tr>
+            <!-- <th colspan="3">Opciones</th> -->
+        </thead>
+        <tbody>
+            <tr *ngFor="let sub of subjects">
+                <td class="left">{{ sub.name }}</td>
+                <td>{{ sub.level_view }}</td>
+                <td>{{ sub.grade }}</td>
+                <td>
+                    <i class="material-icons" (click)="delete(sub)">delete</i>
+                </td>
+
+
+                <!-- <td>{{ user.phone }}</td>
+
+                <td *ngIf="user.gender == 1">M</td>
+                <td *ngIf="user.gender == 2">F</td> -->
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<div class="botonFloat" [routerLink]="['./create']">
+    <a class="botonA" matTooltip="Crear"><i class="material-icons">add</i></a>
+</div>
+
+
+
+<router-outlet></router-outlet>

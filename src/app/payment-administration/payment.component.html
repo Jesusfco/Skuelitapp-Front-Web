@@ -3,7 +3,8 @@
 <div *ngFor="let pay of payments" class="formWrap l6">
     <h4> {{ pay.name }}</h4>
     <p>Cantidad de pagos: #{{ pay.quantity }}</p>
-    <p>Monto: #{{ pay.amount }}</p>
+    <p>Monto: ${{ pay.amount }}</p>
+    <p>Tipo: {{ pay.period_type_view }}</p>
 
     <form (submit)="redirectDate(pay)">
 

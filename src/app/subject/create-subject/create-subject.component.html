@@ -1,3 +1,48 @@
-<p>
-  create-subject works!
-</p>
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Crear Materia</h2>
+
+        <form class="flexRow" (submit)="createSubject()">
+
+            <div class="formData l12">
+                <label>Nombre de Materia:</label><br>
+                <input [(ngModel)]="subject.name" name="name" type="text" (keyup)="subject.upperName()" [ngClass]="{ 'inputError': subject.validations.name > 0 }">
+                <small class="error" *ngIf="subject.validations.name == 1">Requerido</small>
+            </div>
+
+            <div class="formData l6 m6">
+                <label>Grado:</label><br>
+                <input [(ngModel)]="subject.grade" name="grade" type="number" (change)="subject.gradeFormat()">
+                <!-- <small class="error" *ngIf="subject.validations.name == 1">Requerido</small> -->
+            </div>
+
+            <div class="formData l6 m6">
+                <label>Nivel Academico:</label><br>
+                <select [(ngModel)]="subject.school_level_id" name="school_level_id" (change)="subject.gradeFormat()">
+              <option *ngFor="let option of levelOptions" value="{{option.id}}">{{ option.name }}</option>
+            </select>
+
+            </div>
+
+            <button class="btn btnAccept">Crear Materia</button>
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>
