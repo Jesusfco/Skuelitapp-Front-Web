@@ -9,6 +9,7 @@ export class Period {
     public period_type_id: Number = 1;
     public period_type_view: String;
     public school_level_id: Number;
+    public school_level_view: String;
     public status: Number;
     public created_at: String;
     public updated_at: String;
@@ -47,6 +48,20 @@ export class Period {
 
             }
         
+        this.setSchoolLevelView();
+
+    }
+
+    setSchoolLevelView() {
+        if(this.school_level_id == 1) {
+            this.school_level_view = 'KINDER';
+        } else if (this.school_level_id == 2) {
+            this.school_level_view = 'PRIMARIA';
+        }  else if (this.school_level_id == 3) {
+            this.school_level_view = 'SECUNDARIA';
+        }  else if (this.school_level_id == 4) {
+            this.school_level_view = 'PREPARATORIA';
+        }
     }
 
     setArrayPartials() {

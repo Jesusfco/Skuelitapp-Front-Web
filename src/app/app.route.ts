@@ -61,7 +61,7 @@ export const routes: Routes = [
     {
         path: 'grupos', component: GroupComponent,
         children: [
-            {   path: 'create', component: CreateGroupComponent },
+            {   path: 'admin/:id', component: CreateGroupComponent },
             {   path: 'show/:id', component: ShowGroupComponent },
         ]
     }, 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SlideAnimation, FadeAnimation } from '../../animations';
 import { GroupService } from '../group.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Period } from '../../class/Period';
 import { Group } from '../../class/Group';
 import { SchoolLevel } from '../../class/SchoolLevel';
@@ -16,17 +16,11 @@ import { SchoolLevelModality } from '../../class/SchoolLevelModality';
 })
 export class CreateGroupComponent implements OnInit {
 
-  public periods: Array<Period> = [];
+  public period: Period = new Period();
   public groups: Array<Group> = [];
-  public levels: Array<SchoolLevel> = [];
   public schoolLevelModalities: Array<SchoolLevelModality> = [];
 
   public request: number = 0;
-
-  public periodObserver: any;
-  public levelObserver: any;
-  public parametersObserver: any;
-  public groupObsever: any;
 
   public levelOptions: Array<SchoolLevel> = [];
 
@@ -38,145 +32,68 @@ export class CreateGroupComponent implements OnInit {
   };
 
   public newGroup: Group = new Group();
+  public observerRef: any;
 
-  constructor(private _http: GroupService, private router: Router) {
-    this.setLevelObserver();
-    this.setParameterObserver();
-    this.setPeriodObserver();
-    this.setGroupObserver();
+  constructor(private _http: GroupService, private router: Router, private actRou: ActivatedRoute) {
+    
 
-    this.setSchoolLevelModality();
+    
+
+    this.observerRef = actRou.params.subscribe(params => {
+      this.period.id = params['id'];
+      this.setPeriod();
+      this.setGroups();
+      
+    });
   }
 
   ngOnInit() {
    
   }
 
-
-
-  setPeriodObserver() {
-    this.periodObserver = setInterval(() => this.periodLogicObserver(), 1100);
-  }
-
-  setLevelObserver() {
-    this.levelObserver = setInterval(() => this.levelLogicObserver(), 1000);
-  }
-
-  setParameterObserver() {
-    this.parametersObserver = setInterval(() => this.parameterLogicObserver(), 500);
-  } 
-
-  setGroupObserver() {
-    this.groupObsever = setInterval(() => this.groupObserverLogic(), 1000);
-  }
-
-  periodLogicObserver() {
-    
-    if(sessionStorage.getItem('periods') == undefined) return;
-    this.periods = JSON.parse(sessionStorage.getItem('periods'));    
-    clearInterval(this.periodObserver);
-    this.setInformation();
-    this.setInformationPeriodTypeId();
-  }
-
-  levelLogicObserver() {
-    
-    if(sessionStorage.getItem('schoolLevels') == undefined) return;
-
-    for(let level of JSON.parse(sessionStorage.getItem('schoolLevels'))) {
-      if(level.active) {
-        this.levels.push(level);
-      }
-    }
-    this.setLevelOption();
-
-    clearInterval(this.levelObserver);
-
-  }
-
-  parameterLogicObserver() {
-    if(sessionStorage.getItem('periodSelect') == undefined) return;
-    this.information.period_id = JSON.parse(sessionStorage.getItem('periodSelect'));
-    clearInterval(this.parametersObserver);
-  }
-  
-  groupObserverLogic() {
-    
-    if(sessionStorage.getItem('groups') == undefined) return;
-
-    let data = JSON.parse(sessionStorage.getItem('groups'));
-
-    for(let d of data) {
-      let x: Group = new Group();
-      x.setData(d);
-      this.groups.push(x);
-    }
-
-    clearInterval(this.groupObsever);
-
-  }
-
-  setInformation() {
-    for(let d of this.periods) {
-      if(d.id == this.information.period_id) {
-        this.information.from = d.from;
-        this.information.to = d.to;
-        break;
-      }
-    }
-  }
-
   createAllGroups(){
 
-    for(let level of this.levels){
+    if(this.period.school_level_id == 2) {
 
-      if(level.active) {
+      for(let i = 0; i < 6; i++) {
 
-        if(level.id == 2) {
+        let group: Group = new Group();
+        group.period_id = this.period.id;
+        group.school_level_id = this.period.school_level_id;
+        group.grade = i + 1;
+        group.group = 1;
 
-          for(let i = 0; i < 6; i++) {
-
-            let group: Group = new Group();
-            group.period_id = this.information.period_id;
-            group.school_level_id = level.id;
-            group.grade = i + 1;
-            group.group = 1;
-
-            for(let g of this.groups) {
-              if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
-                group.group++;
-              }
-            }
-
-            group.setGroupView();
-            group.setLevelView();
-            this.groups.push(group);
-
+        for(let g of this.groups) {
+          if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
+            group.group++;
           }
-
-        } else {
-
-          for(let i = 0; i < 3; i++) {
-
-            let group: Group = new Group();
-            group.period_id = this.information.period_id;
-            group.school_level_id = level.id;
-            group.grade = i + 1;
-            group.group = 1;
-
-            for(let g of this.groups) {
-              if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
-                group.group++;
-              }
-            }
-
-            group.setGroupView();
-            group.setLevelView();
-            this.groups.push(group);
-
-          }
-
         }
+
+        group.setGroupView();
+        group.setLevelView();
+        this.groups.push(group);
+
+      }
+
+    } else {
+
+      for(let i = 0; i < 3; i++) {
+
+        let group: Group = new Group();
+        group.period_id = this.period.id;
+        group.school_level_id = this.period.school_level_id;
+        group.grade = i + 1;
+        group.group = 1;
+
+        for(let g of this.groups) {
+          if(g.school_level_id == group.school_level_id && g.grade == group.grade) {
+            group.group++;
+          }
+        }
+
+        group.setGroupView();
+        group.setLevelView();
+        this.groups.push(group);
 
       }
 
@@ -240,19 +157,7 @@ export class CreateGroupComponent implements OnInit {
 
   }
 
-  setLevelOption() {
-    this.levelOptions = [];
-    for(let d of this.levels) {
-      if(d.active) {
-        this.levelOptions.push(d);
-      }
-    }
-
-    if(this.levelOptions[0] != undefined) {
-      this.newGroup.school_level_id = this.levelOptions[0].id;
-    }
-
-  }
+  
 
   setGroupNewGroup() {
     this.newGroup.group = 1;
@@ -282,7 +187,8 @@ export class CreateGroupComponent implements OnInit {
     this.groups.unshift(this.newGroup);
 
     this.newGroup = new Group();
-    this.newGroup.school_level_id = this.levels[0].id;
+    this.newGroup.school_level_id = this.period.school_level_id;
+    this.newGroup.setLevelView();
     this.setGroupNewGroup();
 
   }
@@ -315,51 +221,9 @@ export class CreateGroupComponent implements OnInit {
 
   }
 
-  setInformationPeriodTypeId() {
 
-    for(let d of this.periods ){
 
-      if(d.id == this.information.period_id){
-
-        this.information.period_type_id = d.period_type_id;
-        break;
-
-      }
-
-    }
-
-    this.filterLevel();
-
-  }
-
-  filterLevel() {
-
-    let levels: Array<SchoolLevel> = [];
-
-    for(let i = 0; i < this.schoolLevelModalities.length; i++) {
-
-      if(this.schoolLevelModalities[i].period_type_id == this.information.period_type_id) {
-
-        for(let d of this.levels) {
-
-          if(this.schoolLevelModalities[i].school_level_id == d.id) {
-
-            levels.push(d);
-            break;
-
-          }
-
-        }
-
-      }
-
-    }
-
-    this.levels = levels;
-
-    this.setLevelOption();
-
-  }
+ 
 
   deleteGroup(group) {
 
@@ -436,6 +300,40 @@ export class CreateGroupComponent implements OnInit {
       () => this.request --
     );
 
+  }
+
+  setPeriod() {
+    this.request++;
+    this._http.showGroup(this.period.id).then(
+      data => {
+        this.period.setDataEdit(data);
+        this.newGroup.school_level_id = this.period.school_level_id;
+        this.newGroup.setLevelView();
+      },
+      error => sessionStorage.setItem('request', error)
+
+    ).then(
+      () => this.request --
+    );
+
+  }
+
+  setGroups() {
+    this.request++;
+    this._http.getGroups(this.period).then(
+      data => {
+        this.groups = [];
+        for(let d of data) {
+          let x: Group = new Group();
+          x.setData(d);
+          this.groups.push(x);
+        }
+      },
+      error => sessionStorage.setItem('request', error)
+
+    ).then(
+      () => this.request --
+    );
   }
 
 }

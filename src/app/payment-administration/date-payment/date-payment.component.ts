@@ -35,11 +35,8 @@ export class DatePaymentComponent implements OnInit {
     this.observerRef = actRou.params.subscribe(params => {
       this.payment.id = params['id'];
       this.parameters.payment_type_id = this.payment.id;
-      // this.getGroupData();
-      // this.getSubjects();
       this.setPaymentType();
       this.setPeriods();
-      
     });
       
 

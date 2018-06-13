@@ -2,7 +2,7 @@
 </div>
 <div id="createCard" @principal>
 
-    <a [routerLink]="['../']">
+    <a [routerLink]="['../../']">
         <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
     </a>
 
@@ -18,8 +18,8 @@
                 <div *ngFor="let l of levels">
                     <p *ngIf="l.active">{{ l.name }}</p>
                 </div>
-                <button *ngIf="request == 0 && information.period_type_id < 2" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos de todos los niveles Activos</button>
-                <button *ngIf="request > 0 && information.period_type_id < 2" class="btn" disabled>Crear Todos los Grupos de todos los niveles Activos</button>
+                <button *ngIf="request == 0 && information.period_type_id < 2" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos</button>
+                <button *ngIf="request > 0 && information.period_type_id < 2" class="btn" disabled>Crear Todos los Grupos</button>
 
                 <button *ngIf="request == 0 && information.period_type_id > 1" (click)="createFirstPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
                 <button *ngIf="request == 0 && information.period_type_id > 1" (click)="createSecondPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
@@ -37,7 +37,7 @@
 
                 <div class="formData l4 m4">
                     <label>Nivel Escolar</label><br>
-                    <select [(ngModel)]="newGroup.school_level_id" name="school_level_id" (change)="newGroup.levelManipulator()">
+                    <select [(ngModel)]="newGroup.level_view" name="level_view" disabled>
                       <option *ngFor="let level of levelOptions" value="{{level.id}}">{{level.name}}</option> 
                    </select>
                 </div>

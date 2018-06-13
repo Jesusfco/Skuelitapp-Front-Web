@@ -80,4 +80,10 @@ export class GroupService {
               .toPromise();
   }
 
+  showPeriod(id) {
+    return this._http.get(this.link.url + 'period/' + id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

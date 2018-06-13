@@ -5,7 +5,7 @@
     <div class="formData l4 m4">
         <label>Periodo</label><br>
         <select [(ngModel)]="search.period_id" name="period_id" (change)="searchGroup()">
-          <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} / {{per.period_type_view}} </option> 
+          <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} / {{per.period_type_view}} - {{per.school_level_view}} </option> 
       </select>
 
     </div>
@@ -48,7 +48,7 @@
 </div>
 
 
-<div class="botonFloat" [routerLink]="['./create']">
+<div class="botonFloat" [routerLink]="['./admin', search.period_id]">
     <a class="botonA" matTooltip="Crear"><i class="material-icons">edit</i></a>
 </div>
 
