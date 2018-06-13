@@ -126,6 +126,15 @@
 
                     </div>
 
+                    <div class="formData l12 m12" *ngIf="user.user_type == 1 && payments.length > 0">
+                        <label>Seleccione Plan de Pago:</label><br>
+                        <select [(ngModel)]="user.payment_type_id" name="payment_type_id">
+                                <option value="0">Seleccione un Plan</option>
+                                <option *ngFor="let payment of payments" value="{{payment.id}}">{{payment.name}} - ${{ payment.amount }}</option> 
+                            </select>
+
+                    </div>
+
                 </div>
 
                 <!--FIN DE DATOS GENERALES DE USUARIO -->

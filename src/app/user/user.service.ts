@@ -32,4 +32,10 @@ export class UserService {
     .toPromise();
   }
 
+  getPosiblePayment(parameters) {
+    return this._http.post(this.link.url + 'user/posiblePayments' + this.token.getTokenUrl(), parameters)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

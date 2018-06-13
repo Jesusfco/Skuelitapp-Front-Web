@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { SchoolLevel } from '../../class/SchoolLevel';
 import { Period } from '../../class/Period';
 import { Group } from '../../class/Group';
+import { PaymentType } from '../../class/PaymentType';
 
 @Component({
   selector: 'app-create-user',
@@ -21,10 +22,13 @@ export class CreateUserComponent implements OnInit {
   public request: number = 0;
   public schoolLevels: Array<SchoolLevel> = [];
 
-  public periodSelected: Number;  
+  public student: User = new User();
+  public parents: Array<User> = [];
 
+  public periodSelected: Number;  
   public periods: Array<Period> = [];
   public groups: Array<Group> = [];
+  public payments: Array<PaymentType> = [];
 
   public groupsOptions: Array<Group> = [];
 
@@ -141,6 +145,7 @@ export class CreateUserComponent implements OnInit {
         if(this.periods[0] != undefined) {
           this.periodSelected = this.periods[0].id;
           this.setGroupOptions();
+          this.setPaymentTypes();
         }
         
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
@@ -160,6 +165,44 @@ export class CreateUserComponent implements OnInit {
       }
 
     }
+
+  }
+
+  setPaymentTypes() {
+
+    let parameters = {
+      school_level_id: this.user.school_level_id,
+      period_type_id: null,
+    };
+
+    for(let p of this.periods) {
+
+      if(p.id == this.periodSelected) {
+
+        parameters.period_type_id = p.period_type_id;
+        break;
+
+      }
+
+    }
+
+    if(parameters.period_type_id == null) return;
+
+    this.request++;
+
+    this._http.getPosiblePayment(parameters).then(
+
+      data => {
+        this.payments = [];
+        for(let d of data) {
+          const x: PaymentType = new PaymentType();
+          x.setData(d);
+          this.payments.push(x);
+        }
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+      
+
+    ).then ( () => this.request-- );
 
   }
 

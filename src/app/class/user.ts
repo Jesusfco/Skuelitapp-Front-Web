@@ -16,6 +16,7 @@ export class User {
     user_type: Number = 1;
     address_id: Number;
     cash_register_id: Number;
+    payment_type_id: Number;
     status: Number;
     gender: Number = 1;
     birthday: String;
@@ -50,6 +51,7 @@ export class User {
         this.subjects_id = this.setArrayNumberFromData(data.id_subjects);
         this.user_type = parseFloat(data.user_type);
         this.address_id = parseFloat(data.address_id);
+        this.payment_type_id = parseFloat(data.payment_type_id);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
     }
