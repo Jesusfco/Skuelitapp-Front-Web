@@ -5,7 +5,7 @@ export class Address {
     colony: String = '';
     house_number: Number;
     city: String = '';
-    CP: Number;
+    CP: String = '';
     created_at: Number;
     updated_at: String;
 
@@ -21,6 +21,10 @@ export class Address {
 
     upperCity() {
         this.city = this.city.toUpperCase();
+    }
+
+    CPFormat(){
+        this.CP = this.CP.replace(/\D/g, '');
     }
 
 }

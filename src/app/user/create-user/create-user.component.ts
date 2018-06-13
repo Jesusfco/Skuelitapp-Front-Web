@@ -44,7 +44,47 @@ export class CreateUserComponent implements OnInit {
   }
 
   createUser() {
+    if(!this.user.validationLogic()) return;
+      
+    
+    this.user.address = this.address;
 
+    this.request++;
+
+    this._http.storeUser(this.user).then(
+      data => {
+
+        const not = {
+          title: 'Usuario Creado',
+          description: 'Datos de ' + this.user.name + 'Cargados Correctamente',
+          status: 200
+        };
+
+        sessionStorage.setItem('request', JSON.stringify(not));
+
+        if(this.user.user_type == 1 || this.student.id != undefined) {
+          
+          if(this.student.id == undefined) {
+            this.student.setData(data);  
+          }
+          
+          this.user = new User();
+          this.user.students_id = '<' + this.student.id + '>';
+          this.user.user_type = 2;
+          this.user.school_level_id = null;
+          this.user.address_id = this.student.address_id;
+        } else {
+          this.user = new User();
+          this.address = new Address();
+        }
+
+
+      },
+      error => sessionStorage.setItem('request', JSON.stringify(error))
+    ).then(
+      () => this.request--
+    );
+    
   }
 
   closeWindow(){

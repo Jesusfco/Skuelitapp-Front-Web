@@ -38,4 +38,10 @@ export class UserService {
     .toPromise();
   }
 
+  storeUser(dataJson) {
+    return this._http.post(this.link.url + 'user/store' + this.token.getTokenUrl(), dataJson)
+            .map(data => data.json())
+            .toPromise();
+  }
+
 }

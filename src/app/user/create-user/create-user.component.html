@@ -8,30 +8,34 @@
 
 
     <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
-        <h1 align="center">Crear Usuario</h1>
+        <h1 align="center" *ngIf="student.id == null">Crear Usuario</h1>
+
+        <h1 align="center" *ngIf="student.id != null">Crear Tutor De</h1>
+        <h2 align="center" *ngIf="student.id != null">{{ student.name }}</h2>
 
         <div class="container">
             <form class="flexRow" (submit)="createUser()" enctype="multipart/form-data" autocomplete="off">
                 <div class="flexRow l6">
                     <h2 class="l12 centerText">Datos Personales</h2>
 
+
                     <div class="formData l6 m6">
                         <label>Nombres:</label><br>
-                        <input [(ngModel)]="user.name" name="name" type="text" placeholder="Nombre" (keydown)="user.upperCaseName()" [ngClass]="{ 'inputError': user.validations.name > 0, 'inputValidate': user.validations.name < 0 }">
+                        <input [(ngModel)]="user.name" name="name" type="text" placeholder="Nombres" (keyup)="user.upperCaseName()" [ngClass]="{ 'inputError': user.validations.name > 0, 'inputValidate': user.validations.name < 0 }">
                         <small class="error" *ngIf="user.validations.name == 1">Se requiere el nombre</small>
                         <small class="validate" *ngIf="user.validations.name == -1">Correcto</small>
                     </div>
 
                     <div class="formData l6 m6">
                         <label>Apellido Paterno:</label><br>
-                        <input [(ngModel)]="user.patern_surname" name="patern_surname" type="text" placeholder="Nombre" (keydown)="user.upperCasePatern()" [ngClass]="{ 'inputError': user.validations.patern_surname > 0, 'inputValidate': user.validations.patern_surname < 0 }">
+                        <input [(ngModel)]="user.patern_surname" name="patern_surname" type="text" placeholder="Apellido Paterno" (keyup)="user.upperCasePatern()" [ngClass]="{ 'inputError': user.validations.patern_surname > 0, 'inputValidate': user.validations.patern_surname < 0 }">
                         <small class="error" *ngIf="user.validations.patern_surname == 1">Requerido</small>
                         <small class="validate" *ngIf="user.validations.patern_surname == -1">Correcto</small>
                     </div>
 
                     <div class="formData l6 m6">
                         <label>Apellido Materno:</label><br>
-                        <input [(ngModel)]="user.matern_surname" name="matern_surname" type="text" placeholder="Nombre" (keydown)="user.upperCaseMatern()" [ngClass]="{ 'inputError': user.validations.matern_surname > 0, 'inputValidate': user.validations.matern_surname < 0 }">
+                        <input [(ngModel)]="user.matern_surname" name="matern_surname" type="text" placeholder="Apellido Materno" (keyup)="user.upperCaseMatern()" [ngClass]="{ 'inputError': user.validations.matern_surname > 0, 'inputValidate': user.validations.matern_surname < 0 }">
                         <small class="error" *ngIf="user.validations.matern_surname == 1">Requerido</small>
                         <small class="validate" *ngIf="user.validations.matern_surname == -1">Correcto</small>
                     </div>
@@ -44,9 +48,20 @@
                         <small class="error" *ngIf="user.validations.email == 2">Correo ya asignado</small>
                     </div>
 
-                    <div class="formData l6 m6">
+                    <div class="formData l6 m6" *ngIf="student.id == null">
                         <label>Tipo de usuario:</label><br>
                         <select [(ngModel)]="user.user_type" name="user_type">
+                            <option value="1">Alumno</option> 
+                            <option value="2">Tutor</option>
+                            <option value="3">Maestro</option>
+                            <option value="4">Cajero</option>
+                            <option value="5">Adminsitrador</option>
+                        </select>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="student.id != null">
+                        <label>Tipo de usuario:</label><br>
+                        <select [(ngModel)]="user.user_type" name="user_type" disabled>
                             <option value="1">Alumno</option> 
                             <option value="2">Tutor</option>
                             <option value="3">Maestro</option>
@@ -98,7 +113,7 @@
                     <div class="formData l6 m6" *ngIf="user.user_type == 1">
                         <label>Grado:</label><br>
                         <input (keyup)="setGroupsPeriods()" [(ngModel)]="user.grade" name="grade" placeholder="Grado" type="number" [ngClass]="{ inputError: user.validations.grade > 0 }">
-                        <small class="error" *ngIf="user.validations.grade == 1">Se requiere el Correo/Telefono</small>
+                        <small class="error" *ngIf="user.validations.grade == 1">Requerido</small>
                     </div>
 
                     <div class="formData l6 m6" *ngIf="user.user_type == 1" (change)="setGroupsPeriods()">
@@ -119,7 +134,7 @@
 
                     <div class="formData l6 m6" *ngIf="user.user_type == 1 && this.groupsOptions.length > 0">
                         <label>Assigne un grupo:</label><br>
-                        <select [(ngModel)]="user.group_id" name="group_id">
+                        <select [(ngModel)]="user.group_id" name="group_id" (change)="setPaymentTypes()">
                             <option value="0">Seleccione un Grupo</option>
                             <option *ngFor="let group of groupsOptions" value="{{group.id}}">{{group.grade}}° - {{ group.group_view }}</option> 
                         </select>
@@ -141,7 +156,7 @@
 
 
 
-                <div class="flexRow l6 ">
+                <div class="flexRow l6 " *ngIf="student.id == null">
                     <h2 class="l12 centerText">Dirección</h2>
 
                     <div class="formData l6 m6">
@@ -162,6 +177,42 @@
                     <div class="formData l6 m6">
                         <label>Ciudad:</label><br>
                         <input [(ngModel)]="address.city" name="city" type="text" placeholder="Ciudad" (keyup)="address.upperCity()"><br>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Codigo Postal:</label><br>
+                        <input [(ngModel)]="address.CP" name="CP" type="text" placeholder="CP" (keyup)="address.CPFormat()"><br>
+                    </div>
+
+
+                </div>
+
+                <div class="flexRow l6 " *ngIf="student.id != null">
+                    <h2 class="l12 centerText">Dirección</h2>
+
+                    <div class="formData l6 m6">
+                        <label>Calle:</label><br>
+                        <input [(ngModel)]="address.street" name="street" type="text" placeholder="Calle" (keyup)="address.upperStreet()" disabled>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Numero de casa:</label><br>
+                        <input [(ngModel)]="address.house_number" name="houser_number" type="number" placeholder="Numero de casa" disabled><br>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Colonia:</label><br>
+                        <input [(ngModel)]="address.colony" name="colony" type="text" placeholder="Colonia" (keyup)="address.upperColony()" disabled>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Ciudad:</label><br>
+                        <input [(ngModel)]="address.city" name="city" type="text" placeholder="Ciudad" (keyup)="address.upperCity()" disabled><br>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Codigo Postal:</label><br>
+                        <input [(ngModel)]="address.CP" name="CP" type="text" placeholder="CP" (keyup)="address.CPFormat()" disabled><br>
                     </div>
 
 

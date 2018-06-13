@@ -1,3 +1,5 @@
+import { Address } from "./Address";
+
 export class User {
     id: Number;
     name: String = '';
@@ -11,8 +13,8 @@ export class User {
     grade: Number;
     school_level_id: Number;
     money: Number;
-    subjects_id: Array<Number> = [];
-    students_id: Array<Number> = [];
+    subjects_id: String = '';
+    students_id: String = '';
     user_type: Number = 1;
     address_id: Number;
     cash_register_id: Number;
@@ -22,6 +24,8 @@ export class User {
     birthday: String;
     created_at: String;
     updated_at: String;
+
+    address: Address;
 
     validations: any = {
         validate: true,
@@ -46,12 +50,18 @@ export class User {
         this.email = data.email;
         this.CURP = data.CURP;
         this.group_id = parseFloat(data.group_id);
+        this.grade = parseFloat(data.grade);
+        this.school_level_id = parseFloat(data.school_level_id);
         this.money = parseFloat(data.money);
-        this.students_id = this.setArrayNumberFromData(data.students_id);
-        this.subjects_id = this.setArrayNumberFromData(data.id_subjects);
+        this.students_id = data.students_id;
+        this.subjects_id = data.id_subjects;
         this.user_type = parseFloat(data.user_type);
         this.address_id = parseFloat(data.address_id);
         this.payment_type_id = parseFloat(data.payment_type_id);
+        this.cash_register_id = parseFloat(data.cash_register_id);
+        this.birthday = data.birthday;
+        this.gender = parseFloat(data.gender);
+        this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
     }
