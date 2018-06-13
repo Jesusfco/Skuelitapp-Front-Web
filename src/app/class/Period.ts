@@ -49,6 +49,7 @@ export class Period {
             }
         
         this.setSchoolLevelView();
+        this.setPeriodTypeView(this.getFakeTypes());
 
     }
 
@@ -75,6 +76,15 @@ export class Period {
             this.partialsArray.push(par);
 
         }
+
+    }
+
+    getFakeTypes() {
+        return [
+            {id: 1, name: 'ANUAL'},
+            {id: 2, name: 'SEMESTRAL'},
+            {id: 3, name: 'CUATRIMESTRAL'},
+        ];
 
     }
 

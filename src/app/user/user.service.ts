@@ -20,4 +20,16 @@ export class UserService {
       .toPromise();
   }
 
+  getSchoolLevels() {
+    return this._http.get(this.link.url + 'schoolLevels' + this.token.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  getGroups(user) {
+    return this._http.post(this.link.url + 'user/posibleGroups' + this.token.getTokenUrl(), user)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

@@ -13,7 +13,7 @@
         <div class="container">
             <form class="flexRow" (submit)="createUser()" enctype="multipart/form-data" autocomplete="off">
                 <div class="flexRow l6">
-                    <h2 class="l12">Datos Personales</h2>
+                    <h2 class="l12 centerText">Datos Personales</h2>
 
                     <div class="formData l6 m6">
                         <label>Nombres:</label><br>
@@ -25,14 +25,14 @@
                     <div class="formData l6 m6">
                         <label>Apellido Paterno:</label><br>
                         <input [(ngModel)]="user.patern_surname" name="patern_surname" type="text" placeholder="Nombre" (keydown)="user.upperCasePatern()" [ngClass]="{ 'inputError': user.validations.patern_surname > 0, 'inputValidate': user.validations.patern_surname < 0 }">
-                        <small class="error" *ngIf="user.validations.patern_surname == 1">Se requiere el nombre</small>
+                        <small class="error" *ngIf="user.validations.patern_surname == 1">Requerido</small>
                         <small class="validate" *ngIf="user.validations.patern_surname == -1">Correcto</small>
                     </div>
 
                     <div class="formData l6 m6">
                         <label>Apellido Materno:</label><br>
                         <input [(ngModel)]="user.matern_surname" name="matern_surname" type="text" placeholder="Nombre" (keydown)="user.upperCaseMatern()" [ngClass]="{ 'inputError': user.validations.matern_surname > 0, 'inputValidate': user.validations.matern_surname < 0 }">
-                        <small class="error" *ngIf="user.validations.matern_surname == 1">Se requiere el nombre</small>
+                        <small class="error" *ngIf="user.validations.matern_surname == 1">Requerido</small>
                         <small class="validate" *ngIf="user.validations.matern_surname == -1">Correcto</small>
                     </div>
 
@@ -65,20 +65,23 @@
 
                     <div class="formData l6 m6">
                         <label>Telefono:</label><br>
-                        <input [(ngModel)]="user.phone" name="phone" type="tel" placeholder="Telefono" (keyup)="user.validatePhoneFormat()">
+                        <input [(ngModel)]="user.phone" name="phone" type="tel" placeholder="Telefono" (keyup)="user.validatePhoneFormat()" [ngClass]="{ inputError: user.validations.phone > 0 }">
+                        <small class="error" *ngIf="user.validations.phone == 1">Minimo 7 caracteres</small>
                     </div>
 
 
 
                     <div class="formData l6 m6">
                         <label>Fecha de nacimiento:</label><br>
-                        <input [(ngModel)]="user.birthday" name="birthday" type="date" placeholder="Cumpleaños">
+                        <input [(ngModel)]="user.birthday" name="birthday" type="date" placeholder="Cumpleaños" [ngClass]="{ inputError: user.validations.birthday > 0 }">
+                        <small class="error" *ngIf="user.validations.birthday == 1">Requerido</small>
                     </div>
 
 
                     <div class="formData l6 m6">
                         <label>CURP:</label><br>
-                        <input [(ngModel)]="user.CURP" name="CURP" type="text" placeholder="Curp" (keyup)="user.upperCaseCURP()">
+                        <input [(ngModel)]="user.CURP" name="CURP" type="text" placeholder="Curp" (keyup)="user.upperCaseCURP()" [ngClass]="{ inputError: user.validations.CURP > 0 }">
+                        <small class="error" *ngIf="user.validations.CURP == 1">Requerido</small>
                     </div>
 
                     <!-- <div>
@@ -89,16 +92,48 @@
                     <div class="formData l6 m6">
                         <label>Contraseña:</label><br>
                         <input [(ngModel)]="user.password" name="password" placeholder="Contraseña" type="password" [ngClass]="{ inputError: user.validations.password > 0 }">
-                        <small class="error" *ngIf="user.validations.password == 1">Se requiere el Correo/Telefono</small>
+                        <small class="error" *ngIf="user.validations.password == 1">Requerido</small>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1">
+                        <label>Grado:</label><br>
+                        <input (keyup)="setGroupsPeriods()" [(ngModel)]="user.grade" name="grade" placeholder="Grado" type="number" [ngClass]="{ inputError: user.validations.grade > 0 }">
+                        <small class="error" *ngIf="user.validations.grade == 1">Se requiere el Correo/Telefono</small>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1" (change)="setGroupsPeriods()">
+                        <label>Nivel Academico:</label><br>
+                        <select [(ngModel)]="user.school_level_id" name="school_level_id">
+                            <option *ngFor="let level of schoolLevels" value="{{level.id}}">{{level.name}}</option> 
+                        </select>
+
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1 && this.periods.length > 0">
+                        <label>Seleccione Periodo:</label><br>
+                        <select [(ngModel)]="periodSelected" name="periodSelected">
+                            <option *ngFor="let period of periods" value="{{period.id}}">{{period.from}} / {{period.to}} / {{period.period_type_view}} - {{period.school_level_view}}</option> 
+                        </select>
+
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1 && this.groupsOptions.length > 0">
+                        <label>Assigne un grupo:</label><br>
+                        <select [(ngModel)]="user.group_id" name="group_id">
+                            <option value="0">Seleccione un Grupo</option>
+                            <option *ngFor="let group of groupsOptions" value="{{group.id}}">{{group.grade}}° - {{ group.group_view }}</option> 
+                        </select>
+
                     </div>
 
                 </div>
+
                 <!--FIN DE DATOS GENERALES DE USUARIO -->
 
 
 
                 <div class="flexRow l6 ">
-                    <h2 class="l12">Direccion</h2>
+                    <h2 class="l12 centerText">Dirección</h2>
 
                     <div class="formData l6 m6">
                         <label>Calle:</label><br>
@@ -123,7 +158,7 @@
 
                 </div>
 
-                <button type="submit" class="btn formBtn">Crear Usuario</button>
+                <button type="submit" class="btn btnAccept">Crear Usuario</button>
 
             </form>
 

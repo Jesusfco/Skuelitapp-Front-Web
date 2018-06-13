@@ -93,9 +93,7 @@ export class CreatePeriodComponent implements OnInit {
 
         }
 
-      }, 
-      
-      error => sessionStorage.setItem('request', error)
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then ( () => this.request-- );
   }
@@ -117,9 +115,7 @@ export class CreatePeriodComponent implements OnInit {
 
         }
 
-      }, 
-      
-      error => sessionStorage.setItem('request', error)
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
       
 
     ).then ( () => this.request-- );
