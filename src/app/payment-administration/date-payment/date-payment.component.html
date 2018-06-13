@@ -7,19 +7,30 @@
     </a>
 
 
-    <div class="form" (submit)="sendData()" [ngClass]="{'loadingForm': sendingData == true}">
+    <div class="form container" (submit)="sendData()" [ngClass]="{'loadingForm': request !== 0}">
         <h1 align="center">Administrar Fecha de Pagos </h1>
-        <h3 align="center">{{ parameters.from }} / {{ parameters.to }}</h3>
-        <h3 align="center">{{ parameters.plan }}</h3>
 
-        <div class="container">
+        <h3 class="centerText">{{ payment.name }}</h3>
+        <h5 class="centerText">Para Periodo Tipo: {{ payment.period_type_view }}</h5>
+        <h5 class="centerText">Para Nivel: {{ payment.school_level_view }}</h5>
+
+        <br><br>
+        <div class="formData l4 center">
+            <label class="centerText">Selecciona un Periodo:</label>
+            <select class="centerText" [(ngModel)]="parameters.period_id" name="period_id" (change)="setDatePayment()">
+                <option *ngFor="let p of periods" value="{{ p.id }}"> {{ p.from }} / {{ p.to }}</option>
+            </select>
+
+        </div>
+
+        <div>
             <form class="flexRow" autocomplete="off">
 
                 <div class="formData l6 m6" *ngFor='let date of dates'>
                     <label>Fecha de Pago:</label><br>
                     <p *ngIf="!date.edit && date.date == null" (click)="editDate(date)"> 00/00/0000</p>
                     <p *ngIf="!date.edit && date.date != null" (click)="editDate(date)"> {{ date.date }}</p>
-                    <input *ngIf="date.edit" [(ngModel)]="date.date" name="date" type="date" [ngClass]="{ 'inputError': date.validations.partials > 0, 'inputValidate': date.validations.partials < 0 }">
+                    <input *ngIf="date.edit" [(ngModel)]="date.date" name="date" type="date" [ngClass]="{ 'inputError': date.validations.date > 0}">
                     <small class="error" *ngIf="date.validations.date == 1">Requerido *</small>
                     <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small>
                 </div>

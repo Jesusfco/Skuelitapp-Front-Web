@@ -69,4 +69,10 @@ export class PaymentService {
     .toPromise();
   }
 
+  getOwnPeriods(payment) {
+    return this._http.post(this.link.url + 'payment/ownPeriods' + this.token.getTokenUrl(), payment)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }
