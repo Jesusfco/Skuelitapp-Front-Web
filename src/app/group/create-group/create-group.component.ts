@@ -4,8 +4,7 @@ import { GroupService } from '../group.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Period } from '../../class/Period';
 import { Group } from '../../class/Group';
-import { SchoolLevel } from '../../class/SchoolLevel';
-import { SchoolLevelModality } from '../../class/SchoolLevelModality';
+
 
 
 @Component({
@@ -18,19 +17,7 @@ export class CreateGroupComponent implements OnInit {
 
   public period: Period = new Period();
   public groups: Array<Group> = [];
-  public schoolLevelModalities: Array<SchoolLevelModality> = [];
-
   public request: number = 0;
-
-  public levelOptions: Array<SchoolLevel> = [];
-
-  public information: any = {
-    period_id: null,
-    from: null,
-    to: null,
-    period_type_id: null,
-  };
-
   public newGroup: Group = new Group();
   public observerRef: any;
 
@@ -40,7 +27,8 @@ export class CreateGroupComponent implements OnInit {
     
 
     this.observerRef = actRou.params.subscribe(params => {
-      this.period.id = params['id'];
+      
+      this.period.id = parseFloat(params['id']);
       this.setPeriod();
       this.setGroups();
       
@@ -108,7 +96,7 @@ export class CreateGroupComponent implements OnInit {
     for(let i = 0; i < 3; i++) {
 
       let group: Group = new Group();
-      group.period_id = this.information.period_id;
+      group.period_id = this.period.id;
       group.school_level_id = 4;
       group.grade = 1 + ( i * 2 ) ;
       group.group = 1;
@@ -136,7 +124,7 @@ export class CreateGroupComponent implements OnInit {
     for(let i = 0; i < 3; i++) {
 
       let group: Group = new Group();
-      group.period_id = this.information.period_id;
+      group.period_id = this.period.id;
       group.school_level_id = 4;
       group.grade = 2 + ( i * 2 ) ;
       group.group = 1;
@@ -192,37 +180,6 @@ export class CreateGroupComponent implements OnInit {
     this.setGroupNewGroup();
 
   }
-
-  setSchoolLevelModality() {
-
-    this.request++;
-
-    this._http.getSchoolLevelModalities().then(
-
-      data => {
-        
-        this.schoolLevelModalities = [];
-
-        for(let d of data) {
-
-          let x: SchoolLevelModality = new SchoolLevelModality();
-          x.setData(d);
-          this.schoolLevelModalities.push(x);
-
-        }
-        
-      }, 
-      
-      error => sessionStorage.setItem('request', error)
-
-    ).then(
-      () => this.request--
-    );
-
-  }
-
-
-
  
 
   deleteGroup(group) {
@@ -303,12 +260,14 @@ export class CreateGroupComponent implements OnInit {
   }
 
   setPeriod() {
+    
     this.request++;
-    this._http.showGroup(this.period.id).then(
+    this._http.showPeriod(this.period.id).then(
       data => {
         this.period.setDataEdit(data);
         this.newGroup.school_level_id = this.period.school_level_id;
         this.newGroup.setLevelView();
+        
       },
       error => sessionStorage.setItem('request', error)
 

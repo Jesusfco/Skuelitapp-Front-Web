@@ -84,10 +84,18 @@ export class Group {
     gradeManipulator() {
         if(this.grade < 1 ){
             this.grade = 1;
-        } else if(this.school_level_id == 2 || this.school_level_id == 4 && this.grade > 6) {
-            this.grade = 6;
-        } else if(this.grade > 3 && this.school_level_id != 2 || this.school_level_id !== 4) {
-            this.grade = 3;
+        } 
+        
+        if(this.school_level_id == 2 || this.school_level_id == 4) {
+
+            if(this.grade > 6) {
+                this.grade = 6;
+            }
+            
+        } else {
+            if(this.grade > 3) {
+                this.grade = 3;
+            }
         }
     }
 
