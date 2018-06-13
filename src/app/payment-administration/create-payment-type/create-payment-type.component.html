@@ -31,11 +31,20 @@
                 <small class="error" *ngIf="payment.validations.amount == 1">Requerido</small>
             </div>
 
-            <div class="formData l4 m6">
+            <div class="formData l6 m6">
                 <label>Tipo de Periodo:</label><br>
                 <select [(ngModel)]="payment.period_type_id" name="period_type_id">
                     <option *ngFor="let type of periodTypes" value="{{type.id}}">{{ type.name }}</option>
                 </select>
+            </div>
+
+            <div class="formData l6 m6">
+                <label>Nivel Escolar</label><br>
+                <select [(ngModel)]="payment.school_level_id" name="school_level_id" [ngClass]="{ 'inputError': payment.validations.schoolLevel > 0 }">
+                    <option *ngFor="let level of schoolLevels" value="{{level.id}}">{{ level.name }}</option>
+                </select>
+                <small class="error" *ngIf="payment.validations.schoolLevel == 1">Requerido</small>
+
             </div>
 
 
@@ -45,7 +54,8 @@
             </div>
 
 
-            <button type="submit" class="btn btnAccept">Guardar</button>
+            <button *ngIf="request == 0" type="submit" class="btn btnAccept">Guardar</button>
+            <button *ngIf="request !== 0" type="submit" class="btn " disabled>Guardar</button>
 
         </form>
 

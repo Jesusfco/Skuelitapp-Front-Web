@@ -4,6 +4,7 @@ import { PaymentService } from '../payment.service';
 import { Router } from '@angular/router';
 import { cardPop, backgroundOpacity} from '../../animations';
 import { PeriodType } from '../../class/PeriodType';
+import { SchoolLevel } from '../../class/SchoolLevel';
 
 @Component({
   selector: 'app-create-payment-type',
@@ -15,7 +16,8 @@ export class CreatePaymentTypeComponent implements OnInit {
 
   public payment: PaymentType = new PaymentType();
   public periodTypes: Array<PeriodType> = [];
-  public request: Boolean = false;
+  public request: number = 0;
+  public schoolLevels: Array<SchoolLevel> = [];
 
   public state = {
     background: 'initial',
@@ -33,6 +35,7 @@ export class CreatePaymentTypeComponent implements OnInit {
   constructor(private _http: PaymentService,
               private router: Router) { 
                 this.setPeriodType();
+                this.setSchoolLevel();
   }
 
   ngOnInit() {
@@ -59,7 +62,7 @@ export class CreatePaymentTypeComponent implements OnInit {
 
     if (!this.payment.validateALL()) { return; }
 
-    this.request = true;
+    this.request++;
 
     this._http.store(this.payment).then(
       data => {
@@ -74,16 +77,17 @@ export class CreatePaymentTypeComponent implements OnInit {
         sessionStorage.setItem('newPayment', JSON.stringify(data));
 
         this.closePop();
-      }
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
     ).then(
-      () => this.request = false
-    ).catch(
-      error => sessionStorage.setItem('request', JSON.stringify(error))
+      () => this.request--
     );
 
   }
 
   setPeriodType() {
+    
+    this.request++;
+
     this._http.getPeriodType().then(
       
       data => {
@@ -106,7 +110,32 @@ export class CreatePaymentTypeComponent implements OnInit {
       
       error => sessionStorage.setItem('request', error)
 
-    ).then ( () => this.request = false );
+    ).then ( () => this.request--);
+  }
+
+  setSchoolLevel() {
+
+    this.request++;
+
+    this._http.getSchoolLevels().then(
+
+      data => {
+
+        for(let d of data) {
+
+          if(d.active) {
+            this.schoolLevels.push(d);
+          }
+
+        }
+
+      }, 
+      
+      error => sessionStorage.setItem('request', error)
+      
+
+    ).then ( () => this.request-- );
+
   }
   
 }

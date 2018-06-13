@@ -9,6 +9,7 @@ export class PaymentType {
     public period_type_id: Number = 1;
     public period_type_view: String;
     public school_level_id: Number;
+    public school_level_view: String;
     public created_at: String;
     public updated_at: String;
 
@@ -18,7 +19,8 @@ export class PaymentType {
         validate: true,
         name: 0,
         quantity: 0,
-        amount: 0
+        amount: 0,
+        schoolLevel: 0
     };
 
     constructor() {}
@@ -40,6 +42,8 @@ export class PaymentType {
         this.updated_at = data.updated_at;
 
         this.setPeriodTypeView();
+        this.setSchoolLevelView();
+
     }
 
     restoreValidation() {
@@ -47,7 +51,8 @@ export class PaymentType {
             validate: true,
             name: 0,
             quantity: 0,
-            amount: 0
+            amount: 0,
+            schoolLevel: 0
         };
     }
 
@@ -72,12 +77,20 @@ export class PaymentType {
         }
     }
 
+    validateSchoolLevel() {
+        if(this.school_level_id == null) {
+            this.validations.schoolLevel = 1;
+            this.validations.validate = false;
+        }
+    }
+
     validateALL() {
 
         this.restoreValidation();
         this.validateName();
         this.validateQuantity();
         this.validateAmount();
+        this.validateSchoolLevel();
 
         return this.validations.validate;
 
@@ -94,6 +107,18 @@ export class PaymentType {
         }
         
 
+    }
+
+    setSchoolLevelView() {
+        if(this.school_level_id == 1) {
+            this.school_level_view = 'KINDER';
+        } else if(this.school_level_id == 2) {
+            this.school_level_view = 'PRIMARIA';
+        } else if(this.school_level_id == 3) {
+            this.school_level_view = 'SECUNDARIA';
+        } else if(this.school_level_id == 4) {
+            this.school_level_view = 'PREPARATORIA';
+        }
     }
 
 }

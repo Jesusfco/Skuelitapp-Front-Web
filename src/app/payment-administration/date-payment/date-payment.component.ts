@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PaymentDate } from '../../class/PaymentDate';
 import { PaymentService } from '../payment.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FadeAnimation, SlideAnimation } from '../../animations';
+import { PaymentType } from '../../class/PaymentType';
 
 @Component({
   selector: 'app-date-payment',
@@ -15,6 +16,9 @@ export class DatePaymentComponent implements OnInit {
 
   public request: Boolean = false;
   public dates: Array<PaymentDate> = [];
+  public payment: PaymentType = new PaymentType();
+  public observerRef: any;
+  
   public parameters = {
     from: '',
     to: '',
@@ -24,15 +28,17 @@ export class DatePaymentComponent implements OnInit {
     period_id: null
   };
 
-  constructor(private _http: PaymentService, private router: Router) {
+  constructor(private _http: PaymentService, private router: Router, private actRou: ActivatedRoute) {
+
+    this.observerRef = actRou.params.subscribe(params => {
+      this.payment.id = params['id'];
+      // this.getGroupData();
+      // this.getSubjects();
+    });
+      
 
       
-      if(sessionStorage.getItem('parametersDatesPayment') == undefined) {
-        this.closeWindow();
-      }
-
-      this.parameters = JSON.parse(sessionStorage.getItem('parametersDatesPayment'));
-      this.setDatePayment();
+      
 
    }
 
@@ -40,7 +46,7 @@ export class DatePaymentComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    sessionStorage.removeItem('parametersDatesPayment');
+    
   }
 
   closeWindow() { this.router.navigate(['/administracion-de-pagos']); }

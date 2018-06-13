@@ -52,7 +52,7 @@ export const routes: Routes = [
     {
         path: 'administracion-de-pagos', component: PaymentAdministrationComponent,
         children: [
-            {   path: 'date', component: DatePaymentComponent },
+            {   path: 'date/:id', component: DatePaymentComponent },
             {   path: 'create', component: CreatePaymentTypeComponent },
             {   path: 'edit/:id', component: EditPaymentComponent },
         ]

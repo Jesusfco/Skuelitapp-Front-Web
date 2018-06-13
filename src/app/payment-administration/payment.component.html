@@ -5,18 +5,9 @@
     <p>Cantidad de pagos: #{{ pay.quantity }}</p>
     <p>Monto: ${{ pay.amount }}</p>
     <p>Tipo: {{ pay.period_type_view }}</p>
+    <p>Nivel Escolar: {{ pay.school_level_view }}</p>
 
-    <form (submit)="redirectDate(pay)">
-
-        <div class="formData l6 m6">
-            <label>Seleccionar Periodo</label><br>
-            <select [(ngModel)]="searchPeriod" name="searchPeriod">
-              <option *ngFor="let per of periods" value="{{per.id}}">{{per.from}} / {{per.to}} </option> 
-          </select>
-
-        </div>
-        <button class="btn btnAccept" [routerLink]="['./date']">Administrar Fecha de Pagos</button>
-    </form>
+    <button class="btn btnAccept" [routerLink]="['./date', pay.id]">Administrar Fecha de Pagos</button>
 
 </div>
 

@@ -12,13 +12,13 @@ export class PaymentAdministrationComponent implements OnInit {
 
   public payments: Array<PaymentType> = [];
   public periods: Array<Period> = [];
-  public request: Boolean = false;
+  public request: number = 0;
 
   public search: any = {
     limit: 0,
   };
 
-  public searchPeriod: any;
+  
 
   public newPaymentObserver: any;
   public editPaymentObserver: any;
@@ -26,7 +26,7 @@ export class PaymentAdministrationComponent implements OnInit {
   constructor(private _http: PaymentService) {
 
     this.getPaymentTypes();
-    this.getLatestPeriods();
+    
 
     this.setEditPaymentObserver();
     this.setNewPaymentObserver();
@@ -39,9 +39,10 @@ export class PaymentAdministrationComponent implements OnInit {
 
   getPaymentTypes() {
 
-    this.request = true;
+    this.request++;
 
     this._http.get(this.search).then(
+
       data => {
 
         this.payments = [];
@@ -54,99 +55,13 @@ export class PaymentAdministrationComponent implements OnInit {
 
         }
         
-      }
+      }, error => sessionStorage.setItem('request', error)
     ).then(
-      () => this.request = false
-    ).catch(
-
-      error => sessionStorage.setItem('request', error)
-
+      () => this.request--
     );
   }
 
-  getLatestPeriods() {
-
-    this.request = true;
-
-    this._http.periods().then(
-      data => {
-
-        this.periods = [];
-
-        for(let p of data){
-          
-          let z: Period = new Period();
-          z.setDataEdit(p);
-          this.periods.push(z);
-
-        }
-
-        if(this.periods[0] != undefined) {
-          this.searchPeriod = this.periods[0].id;
-        }
-
-      }
-    ).then(
-      () => this.request = false
-    ).catch(
-
-      error => sessionStorage.setItem('request', error)
-
-    );
-  }
-
-  getDatePayment(id) {
-
-    this.request = true;
-
-
-    
-    this._http.periods().then(
-      data => {
-
-        for(let p of data){
-          
-          let z: Period = new Period();
-          z.setDataEdit(p);
-          this.periods.push(z);
-
-        }
-
-        if(this.periods[0] != undefined) {
-          this.searchPeriod = this.periods[0].id;
-        }
-
-      }
-    ).then(
-      () => this.request = false
-    ).catch(
-
-      error => sessionStorage.setItem('request', error)
-
-    );
-
-  }
-
-  redirectDate(payment) {
-    let parameters = {
-      from: null,
-      to: null,
-      plan: payment.name,
-      quantity: payment.quantity,
-      payment_type_id: payment.id,
-      period_id: this.searchPeriod
-    };
-
-    for(let x of this.periods) {
-      if(x.id == this.searchPeriod) {
-        parameters.from = x.from;
-        parameters.to = x.to;
-        break;
-      }
-    }
-
-    sessionStorage.setItem('parametersDatesPayment', JSON.stringify(parameters));
-  }
+  
 
   setNewPaymentObserver() {
     this.newPaymentObserver = setInterval(() => this.newPaymentObserverLogic(), 1000);
@@ -156,7 +71,9 @@ export class PaymentAdministrationComponent implements OnInit {
     if(sessionStorage.getItem('newPayment') == undefined) return;
 
     let newPayment = JSON.parse(sessionStorage.getItem('newPayment'));
-    this.payments.unshift(newPayment);
+    let x = new PaymentType();
+    x.setData(newPayment);
+    this.payments.unshift(x);
     sessionStorage.removeItem('newPayment');
 
   }
