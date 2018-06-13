@@ -75,6 +75,13 @@ export class Subject {
 
     }
 
+    validateGrade() {
+        if(this.grade == null) {
+            this.validations.grade = 1;
+            this.validations.validate = false;
+        }
+    }
+
     gradeFormat() {
 
         if(this.school_level_id == 1 || this.school_level_id == 3) {

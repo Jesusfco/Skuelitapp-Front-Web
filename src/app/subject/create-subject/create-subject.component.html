@@ -9,18 +9,24 @@
     <div class="cardModule" [@card]="state.card">
         <h2 class="centerText">Crear Materia</h2>
 
+
+        <div class="check">
+            <label>Continuar:</label><br>
+            <input [(ngModel)]="continue" name="continue" type="checkbox">
+        </div>
+
         <form class="flexRow" (submit)="createSubject()">
 
             <div class="formData l12">
                 <label>Nombre de Materia:</label><br>
-                <input [(ngModel)]="subject.name" name="name" type="text" (keyup)="subject.upperName()" [ngClass]="{ 'inputError': subject.validations.name > 0 }">
+                <input id="nameSubject" [(ngModel)]="subject.name" name="name" type="text" (keyup)="subject.upperName()" [ngClass]="{ 'inputError': subject.validations.name > 0 }">
                 <small class="error" *ngIf="subject.validations.name == 1">Requerido</small>
             </div>
 
             <div class="formData l6 m6">
                 <label>Grado:</label><br>
                 <input [(ngModel)]="subject.grade" name="grade" type="number" (change)="subject.gradeFormat()">
-                <!-- <small class="error" *ngIf="subject.validations.name == 1">Requerido</small> -->
+                <small class="error" *ngIf="subject.validations.name == 1">Requerido</small>
             </div>
 
             <div class="formData l6 m6">

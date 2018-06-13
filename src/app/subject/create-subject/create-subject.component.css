@@ -1,0 +1,11 @@
+.check {
+    display: block;
+    width: initial;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.check input {
+    width: initial;
+}

@@ -142,26 +142,26 @@ export class NotificationComponent implements OnInit {
       }
     }
 
-    // setTimeout(() => {
+    setTimeout(() => {
 
       setTimeout(() => {
-    //     if(this.notifications.length > 0) 
+        if(this.notifications.length > 0) 
 
-    //     for(let i = 0; i < this.notifications.length; i++) {
-    //       if(this.notifications[i].id == message.id){
-    //         this.notifications.splice(i, 1);
-              // this.setPositionNotification();
-    //         break;
+        for(let i = 0; i < this.notifications.length; i++) {
+          if(this.notifications[i].id == message.id){
+            this.notifications.splice(i, 1);
+              this.setPositionNotification();
+            break;
     
-    //       }
-    //     }
+          }
+        }
         
         
       }, 700);
 
-    //   this.addClasses(message.id);
+      this.addClasses(message.id);
 
-    // }, 10000);
+    }, 10000);
 
   }
 

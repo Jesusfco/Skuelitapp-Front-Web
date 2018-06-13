@@ -15,6 +15,7 @@ export class CreateSubjectComponent implements OnInit {
 
   public subject: Subject = new Subject();
   public levelOptions: Array<SchoolLevel> = [];
+  public continue: Boolean = true;
 
   public state = {
     background: 'initial',
@@ -38,7 +39,7 @@ export class CreateSubjectComponent implements OnInit {
     setTimeout(() => {
       this.state.background = 'final';
       this.state.card = 'final';
-      // document.getElementById('searchProductInput').focus();
+      document.getElementById('nameSubject').focus();
     }, 5);
   }
 
@@ -46,6 +47,7 @@ export class CreateSubjectComponent implements OnInit {
 
     this.subject.restoreValidations();
     this.subject.validateName();
+    this.subject.validateGrade();
     if(!this.subject.validations.validate) return;
 
     this._http.storeSubject(this.subject).then(
@@ -59,6 +61,12 @@ export class CreateSubjectComponent implements OnInit {
 
         sessionStorage.setItem('request', JSON.stringify(not));
         sessionStorage.setItem('newSubject', JSON.stringify(data));
+
+        if(this.continue) {
+          this.subject.name = '';
+          document.getElementById('nameSubject').focus();
+          return;
+        }
         this.closePop();
 
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
