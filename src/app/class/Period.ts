@@ -8,6 +8,7 @@ export class Period {
     public to: String;
     public period_type_id: Number = 1;
     public period_type_view: String;
+    public school_level_id: Number;
     public status: Number;
     public created_at: String;
     public updated_at: String;
@@ -17,6 +18,7 @@ export class Period {
         partials: 0,
         from: 0,
         to: 0,
+        schoolLevel: 0,
         validate: true
     };
 
@@ -28,6 +30,7 @@ export class Period {
         this.from = data.from;
         this.to = data.to;
         this.period_type_id = parseFloat(data.period_type_id);
+        this.school_level_id = parseFloat(data.school_level_id);
         this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_ad;
@@ -86,6 +89,7 @@ export class Period {
             partials: 0,
             from: 0,
             to: 0,
+            schoolLevel: 0,
             validate: true
         };
     }
@@ -112,9 +116,18 @@ export class Period {
     }
 
     validateFromTo() {
+
         if(this.to <= this.from) {
             this.validations.to = 2;
             this.validations.from = 2;
+            this.validations.validate = false;
+        }
+
+    }
+
+    validateSchoolLevel() {
+        if(this.school_level_id == null) {
+            this.validations.schoolLevel = 1;
             this.validations.validate = false;
         }
     }
@@ -124,10 +137,11 @@ export class Period {
         this.validatePartial();
         this.validateFrom();
         this.validateTo();
-        if(this.validations.validate) {
+        this.validateSchoolLevel();
+        if(this.validations.to == 0 && this.validations.from == 0) {
             this.validateFromTo();
         }
-
+        console.log(this);
         return this.validations.validate;
     }
 

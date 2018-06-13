@@ -44,4 +44,10 @@ export class PeriodService {
       .toPromise();
   }
 
+  getSchoolLevels() {
+    return this._http.get(this.link.url + 'schoolLevels' + this.token.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

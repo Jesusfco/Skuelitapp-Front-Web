@@ -8,6 +8,7 @@ export class PaymentType {
     public amount: Number;
     public period_type_id: Number = 1;
     public period_type_view: String;
+    public school_level_id: Number;
     public created_at: String;
     public updated_at: String;
 
@@ -33,6 +34,7 @@ export class PaymentType {
         this.description = data.description;
         this.quantity = data.quantity;
         this.period_type_id = parseFloat(data.period_type_id);
+        this.school_level_id = parseFloat(data.school_level_id);
         this.amount = parseFloat(data.amount);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;

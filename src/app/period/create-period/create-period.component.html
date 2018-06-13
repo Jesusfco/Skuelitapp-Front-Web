@@ -7,7 +7,7 @@
     </a>
 
 
-    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+    <div class="form" [ngClass]="{'loadingForm': request > 0}">
         <h1 align="center">Crear Periodo</h1>
 
         <div class="container">
@@ -28,18 +28,26 @@
                     <small class="error" *ngIf="period.validations.from == 2">La fecha tiene que ser menor al Fin del periodo</small>
                 </div>
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Fin del Periodo:</label><br>
                     <input [(ngModel)]="period.to" name="to" type="date" [ngClass]="{ 'inputError': period.validations.to > 0 }">
                     <small class="error" *ngIf="period.validations.to == 1">Requerido</small>
                     <small class="error" *ngIf="period.validations.to == 2">La fecha tiene que ser Mayor al Inicio del periodo</small>
                 </div>
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Tipo de Periodo:</label><br>
                     <select [(ngModel)]="period.period_type_id" name="period_type_id">
                         <option *ngFor="let type of periodTypes" value="{{type.id}}">{{ type.name }}</option>
                     </select>
+                </div>
+
+                <div class="formData l4 m6">
+                    <label>Nivel Academico</label><br>
+                    <select [(ngModel)]="period.school_level_id" name="school_level_id" [ngClass]="{ 'inputError': period.validations.schoolLevel > 0 }">
+                        <option *ngFor="let level of schoolLevels" value="{{level.id}}">{{ level.name }}</option>
+                    </select>
+                    <small class="error" *ngIf="period.validations.schoolLevel == 1">Requerido</small>
                 </div>
 
 
@@ -71,8 +79,8 @@
 
                 </div>
 
-                <button *ngIf="!request" type="submit" class="btn btnAccept">Crear Periodo</button>
-                <button *ngIf="request" type="submit" class="btn" disabled>Crear Periodo</button>
+                <button *ngIf="request == 0" type="submit" class="btn btnAccept">Crear Periodo</button>
+                <button *ngIf="request > 0" type="submit" class="btn" disabled>Crear Periodo</button>
 
 
             </form>
