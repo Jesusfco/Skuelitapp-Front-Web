@@ -172,7 +172,9 @@ export class CreateGroupComponent implements OnInit {
     
     if(!this.newGroup.validations.validate) return;
 
+    this.newGroup.period_id = this.period.id;
     this.groups.unshift(this.newGroup);
+    this.sendGroupsData();
 
     this.newGroup = new Group();
     this.newGroup.school_level_id = this.period.school_level_id;
@@ -246,12 +248,17 @@ export class CreateGroupComponent implements OnInit {
 
         }
 
+        const not = {
+          title: 'Grupos Guardados',
+          description: 'Datos cargados al servidor correctamente',
+          status: 200
+        };
 
-      }
+        sessionStorage.setItem('request', JSON.stringify(not));
+        
+      },
 
-      ,
-
-      error => sessionStorage.setItem('request', error)
+      error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then(
       () => this.request --
@@ -269,7 +276,7 @@ export class CreateGroupComponent implements OnInit {
         this.newGroup.setLevelView();
         
       },
-      error => sessionStorage.setItem('request', error)
+      error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then(
       () => this.request --
@@ -288,7 +295,7 @@ export class CreateGroupComponent implements OnInit {
           this.groups.push(x);
         }
       },
-      error => sessionStorage.setItem('request', error)
+      error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then(
       () => this.request --

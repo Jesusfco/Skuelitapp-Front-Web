@@ -99,7 +99,7 @@ export class GroupComponent implements OnInit {
   searchGroup() {
     this.request++;
 
-    this._http.getGroups(this.search).then(
+    this._http.getGroups({id: this.search.period_id}).then(
       data => {
 
         this.groups = [];
