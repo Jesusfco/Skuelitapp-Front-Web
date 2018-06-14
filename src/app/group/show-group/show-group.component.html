@@ -7,7 +7,7 @@
     </a>
 
 
-    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+    <div class="form">
         <h1 align="center">Grupo {{ group.grade }} - {{ group.group_view }}</h1>
 
         <div class="container">
@@ -17,6 +17,10 @@
                 <i class="material-icons" *ngIf="sub.select">check_box</i>
                 <i class="material-icons" *ngIf="!sub.select">check_box_outline_blank</i>
             </p>
+
+            <a [routerLink]="['./horarios']">
+                <h4>Administrar Horarios</h4>
+            </a>
 
             <h2 class="centerText">Alumnos</h2>
 
@@ -57,3 +61,6 @@
 
         </div>
     </div>
+</div>
+
+<router-outlet></router-outlet>

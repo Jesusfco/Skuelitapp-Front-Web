@@ -26,6 +26,7 @@ import { ShowGroupComponent } from './group/show-group/show-group.component';
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
+import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
 
 export const routes: Routes = [
     
@@ -62,7 +63,11 @@ export const routes: Routes = [
         path: 'grupos', component: GroupComponent,
         children: [
             {   path: 'admin/:id', component: CreateGroupComponent },
-            {   path: 'show/:id', component: ShowGroupComponent },
+            {   path: 'show/:id', component: ShowGroupComponent,
+                children: [
+                    { path: 'horarios', component: ScheduleSubjectComponent }
+                ]
+            },
         ]
     }, 
 

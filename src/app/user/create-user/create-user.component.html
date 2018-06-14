@@ -6,8 +6,8 @@
         <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
     </a>
 
-
-    <div class="form" [ngClass]="{'loadingForm': sendingData == true}">
+    <!-- [ngClass]="{'loadingForm': request == true}" -->
+    <div class="form">
         <h1 align="center" *ngIf="student.id == null">Crear Usuario</h1>
 
         <h1 align="center" *ngIf="student.id != null">Crear Tutor De</h1>

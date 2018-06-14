@@ -98,4 +98,16 @@ export class GroupService {
       .toPromise();
   }
 
+  getSchedules(group) {
+    return this._http.get(this.link.url + 'groups/schedules/' + group.id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  getTeachers(parameters) {
+    return this._http.post(this.link.url + 'groups/searchTeachers' + this.token.getTokenUrl(), parameters)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

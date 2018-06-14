@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GroupService } from '../group.service';
 import { Group } from '../../class/Group';
@@ -24,7 +24,7 @@ export class ShowGroupComponent implements OnInit {
   @HostListener('document:keyup', ['$event']) sss($event) {
     
     if($event.keyCode === 27) {
-      this.closeWindow();
+      // this.closeWindow();
     }
     
   }
@@ -45,6 +45,11 @@ export class ShowGroupComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    sessionStorage.removeItem('group');
+    sessionStorage.removeItem('subjectFromGroup');
+  }
+
 
   closeWindow(){
     this.router.navigate(['/grupos']);    
@@ -61,6 +66,8 @@ export class ShowGroupComponent implements OnInit {
         this.group.setData(data.group);
         this.group.setStudentsFromData(data.students);
         this.checkSubjectsSelected();
+
+        sessionStorage.setItem('group', JSON.stringify(this.group));
 
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
@@ -129,7 +136,7 @@ export class ShowGroupComponent implements OnInit {
     this._http.postSubjectsFromGroup(this.group).then(
 
       data => {
-        
+        sessionStorage.setItem('subjectFromGroup', JSON.stringify(this.subjects));
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then(
@@ -150,6 +157,8 @@ export class ShowGroupComponent implements OnInit {
       
     }
 
+    sessionStorage.setItem('subjectFromGroup', JSON.stringify(this.subjects));
+
   }
 
   removeStudent(user) {
@@ -161,7 +170,6 @@ export class ShowGroupComponent implements OnInit {
     this.posibleStudents.push(copy);
     this.group.spliceStudent(user);
 
-    // console.log(this.group.students_id);
     setTimeout(() => this.syncGroupAndStudents(copy), 100);
 
   }
@@ -176,7 +184,6 @@ export class ShowGroupComponent implements OnInit {
     this.group.pushStudent(user);
     this.posibleStudents.splice(i, 1);
 
-    // console.log(this.group.students_id);
     setTimeout(() => this.syncGroupAndStudents(copy), 100);
 
   }
@@ -184,7 +191,7 @@ export class ShowGroupComponent implements OnInit {
   syncGroupAndStudents(copy) {
     this.request++;
     this._http.syncUserGroupId({user: copy, group: this.group}).then(
-      data => console.log(data),
+      data => {},
       error => sessionStorage.setItem('request', JSON.stringify(error))
 
     ).then(

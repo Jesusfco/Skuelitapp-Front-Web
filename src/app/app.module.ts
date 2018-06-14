@@ -71,6 +71,7 @@ import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
 import { ShowGroupComponent } from './group/show-group/show-group.component';
 import { GroupService } from './group/group.service';
+import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { GroupService } from './group/group.service';
     DatePaymentComponent,
     GroupComponent,
     CreateGroupComponent,
-    ShowGroupComponent
+    ShowGroupComponent,
+    ScheduleSubjectComponent
   ],
   imports: [
     BrowserModule,
