@@ -14,3 +14,8 @@
     bottom: 15px;
     transition: .4s;
 }
+
+.divSearch {
+    width: 100% !important;
+    display: flex !important;
+}

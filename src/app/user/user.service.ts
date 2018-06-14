@@ -14,6 +14,12 @@ export class UserService {
   
   constructor(private _http: Http) { }
 
+  getUsers(parameters) {
+    return this._http.post(this.link.url + 'user/search' + this.token.getTokenUrl(), parameters)
+          .map(data => data.json())
+          .toPromise();
+  }
+
   checkUniqueEmail(data){
     return this._http.post(this.link.url + 'user/uniqueEmail' + this.token.getTokenUrl(), {email: data})
       .map(data => data.json())

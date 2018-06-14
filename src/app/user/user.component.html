@@ -1,7 +1,9 @@
 <h2 class="centerText">Usuarios</h2>
 
 <div class="divSearch">
-    <input [(ngModel)]="search.word" (keyup)="searchInput()" placeholder="Buscar Usuario" name="word" type="search">
+    <input class="l6" [(ngModel)]="search.name" (keyup)="searchTimer($event)" placeholder="Nombres" name="word" type="search">
+    <input class="l3" [(ngModel)]="search.patern_surname" (keyup)="searchTimer($event)" placeholder="Apellido P" name="patern_surname" type="search">
+    <input class="l3" [(ngModel)]="search.matern_surname" (keyup)="searchTimer($event)" placeholder="Apellido M" name="matern_surname" type="search">
 
     <br>
     <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
