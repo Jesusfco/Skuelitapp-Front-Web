@@ -27,20 +27,8 @@
                 <td class="left">{{ user.name }}</td>
                 <td>{{ user.patern_surname }}</td>
                 <td>{{ user.matern_surname }}</td>
-
-                <td *ngIf="user.gender == 1">M</td>
-                <td *ngIf="user.gender == 2">F</td>
-
-                <td *ngIf="user.user_type == 1">Alumno</td>
-                <td *ngIf="user.user_type == 2">Tutor</td>
-                <td *ngIf="user.user_type == 3">Maestro</td>
-                <td *ngIf="user.user_type == 4">Cajero</td>
-                <td *ngIf="user.user_type == 5">Administrador</td>
-
-                <!-- <td>{{ user.phone }}</td>
-
-                <td *ngIf="user.gender == 1">M</td>
-                <td *ngIf="user.gender == 2">F</td> -->
+                <td>{{ user.gender_view }}</td>
+                <td>{{ user.user_type_view }}</td>
             </tr>
         </tbody>
     </table>

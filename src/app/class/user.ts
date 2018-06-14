@@ -16,11 +16,13 @@ export class User {
     subjects_id: String = '';
     students_id: String = '';
     user_type: Number = 1;
+    user_type_view: String;
     address_id: Number;
     cash_register_id: Number;
     payment_type_id: Number;
     status: Number;
     gender: Number = 1;
+    gender_view: String;
     birthday: String;
     created_at: String;
     updated_at: String;
@@ -64,6 +66,22 @@ export class User {
         this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        this.setGenderView();
+        this.setUserTypeView();
+    }
+
+    setGenderView() {
+        if(this.gender == 1) this.gender_view = 'M';
+        if(this.gender == 2) this.gender_view = 'F';
+    }
+
+    setUserTypeView() {
+        if(this.user_type == 1) { this.user_type_view = 'Alumno'; }
+        else if(this.user_type == 2) { this.user_type_view = 'Tutor'; }
+        else if(this.user_type == 3) { this.user_type_view = 'Maestro'; }
+        else if(this.user_type == 4) { this.user_type_view = 'Cajero'; }
+        else if(this.user_type == 5) { this.user_type_view = 'Administrador'; }
     }
 
     upperCaseName() {
