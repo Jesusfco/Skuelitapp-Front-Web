@@ -92,4 +92,10 @@ export class GroupService {
       .toPromise();
   }
 
+  syncUserGroupId(parameters) {
+    return this._http.post(this.link.url + 'groups/assignGroup' + this.token.getTokenUrl(), parameters)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

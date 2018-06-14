@@ -152,8 +152,44 @@ export class ShowGroupComponent implements OnInit {
 
   }
 
-  removeStudent(user) {}
+  removeStudent(user) {
 
-  addStudent(user) {}
+    if(this.request > 0) return;
+
+    let copy = JSON.parse(JSON.stringify(user));
+    copy.group_id = null;
+    this.posibleStudents.push(copy);
+    this.group.spliceStudent(user);
+
+    // console.log(this.group.students_id);
+    setTimeout(() => this.syncGroupAndStudents(copy), 100);
+
+  }
+
+  addStudent(user) {
+
+    if(this.request > 0) return;
+
+    let copy = JSON.parse(JSON.stringify(user));
+    copy.group_id = this.group.id;
+    const i = this.posibleStudents.indexOf(user);
+    this.group.pushStudent(user);
+    this.posibleStudents.splice(i, 1);
+
+    // console.log(this.group.students_id);
+    setTimeout(() => this.syncGroupAndStudents(copy), 100);
+
+  }
+
+  syncGroupAndStudents(copy) {
+    this.request++;
+    this._http.syncUserGroupId({user: copy, group: this.group}).then(
+      data => console.log(data),
+      error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+      () => this.request--
+    );
+  }
 
 }

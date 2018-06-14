@@ -4,7 +4,7 @@ import { useAnimation } from "@angular/core/src/animation/dsl";
 export class Group {
 
     public id: Number;
-    public students_id: String;
+    public students_id: String = '';
     public students_id_array: Array<Number> = [];
     public subjects_id: String;
     public subjects_id_array: Array<Number> = [];
@@ -176,6 +176,30 @@ export class Group {
             let user: User = new User();
             user.setData(student);
             this.students.push(user);
+        }
+
+        this.setStudentsId();
+
+    }
+
+    pushStudent(user: User) {
+        user.group_id = this.id;
+        this.students.push(user);
+        this.students_id += '<' + user.id + '>';
+    }
+
+    spliceStudent(user: User) {
+        const i = this.students.indexOf(user);
+        this.students.splice(i, 1);
+        this.setStudentsId();
+    }
+
+    setStudentsId() {
+
+        this.students_id = '';
+
+        for(let student of this.students) {
+            this.students_id += '<' + student.id + '>';
         }
 
     }
