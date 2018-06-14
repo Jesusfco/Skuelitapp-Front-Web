@@ -1,24 +1,29 @@
+import { User } from "./User";
+import { useAnimation } from "@angular/core/src/animation/dsl";
+
 export class Group {
 
-    id: Number;
-    students_id: String;
-    students_id_array: Array<Number> = [];
-    subjects_id: String;
-    subjects_id_array: Array<Number> = [];
-    grade: Number;
-    group: number = 1;
-    group_view: String;
-    level_view: String;
-    school_level_id: Number;    
-    period_id: Number;
-    status: Number = 1;
-    updated_at: String;
-    created_at: String;
+    public id: Number;
+    public students_id: String;
+    public students_id_array: Array<Number> = [];
+    public subjects_id: String;
+    public subjects_id_array: Array<Number> = [];
+    public grade: Number;
+    public group: number = 1;
+    public group_view: String;
+    public level_view: String;
+    public school_level_id: Number;    
+    public period_id: Number;
+    public status: Number = 1;
+    public updated_at: String;
+    public created_at: String;
 
-    validations: any = {
+    public validations: any = {
         grade: 0,
         validate: true
     };
+
+    public students: Array<User> = [];
 
     constructor() {}
 
@@ -153,11 +158,24 @@ export class Group {
 
         let str = this.subjects_id.split('>');
         str.splice(str.length - 1, 1);
+        
 
         for(let s of str) {
 
             let res = s.split('<');
             this.subjects_id_array.push(parseFloat(res[1]));
+        }
+
+    }
+
+    setStudentsFromData(students) {
+        
+        this.students = [];
+
+        for(let student of students) {
+            let user: User = new User();
+            user.setData(student);
+            this.students.push(user);
         }
 
     }

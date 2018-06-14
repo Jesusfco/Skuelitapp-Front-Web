@@ -68,6 +68,12 @@ export class GroupService {
               .toPromise();
   }
 
+  getPosibleStudents(group) {
+    return this._http.get(this.link.url + 'groups/posibleStudents/' + group.id + this.token.getTokenUrl())
+              .map(data => data.json())
+              .toPromise();
+  }
+
   getSubjectsFromGroup(group) {
     return this._http.get(this.link.url + 'groups/allSubjects/' + group.id + this.token.getTokenUrl())
               .map(data => data.json())

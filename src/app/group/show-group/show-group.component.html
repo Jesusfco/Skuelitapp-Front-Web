@@ -21,5 +21,39 @@
             <h2 class="centerText">Alumnos</h2>
 
 
+            <div class="responsive-table">
+                <table align="center">
+                    <thead>
+                        <tr>
+                            <th class="left">Nombre/s</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Genero</th>
+                            <th>Asignado Al Grupo</th>
+                        </tr>
+                        <!-- <th colspan="3">Opciones</th> -->
+                    </thead>
+                    <tbody>
+                        <!-- [routerLink]="['/users/edit', user.id]" -->
+                        <tr *ngFor="let user of group.students">
+                            <td class="left">{{ user.name }}</td>
+                            <td>{{ user.patern_surname }}</td>
+                            <td>{{ user.matern_surname }}</td>
+                            <td>{{ user.gender_view }}</td>
+                            <td class="selected" (click)="removeStudent(user)"> <i class="material-icons">check_box</i> </td>
+                        </tr>
+                        <tr *ngFor="let user of posibleStudents">
+                            <td class="left">{{ user.name }}</td>
+                            <td>{{ user.patern_surname }}</td>
+                            <td>{{ user.matern_surname }}</td>
+                            <td>{{ user.gender_view }}</td>
+                            <td (click)="addStudent(user)"> <i class="material-icons">check_box_outline_blank</i> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
         </div>
     </div>

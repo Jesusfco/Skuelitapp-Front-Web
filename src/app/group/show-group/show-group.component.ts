@@ -4,6 +4,7 @@ import { GroupService } from '../group.service';
 import { Group } from '../../class/Group';
 import { FadeAnimation, SlideAnimation } from '../../animations';
 import { Subject } from '../../class/Subject';
+import { User } from '../../class/User';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ShowGroupComponent implements OnInit {
   public group: Group = new Group;
   public subjects: Array<Subject> = [];
   public request: number = 0;
+  public posibleStudents: Array<User> = [];
 
   @HostListener('document:keyup', ['$event']) sss($event) {
     
@@ -35,6 +37,7 @@ export class ShowGroupComponent implements OnInit {
         this.group.id = params['id'];
         this.getGroupData();
         this.getSubjects();
+        this.setPosibleStudents();
       });
 
     }
@@ -55,7 +58,8 @@ export class ShowGroupComponent implements OnInit {
 
       data => {
         
-        this.group.setData(data);
+        this.group.setData(data.group);
+        this.group.setStudentsFromData(data.students);
         this.checkSubjectsSelected();
 
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
@@ -93,6 +97,28 @@ export class ShowGroupComponent implements OnInit {
     );
   }
 
+  setPosibleStudents() {
+
+    this.request++;
+    this._http.getPosibleStudents(this.group).then(
+      data => {
+
+        this.posibleStudents = [];
+
+        for(const d of data) {
+          let x: User = new User();
+          x.setData(d);
+          this.posibleStudents.push(x);
+        }
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+      () => this.request--
+    );
+    
+  }
+
   selectSubject(subject) {
 
     this.group.pushSubject(subject.id);
@@ -125,5 +151,9 @@ export class ShowGroupComponent implements OnInit {
     }
 
   }
+
+  removeStudent(user) {}
+
+  addStudent(user) {}
 
 }
