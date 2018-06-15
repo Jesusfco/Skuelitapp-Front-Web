@@ -1,3 +1,18 @@
-<p>
-  parents-schedules works!
-</p>
+<br><br>
+<h1 class="centerText">HORARIOS</h1>
+
+<select [(ngModel)]="select" name="select">
+  <option *ngFor="let user of children" value="{{user.id}}"> {{ user.name }}  {{ user.patern_surname }} {{ user.matern_surname }}</option>
+
+</select>
+
+<div *ngFor="let day of days">
+    <h3>{{ day.name}}</h3>
+    <div *ngFor="let sch of schedules">
+        <div *ngIf="sch.day == day.id">
+            <p>
+                {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{ sch.teacher }}
+            </p>
+        </div>
+    </div>
+</div>
