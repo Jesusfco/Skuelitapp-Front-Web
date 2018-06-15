@@ -66,6 +66,7 @@
                         <input [(ngModel)]="part.from" name="from" type="date" [ngClass]="{ 'inputError': part.validations.from > 0 }">
                         <small class="error" *ngIf="part.validations.from == 1">Requerido</small>
                         <small class="error" *ngIf="part.validations.from == 2">La fecha tiene que ser Menor al Final del parcial</small>
+                        <small class="error" *ngIf="part.validations.from == 3">La fecha tiene que estar dentro de la duracion del periodo</small>
                     </div>
 
                     <div class="formData l6 m6">
@@ -73,6 +74,7 @@
                         <input [(ngModel)]="part.to" name="to" type="date" [ngClass]="{ 'inputError': part.validations.to > 0 }">
                         <small class="error" *ngIf="part.validations.to == 1">Requerido</small>
                         <small class="error" *ngIf="part.validations.to == 2">La fecha tiene que ser Mayor al Inicio del parcial</small>
+                        <small class="error" *ngIf="part.validations.to == 3">La fecha tiene que estar dentro de la duracion del periodo</small>
                     </div>
 
 

@@ -177,7 +177,21 @@ export class Period {
         for(let i = 0; i < this.partialsArray.length; i++) {
             if(!this.partialsArray[i].validateAll()) {
                 x = false;
-            }
+            } 
+            
+            
+                if(this.partialsArray[i].from < this.from) {
+                    this.partialsArray[i].validations.from = 3;
+                    this.partialsArray[i].validations.validate = false;
+                    x = false;
+                }
+
+                if(this.partialsArray[i].to > this.to) {
+                    this.partialsArray[i].validations.to = 3;
+                    this.partialsArray[i].validations.validate = false;
+                    x = false;
+                }
+            
         }
 
         return x;

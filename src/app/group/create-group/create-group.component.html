@@ -15,11 +15,11 @@
 
             <div class="formData l6">
 
-                <button *ngIf="request == 0 && period.school_level_id < 2" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos</button>
-                <button *ngIf="request > 0 && period.school_level_id < 2" class="btn" disabled>Crear Todos los Grupos</button>
+                <button *ngIf="request == 0 && period.school_level_id < 4" class="btn btnAccept" (click)="createAllGroups()">Crear Todos los Grupos</button>
+                <button *ngIf="request > 0 && period.school_level_id < 4" class="btn" disabled>Crear Todos los Grupos</button>
 
-                <button *ngIf="request == 0 && period.school_level_id > 1" (click)="createFirstPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
-                <button *ngIf="request == 0 && period.school_level_id > 1" (click)="createSecondPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
+                <button *ngIf="request == 0 && period.school_level_id == 4" (click)="createFirstPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
+                <button *ngIf="request == 0 && period.school_level_id == 4" (click)="createSecondPreparatoriaPeriod()">Preparatoria Primer Periodo</button>
             </div>
 
             <form (change)="setGroupNewGroup()" (submit)="storeSingleGroup()" class="flexRow l6" autocomplete="off">
