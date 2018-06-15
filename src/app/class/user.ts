@@ -197,6 +197,13 @@ export class User {
         }
     }
 
+    validatePassword() {
+        if(this.password.length < 5) {
+            this.validations.password = 1;
+            this.validations.validate = false;
+        }
+    }
+
     validationLogic() {
 
         this.setValidations();
@@ -207,30 +214,40 @@ export class User {
             this.validateMaternSurname();
             this.validateBirthday();
             this.validateGrade();
+
+            if(this.email.length > 1) {
+                this.validatePassword();
+            }
             // this.validateCurp();
         } else if (this.user_type == 2) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
+            if(this.email.length > 1) {
+                this.validatePassword();
+            }
         } else if(this.user_type == 3) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
+            this.validatePassword();
         } else if(this.user_type == 4) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
+            this.validatePassword();
         } else if(this.user_type == 5) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
+            this.validatePassword();
         }
 
         return this.validations.validate;

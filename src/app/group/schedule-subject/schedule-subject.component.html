@@ -91,10 +91,10 @@
         </form>
 
 
-        <div>
-            <h3>Lunes</h3>
+        <div *ngFor="let day of days">
+            <h3>{{ day.view }}</h3>
             <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 1">
+                <div *ngIf="sch.day == day.value">
                     <p>
                         {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
                         <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
@@ -104,72 +104,9 @@
             </div>
         </div>
 
-        <div>
-            <h3>Martes</h3>
-            <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 2">
-                    <p>
-                        {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
-                        <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
-                        <i (click)="delete(sch)" class="material-icons">delete</i>
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h3>Miercoles</h3>
-            <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 3">
-                    <p>
-                        {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
-                        <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
-                        <i (click)="delete(sch)" class="material-icons">delete</i>
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h3>Jueves</h3>
-            <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 4">
-                    <p>
-                        {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
-                        <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
-                        <i (click)="delete(sch)" class="material-icons">delete</i>
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h3>Viernes</h3>
-            <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 5">
-                    <p>
-                        {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
-                        <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
-                        <i (click)="delete(sch)" class="material-icons">delete</i>
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h3>Sabado</h3>
-            <div *ngFor="let sch of schedules">
-                <div *ngIf="sch.day == 6">
-                    <p>
-                        {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}
-                        <i (click)="selectUpdate(sch)" class="material-icons">edit</i>
-                        <i (click)="delete(sch)" class="material-icons">delete</i>
-                    </p>
-                </div>
-            </div>
-        </div>
 
     </div>
-
-
-</div>

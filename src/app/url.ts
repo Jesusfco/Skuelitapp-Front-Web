@@ -5,7 +5,7 @@ export class Url {
 
     constructor() {
         this.basicUrl = "http://skuelitappserver.amerigas.mx/";
-        this.basicUrl = "http://localhost:8000/";
+        // this.basicUrl = "http://localhost:8000/";
 
         this.setUrl();
     }

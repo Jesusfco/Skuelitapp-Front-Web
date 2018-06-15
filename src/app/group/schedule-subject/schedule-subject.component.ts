@@ -29,7 +29,7 @@ export class ScheduleSubjectComponent implements OnInit {
   public timer: number = 0;
   public request: number = 0;
 
-  public days = [
+  public days: any = [
     {value: 1, view: 'LUNES'},
     {value: 2, view: 'MARTES'},
     {value: 3, view: 'MIERCOLES'},
@@ -233,8 +233,9 @@ export class ScheduleSubjectComponent implements OnInit {
 
       for(let sub of this.subjects){
 
-        if(sub.id ==  this.schedules[i].id){
+        if(sub.id ==  this.schedules[i].subject_id){
 
+          // console.log(this.schedules[i]);
           this.schedules[i].subject = sub.name;
           break;
 
@@ -243,6 +244,8 @@ export class ScheduleSubjectComponent implements OnInit {
       }
       
     }
+
+    
 
   }
 
