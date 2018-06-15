@@ -27,7 +27,7 @@ export class User {
     created_at: String;
     updated_at: String;
 
-    address: Address;
+    address: Address = new Address();
 
     validations: any = {
         validate: true,
@@ -66,6 +66,11 @@ export class User {
         this.status = parseFloat(data.status);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        if(data.address != undefined) {
+            this.address = new Address();
+            this.address.setData(data.address);
+        }
 
         this.setGenderView();
         this.setUserTypeView();

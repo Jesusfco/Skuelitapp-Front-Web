@@ -1,3 +1,196 @@
-<p>
-  edit-user works!
-</p>
+<div class="background" [@background]>
+</div>
+<div id="createCard" @principal>
+
+    <a [routerLink]="['../../']">
+        <div id="cerrarBtn"> Cerrar <i class="material-icons">close</i></div>
+    </a>
+
+    <!-- [ngClass]="{'loadingForm': request == true}" -->
+    <div class="form">
+        <h1 align="center">Editar </h1>
+        <h3 class="centerText">{{ user.name }} {{ user.patern_surname }} {{ user.matern_surname }} {{ user.patern_surname }} {{ student.matern_surname }}</h3>
+
+        <div class="container">
+            <form class="flexRow" autocomplete="off">
+                <div class="flexRow l6">
+                    <h2 class="l12 centerText">Datos Personales</h2>
+
+
+                    <div class="formData l6 m6">
+                        <label>Nombres:</label><br>
+                        <input [(ngModel)]="user.name" name="name" type="text" placeholder="Nombres" (keyup)="user.upperCaseName()" [ngClass]="{ 'inputError': user.validations.name > 0, 'inputValidate': user.validations.name < 0 }">
+                        <small class="error" *ngIf="user.validations.name == 1">Se requiere el nombre</small>
+                        <small class="validate" *ngIf="user.validations.name == -1">Correcto</small>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Apellido Paterno:</label><br>
+                        <input [(ngModel)]="user.patern_surname" name="patern_surname" type="text" placeholder="Apellido Paterno" (keyup)="user.upperCasePatern()" [ngClass]="{ 'inputError': user.validations.patern_surname > 0, 'inputValidate': user.validations.patern_surname < 0 }">
+                        <small class="error" *ngIf="user.validations.patern_surname == 1">Requerido</small>
+                        <small class="validate" *ngIf="user.validations.patern_surname == -1">Correcto</small>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Apellido Materno:</label><br>
+                        <input [(ngModel)]="user.matern_surname" name="matern_surname" type="text" placeholder="Apellido Materno" (keyup)="user.upperCaseMatern()" [ngClass]="{ 'inputError': user.validations.matern_surname > 0, 'inputValidate': user.validations.matern_surname < 0 }">
+                        <small class="error" *ngIf="user.validations.matern_surname == 1">Requerido</small>
+                        <small class="validate" *ngIf="user.validations.matern_surname == -1">Correcto</small>
+                    </div>
+
+
+                    <div class="formData l6 m6">
+                        <label>Correo:</label><br>
+                        <input [(ngModel)]="user.email" name="email" type="email" placeholder="Correo" (keyup)="mailWriting()" [ngClass]="{ 'inputError': user.validations.email > 0, 'inputValidate': user.validations.email < 0 }">
+                        <small class="error" *ngIf="user.validations.email == 1">Correo Requerido</small>
+                        <small class="error" *ngIf="user.validations.email == 2">Correo ya asignado</small>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="student.id == null">
+                        <label>Tipo de usuario:</label><br>
+                        <select [(ngModel)]="user.user_type" name="user_type">
+                              <option value="1">Alumno</option> 
+                              <option value="2">Tutor</option>
+                              <option value="3">Maestro</option>
+                              <option value="4">Cajero</option>
+                              <option value="5">Adminsitrador</option>
+                          </select>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="student.id != null">
+                        <label>Tipo de usuario:</label><br>
+                        <select [(ngModel)]="user.user_type" name="user_type" disabled>
+                              <option value="1">Alumno</option> 
+                              <option value="2">Tutor</option>
+                              <option value="3">Maestro</option>
+                              <option value="4">Cajero</option>
+                              <option value="5">Adminsitrador</option>
+                          </select>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Genero:</label><br>
+                        <select [(ngModel)]="user.gender" name="gender">
+                              <option value="1">Masculino</option> 
+                              <option value="2">Femenino</option>
+                          </select>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Telefono:</label><br>
+                        <input [(ngModel)]="user.phone" name="phone" type="tel" placeholder="Telefono" (keyup)="user.validatePhoneFormat()" [ngClass]="{ inputError: user.validations.phone > 0 }">
+                        <small class="error" *ngIf="user.validations.phone == 1">Minimo 7 caracteres</small>
+                    </div>
+
+
+
+                    <div class="formData l6 m6">
+                        <label>Fecha de nacimiento:</label><br>
+                        <input [(ngModel)]="user.birthday" name="birthday" type="date" placeholder="Cumpleaños" [ngClass]="{ inputError: user.validations.birthday > 0 }">
+                        <small class="error" *ngIf="user.validations.birthday == 1">Requerido</small>
+                    </div>
+
+
+                    <div class="formData l6 m6">
+                        <label>CURP:</label><br>
+                        <input [(ngModel)]="user.CURP" name="CURP" type="text" placeholder="Curp" (keyup)="user.upperCaseCURP()" [ngClass]="{ inputError: user.validations.CURP > 0 }">
+                        <small class="error" *ngIf="user.validations.CURP == 1">Requerido</small>
+                    </div>
+
+                    <!-- <div>
+                          <label>Foto:</label><br>
+                          <input #fileInput class="fileInput" id="fileInput" name="fileInput" type="file" accept="image/x-png,image/gif,image/jpeg">
+                      </div> -->
+
+                    <div class="formData l6 m6">
+                        <label>Contraseña:</label><br>
+                        <input [(ngModel)]="user.password" name="password" placeholder="Contraseña" type="password" [ngClass]="{ inputError: user.validations.password > 0 }">
+                        <small class="error" *ngIf="user.validations.password == 1">Requerido</small>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1">
+                        <label>Grado:</label><br>
+                        <input (keyup)="setGroupsPeriods()" [(ngModel)]="user.grade" name="grade" placeholder="Grado" type="number" [ngClass]="{ inputError: user.validations.grade > 0 }">
+                        <small class="error" *ngIf="user.validations.grade == 1">Requerido</small>
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1" (change)="setGroupsPeriods()">
+                        <label>Nivel Academico:</label><br>
+                        <select [(ngModel)]="user.school_level_id" name="school_level_id">
+                              <option *ngFor="let level of schoolLevels" value="{{level.id}}">{{level.name}}</option> 
+                          </select>
+
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1 && this.periods.length > 0">
+                        <label>Seleccione Periodo:</label><br>
+                        <select [(ngModel)]="periodSelected" name="periodSelected">
+                              <option *ngFor="let period of periods" value="{{period.id}}">{{period.from}} / {{period.to}} / {{period.period_type_view}} - {{period.school_level_view}}</option> 
+                          </select>
+
+                    </div>
+
+                    <div class="formData l6 m6" *ngIf="user.user_type == 1 && this.groupsOptions.length > 0">
+                        <label>Assigne un grupo:</label><br>
+                        <select [(ngModel)]="user.group_id" name="group_id" (change)="setPaymentTypes()">
+                              <option value="0">Seleccione un Grupo</option>
+                              <option *ngFor="let group of groupsOptions" value="{{group.id}}">{{group.grade}}° - {{ group.group_view }}</option> 
+                          </select>
+
+                    </div>
+
+                    <div class="formData l12 m12" *ngIf="user.user_type == 1 && payments.length > 0">
+                        <label>Seleccione Plan de Pago:</label><br>
+                        <select [(ngModel)]="user.payment_type_id" name="payment_type_id">
+                                  <option value="0">Seleccione un Plan</option>
+                                  <option *ngFor="let payment of payments" value="{{payment.id}}">{{payment.name}} - ${{ payment.amount }}</option> 
+                              </select>
+
+                    </div>
+
+                </div>
+
+                <!--FIN DE DATOS GENERALES DE USUARIO -->
+
+
+
+                <div class="flexRow l6 ">
+                    <h2 class="l12 centerText">Dirección</h2>
+
+                    <div class="formData l6 m6">
+                        <label>Calle:</label><br>
+                        <input [(ngModel)]="user.address.street" name="street" type="text" placeholder="Calle" (keyup)="user.address.upperStreet()">
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Numero de casa:</label><br>
+                        <input [(ngModel)]="user.address.house_number" name="houser_number" type="number" placeholder="Numero de casa"><br>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Colonia:</label><br>
+                        <input [(ngModel)]="user.address.colony" name="colony" type="text" placeholder="Colonia" (keyup)="user.address.upperColony()">
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Ciudad:</label><br>
+                        <input [(ngModel)]="user.address.city" name="city" type="text" placeholder="Ciudad" (keyup)="user.address.upperCity()"><br>
+                    </div>
+
+                    <div class="formData l6 m6">
+                        <label>Codigo Postal:</label><br>
+                        <input [(ngModel)]="user.address.CP" name="CP" type="text" placeholder="CP" (keyup)="user.address.CPFormat()"><br>
+                    </div>
+
+
+                </div>
+
+
+
+                <button type="submit" class="btn btnAccept">Crear Usuario</button>
+
+            </form>
+
+
+        </div>
+    </div>

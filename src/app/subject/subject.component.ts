@@ -65,14 +65,25 @@ export class SubjectComponent implements OnInit {
 
       data => {
 
-        const i = this.subjects.indexOf(subject);
-        this.subjects.splice(i, 1);
+        if(data) {
 
-      }, error => {
+          const i = this.subjects.indexOf(subject);
+          this.subjects.splice(i, 1);  
+        } else {
 
-        sessionStorage.setItem('request', JSON.stringify(error));
+          let not = {
+            title: 'No se Puede eliminar',
+            description: 'La materia esta siendo utilizada en los registros',
+            status: 450
+          };
 
-      }
+          sessionStorage.setItem('request', JSON.stringify(not));
+
+        }
+
+        
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
     );
 

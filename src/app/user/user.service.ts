@@ -50,4 +50,10 @@ export class UserService {
             .toPromise();
   }
 
+  showUser(user) {
+    return this._http.get(this.link.url + 'user/show/' + user.id + this.token.getTokenUrl())
+            .map(data => data.json())
+            .toPromise();
+  }
+
 }

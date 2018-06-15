@@ -22,8 +22,8 @@
         <tbody>
             <tr *ngFor="let sub of subjects">
                 <td class="left">{{ sub.name }}</td>
-                <td>{{ sub.level_view }}</td>
                 <td>{{ sub.grade }}</td>
+                <td>{{ sub.level_view }}</td>
                 <td>
                     <i class="material-icons" (click)="delete(sub)">delete</i>
                 </td>
