@@ -296,22 +296,29 @@ userTypeInf {
 }
 
 .menuPhone .logoPrincipal {
-    width: 88%;
-    display: block;
-    margin: 0 auto;
-}
-
-.menuPhone .logoBottom {
     width: 50%;
     display: block;
-    margin: 0 auto;
-    margin-top: 75px;
+    margin: 20px auto;
 }
 
-.menuPhone a {
+.menuPhone li {
     border-bottom: 1px solid #4c4b4b;
     text-decoration: none;
     padding: 0 20px;
     display: block;
-    margin: 12px 0;
+    margin: 0;
+}
+
+.menuPhone ul {
+    padding-left: 0;
+}
+
+.menuPhone p {
+    margin: 10px 0;
+    font-family: "Gotham SSm A", "Gotham SSm B", Arial, Verdana, sans-serif;
+}
+
+.menuPhone h5 {
+    padding-left: 7px;
+    font-weight: 700;
 }

@@ -1,6 +1,6 @@
 ﻿<!-- [ngClass]="{ 'active': menuBoolean }" -->
 
-<!-- <div class="shadow" id="shadowMenu" (click)="menuAction()"></div> -->
+<div class="shadow" id="shadowMenu" (click)="menuAction()"></div>
 
 <nav class="nav bodyMove" id="bodyMove1">
 
@@ -26,29 +26,102 @@
 
 </nav>
 
-
+<!-- MENU RESPONSIVE PARA TELEFONO -->
 <div class="menuPhone">
-    <img class="logoPrincipal" src="{{url.basicUrl}}images/logo.png">
+    <img class="logoPrincipal" width="50%" src="{{url.basicUrl}}images/logo.png">
 
     <div class="moveLinks">
-        <a [routerLink]="['./myAlbums']" (click)="menuAction()">
-            <p>Mis Albumes</p>
-        </a>
 
-        <a (click)="cerrarSesion()">
-            <p (click)="menuAction()">Cerrar Sesión</p>
-        </a>
+        <h5>APLICACIÓN</h5>
+        <ul *ngIf="userData.getUserType() == 5" (click)="menuAction()">
 
-        <a href="{{url.basicUrl}}" (click)="menuAction()">
-            <p>Regresar a la pagina</p>
-        </a>
+            <li [routerLink]="['/resume']">
+                <p>Inicio</p>
+            </li>
+            <li [routerLink]="['/users']">
+                <p>Usuarios</p>
+            </li>
+            <li [routerLink]="['/periodos']">
+                <p>Periodos Escolares</p>
+            </li>
+            <li [routerLink]="['/administracion-de-pagos']">
+                <p>Administracion de Pagos</p>
+            </li>
+            <li [routerLink]="['/grupos']">
+                <p>Grupos Escolares</p>
+            </li>
+            <li [routerLink]="['/materias']">
+                <p>Lista de Materias</p>
+            </li>
+            <li [routerLink]="['/receipt']">
+                <p>Recibos</p>
+            </li>
+            <li [routerLink]="['/events']">
+                <p>Eventos</p>
+            </li>
+
+        </ul>
+
+        <ul *ngIf="userData.getUserType() == 1" (click)="menuAction()">
+            <li [routerLink]="['./resume']">
+                <p>Inicio</p>
+            </li>
+            <li [routerLink]="['./horario-alumno']">
+                <p>Mi Horario</p>
+            </li>
+            <li [routerLink]="['./calificaciones-alumno']">
+                <p>Mis Calificaciones</p>
+            </li>
+            <li [routerLink]="['./resume']">
+                <p>Eventos</p>
+            </li>
+        </ul>
+
+        <ul *ngIf="userData.getUserType() == 2" (click)="menuAction()">
+            <li [routerLink]="['./resume']">
+                <p>Inicio</p>
+            </li>
+            <li [routerLink]="['./horario-tutores']">
+                <p>Horario</p>
+            </li>
+            <li [routerLink]="['./calificaciones-tutores']">
+                <p>Calificaciones</p>
+            </li>
+            <li [routerLink]="['./resume']">
+                <p>Eventos</p>
+            </li>
+        </ul>
+
+        <ul *ngIf="userData.getUserType() == 3" (click)="menuAction()">
+            <li [routerLink]="['./resume']">
+                <p>Inicio</p>
+            </li>
+            <li [routerLink]="['./horario-docente']">
+                <p>Mi Horario</p>
+            </li>
+            <li [routerLink]="['./calificaciones-docente']">
+                <p>Administrar Calificaciones</p>
+            </li>
+            <li [routerLink]="['./resume']">
+                <p>Eventos</p>
+            </li>
+        </ul>
+
+        <h5>USUARIO</h5>
+        <ul>
+            <li>
+                <p mat-button (click)="cerrarSesion()">Cerrar Sesión</p>
+            </li>
+
+        </ul>
+
     </div>
 
-    <img class="logoBottom" src="http://www.lilianapineda.com/images/logo/rueda.png">
+
 </div>
 
 
-
+<!-- MENU PARA ESCRITORIO -->
 
 
 <div class="sideNav" [@menu]='stateMenu'>
