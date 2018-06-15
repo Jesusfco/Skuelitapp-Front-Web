@@ -39,8 +39,12 @@ export class Schedule {
         str = this.check_out.split(':');
         this.check_out = str[0] + ':' + str[1];
 
-        if(data.teacher){
+        if(data.teacher != undefined){
             this.teacher = data.teacher;
+        }
+
+        if(data.subject != undefined) {
+            this.subject = data.subject;
         }
     }
 

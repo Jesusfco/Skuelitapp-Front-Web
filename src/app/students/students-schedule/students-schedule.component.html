@@ -1,3 +1,13 @@
-<p>
-  students-schedule works!
-</p>
+<br><br>
+<h1 class="centerText">MIS HORARIOS</h1>
+
+<div *ngFor="let day of days">
+    <h3>{{ day.name}}</h3>
+    <div *ngFor="let sch of schedules">
+        <div *ngIf="sch.day == day.id">
+            <p>
+                {{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{ sch.teacher }}
+            </p>
+        </div>
+    </div>
+</div>
