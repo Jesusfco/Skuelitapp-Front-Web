@@ -116,4 +116,10 @@ export class GroupService {
       .toPromise();
   }
 
+  deleteSchedule(schedule) {
+    return this._http.delete(this.link.url + 'schedules/delete/' + schedule.id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

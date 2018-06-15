@@ -263,8 +263,26 @@ export class ScheduleSubjectComponent implements OnInit {
         lastPage: null
       };
 
+      this.teachers = [];
+
     } , 10);
     
+  }
+
+
+  delete(schedule) {
+    this._http.deleteSchedule(schedule).then(
+      data => {
+
+        const i = this.schedules.indexOf(schedule);
+        this.schedules.splice(i, 1);
+        this.resetNew();
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+      () => this.request--
+    );
   }
 
 }
