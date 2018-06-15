@@ -72,6 +72,15 @@ import { CreateGroupComponent } from './group/create-group/create-group.componen
 import { ShowGroupComponent } from './group/show-group/show-group.component';
 import { GroupService } from './group/group.service';
 import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
+import { StudentsScheduleComponent } from './students/students-schedule/students-schedule.component';
+import { StudentsQualificationsComponent } from './students/students-qualifications/students-qualifications.component';
+import { ParentsSchedulesComponent } from './parents/parents-schedules/parents-schedules.component';
+import { ParentsQualificationsComponent } from './parents/parents-qualifications/parents-qualifications.component';
+import { StudentsService } from './students/students.service';
+import { ParentsService } from './parents/parents.service';
+import { TeachersScheduleComponent } from './teachers/teachers-schedule/teachers-schedule.component';
+import { TeachersQualificationsComponent } from './teachers/teachers-qualifications/teachers-qualifications.component';
+import { TeachersService } from './teachers/teachers.service';
 
 @NgModule({
   declarations: [
@@ -97,7 +106,13 @@ import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subj
     GroupComponent,
     CreateGroupComponent,
     ShowGroupComponent,
-    ScheduleSubjectComponent
+    ScheduleSubjectComponent,
+    StudentsScheduleComponent,
+    StudentsQualificationsComponent,
+    ParentsSchedulesComponent,
+    ParentsQualificationsComponent,
+    TeachersScheduleComponent,
+    TeachersQualificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -150,6 +165,9 @@ import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subj
     PeriodService,
     GroupService,
     SubjectService,
+    StudentsService,
+    ParentsService,
+    TeachersService
   ],
   bootstrap: [AppComponent]
 })

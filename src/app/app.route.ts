@@ -27,6 +27,12 @@ import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
 import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
+import { TeachersScheduleComponent } from './teachers/teachers-schedule/teachers-schedule.component';
+import { TeachersQualificationsComponent } from './teachers/teachers-qualifications/teachers-qualifications.component';
+import { StudentsScheduleComponent } from './students/students-schedule/students-schedule.component';
+import { StudentsQualificationsComponent } from './students/students-qualifications/students-qualifications.component';
+import { ParentsSchedulesComponent } from './parents/parents-schedules/parents-schedules.component';
+import { ParentsQualificationsComponent } from './parents/parents-qualifications/parents-qualifications.component';
 
 export const routes: Routes = [
     
@@ -79,6 +85,17 @@ export const routes: Routes = [
         ]
     },
 
+    // ALUMNOS STUDENTS
+    { path: 'horario-alumno', component:  StudentsScheduleComponent },
+    { path: 'calificaciones-alumno', component:  StudentsQualificationsComponent },
+
+    // ALUMNOS STUDENTS
+    { path: 'horario-tutores', component:  ParentsSchedulesComponent },
+    { path: 'calificaciones-tutores', component:  ParentsQualificationsComponent },
+
+    // DOCENTES MAESTROS TEACHERS
+    { path: 'horario-docente', component:  TeachersScheduleComponent },
+    { path: 'calificaciones-docente', component:  TeachersQualificationsComponent },
     
     { path: '**', component:  PageNotFoundComponent },
 

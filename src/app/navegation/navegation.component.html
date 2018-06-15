@@ -72,24 +72,40 @@
     </div>
 
     <h5>APLICACIÓN</h5>
-    <ul>
+    <ul *ngIf="userData.getUserType() == 5">
 
         <li [routerLink]="['/resume']"><button>Inicio</button></li>
-
         <li [routerLink]="['/users']"><button>Usuarios</button></li>
         <li [routerLink]="['/periodos']"><button>Periodos Escolares</button></li>
         <li [routerLink]="['/administracion-de-pagos']"><button>Administracion de Pagos</button></li>
         <li [routerLink]="['/grupos']"><button>Grupos Escolares</button></li>
         <li [routerLink]="['/materias']"><button>Lista de Materias</button></li>
-
-        <li [routerLink]="['/schedules']"><button>Horarios</button></li>
-
         <li [routerLink]="['/receipt']"><button>Recibos</button></li>
-
         <li [routerLink]="['/events']"><button>Eventos</button></li>
 
-
     </ul>
+
+    <ul *ngIf="userData.getUserType() == 1">
+        <li [routerLink]="['./resume']"><button>Inicio</button></li>
+        <li [routerLink]="['./horario-alumno']"><button>Mi Horario</button></li>
+        <li [routerLink]="['./calificaciones-alumno']"><button>Mis Calificaciones</button></li>
+        <li [routerLink]="['./resume']"><button>Eventos</button></li>
+    </ul>
+
+    <ul *ngIf="userData.getUserType() == 2">
+        <li [routerLink]="['./resume']"><button>Inicio</button></li>
+        <li [routerLink]="['./horario-tutores']"><button>Horario</button></li>
+        <li [routerLink]="['./calificaciones-tutores']"><button>Calificaciones</button></li>
+        <li [routerLink]="['./resume']"><button>Eventos</button></li>
+    </ul>
+
+    <ul *ngIf="userData.getUserType() == 3">
+        <li [routerLink]="['./resume']"><button>Inicio</button></li>
+        <li [routerLink]="['./horario-docente']"><button>Mi Horario</button></li>
+        <li [routerLink]="['./calificaciones-docente']"><button>Administrar Calificaciones</button></li>
+        <li [routerLink]="['./resume']"><button>Eventos</button></li>
+    </ul>
+
     <h5>USUARIO</h5>
     <ul>
         <li><button mat-button (click)="cerrarSesion()">Cerrar Sesión</button></li>
