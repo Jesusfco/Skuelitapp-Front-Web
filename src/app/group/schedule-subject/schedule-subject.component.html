@@ -10,91 +10,92 @@
     <div class="form container">
         <h1 align="center">Administrar Horarios</h1>
 
-        <form class="flexRow" autocomplete="off">
+        <form (submit)="form()" class="flexRow" autocomplete="off">
 
             <div class="formData l6 m6">
                 <label>Hora de Entrada</label><br>
-                <input [(ngModel)]="newSchedule.check_in" name="check_in" type="time">
+                <input [(ngModel)]="newSchedule.check_in" name="check_in" type="time" [ngClass]="{ 'inputError': newSchedule.validations.check_in > 0}">
+                <small class="error" *ngIf="newSchedule.validations.check_in == 1">Requerido</small>
+                <small class="error" *ngIf="newSchedule.validations.check_in == 2">Hora de entrada debe ser menor al de salida</small>
+                <small class="error" *ngIf="newSchedule.validations.check_in == 3">Se interpone con el horario de {{ ultimateValidate }}</small>
 
             </div>
 
             <div class="formData l6 m6">
                 <label>Hora de Salida</label><br>
-                <input [(ngModel)]="newSchedule.check_in" name="check_in" type="time">
+                <input [(ngModel)]="newSchedule.check_out" name="check_out" type="time" [ngClass]="{ 'inputError': newSchedule.validations.check_out > 0}">
+                <small class="error" *ngIf="newSchedule.validations.check_out == 1">Requerido</small>
+                <small class="error" *ngIf="newSchedule.validations.check_out == 2">Hora de salida debe ser mayor al de salida</small>
+                <small class="error" *ngIf="newSchedule.validations.check_out == 3">Se interpone con el horario de {{ ultimateValidate }}</small>
             </div>
 
             <div class="formData l6 m6">
                 <label>Elije un día</label><br>
-                <select [(ngModel)]="newSchedule.day" name="day">
+                <select [(ngModel)]="newSchedule.day" name="day" [ngClass]="{ 'inputError': newSchedule.validations.day > 0}">
                   <option *ngFor="let day of days" value="{{ day.value}}"> {{ day.view }}</option>
                 </select>
+                <small class="error" *ngIf="newSchedule.validations.day == 1">Elija un día</small>
             </div>
 
             <div class="formData l6 m6">
                 <label>Elije un materia</label><br>
-                <select [(ngModel)]="newSchedule.subject_id" name="subject_id">
+                <select [(ngModel)]="newSchedule.subject_id" name="subject_id" [ngClass]="{ 'inputError': newSchedule.validations.subject_id > 0}">
                   <option *ngFor="let subject of subjects" value="{{ subject.id }}"> {{ subject.name }}</option>
                 </select>
+                <small class="error" *ngIf="newSchedule.validations.subject_id == 1">Elija una materia</small>
             </div>
 
             <div class="formData l12">
                 <label>Docente</label><br>
-                <input [(ngModel)]="newSchedule.teacher" name="teacher" disabled>
+                <input [(ngModel)]="newSchedule.teacher" name="teacher" [ngClass]="{ 'inputError': newSchedule.validations.teacher_id > 0}" disabled>
+                <small class="error" *ngIf="newSchedule.validations.teacher_id == 1">Seleccione un profesor</small>
             </div>
 
+            <h3 class="centerText">Seleccione un Docente</h3>
 
-        </form>
+            <div class="divSearch">
+                <input class="l6" [(ngModel)]="search.name" (keyup)="searchTimer($event)" placeholder="Nombres" name="word" type="search">
+                <input class="l3" [(ngModel)]="search.patern_surname" (keyup)="searchTimer($event)" placeholder="Apellido P" name="patern_surname" type="search">
+                <input class="l3" [(ngModel)]="search.matern_surname" (keyup)="searchTimer($event)" placeholder="Apellido M" name="matern_surname" type="search">
 
-        <h3 class="centerText">Seleccione un Docente</h3>
-
-        <div class="divSearch">
-            <input class="l6" [(ngModel)]="search.name" (keyup)="searchTimer($event)" placeholder="Nombres" name="word" type="search">
-            <input class="l3" [(ngModel)]="search.patern_surname" (keyup)="searchTimer($event)" placeholder="Apellido P" name="patern_surname" type="search">
-            <input class="l3" [(ngModel)]="search.matern_surname" (keyup)="searchTimer($event)" placeholder="Apellido M" name="matern_surname" type="search">
-
-            <br>
-            <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
+                <br>
+                <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
             <mat-icon *ngIf="search.searchWord !== ''" (click)="search.searchWord = ''">close</mat-icon> -->
-        </div>
+            </div>
 
-        <button *ngIf="mode == 1">Crear Horario</button>
-        <button *ngIf="mode == 1">Cancelar</button>
+            <div class="responsive-table">
+                <table align="center" *ngIf="teachers.length > 0">
+                    <thead>
+                        <tr>
+                            <th class="left">Nombre/s</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Genero</th>
+                        </tr>
+                        <!-- <th colspan="3">Opciones</th> -->
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of teachers" (click)="selectTeacher(user)">
+                            <td class="left">{{ user.name }}</td>
+                            <td>{{ user.patern_surname }}</td>
+                            <td>{{ user.matern_surname }}</td>
+                            <td>{{ user.gender_view }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <button *ngIf="mode == 2">Crear Horario</button>
-        <button *ngIf="mode == 2">Cancelar</button>
+            </div>
 
-        <div class="responsive-table">
-            <table align="center" *ngIf="teachers.length > 0">
-                <thead>
-                    <tr>
-                        <th class="left">Nombre/s</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>Genero</th>
-                    </tr>
-                    <!-- <th colspan="3">Opciones</th> -->
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of teachers" (click)="selectTeacher(user)">
-                        <td class="left">{{ user.name }}</td>
-                        <td>{{ user.patern_surname }}</td>
-                        <td>{{ user.matern_surname }}</td>
-                        <td>{{ user.gender_view }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
+            <button type="submit" class="btn btnAccept">Crear Horario</button>
+            <button type="reset" (click)="resetNew()" class="btn btnCancel">Cancelar</button>
+        </form>
 
 
         <div>
             <h3>Lunes</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 1">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>
@@ -103,10 +104,7 @@
             <h3>Martes</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 2">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>
@@ -115,10 +113,7 @@
             <h3>Miercoles</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 3">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>
@@ -127,10 +122,7 @@
             <h3>Jueves</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 4">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>
@@ -139,10 +131,7 @@
             <h3>Viernes</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 5">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>
@@ -151,10 +140,7 @@
             <h3>Sabado</h3>
             <div *ngFor="let sch of schedules">
                 <div *ngIf="sch.day == 6">
-                    <p>{{sch.check_in</p>
-                    <p>{{sch.check_out</p>
-                    <p>{{sch.teacher_id</p>
-                    <p>{{sch.subject_id</p>
+                    <p (click)="selectUpdate(sch)">{{sch.check_in}} - {{sch.check_out}} Materia: {{sch.subject}} Docente: {{sch.teacher}}</p>
                 </div>
             </div>
         </div>

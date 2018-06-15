@@ -24,8 +24,10 @@ export class ScheduleSubjectComponent implements OnInit {
   public subjectsObserver;
 
   public mode = 1;
+  public ultimateValidate: String = '';
 
   public timer: number = 0;
+  public request: number = 0;
 
   public days = [
     {value: 1, view: 'LUNES'},
@@ -95,6 +97,8 @@ export class ScheduleSubjectComponent implements OnInit {
           x.setData(d);
           this.schedules.push(x);
         }
+        this.setSubjectOnSchedules();
+
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
     );
   }
@@ -113,7 +117,7 @@ export class ScheduleSubjectComponent implements OnInit {
 
     setTimeout(() => {
       if(this.timer == 0){
-        if(this.search.name.length > 3 || this.search.patern_surname.length > 3 || this.search.matern_surname.length > 3) this.searchInput();
+        if(this.search.name.length >= 3 || this.search.patern_surname.length >= 3 || this.search.matern_surname.length >= 3) this.searchInput();
       }
     }, 950);
 
@@ -149,6 +153,118 @@ export class ScheduleSubjectComponent implements OnInit {
       lastPage: null
     };
 
+  }
+
+  form() {
+    
+    if(!this.newSchedule.logicValidation()) { return; }
+    this.ultimateValidate = '';
+    for(let sch of this.schedules){
+
+      if(this.newSchedule.check_in > sch.check_in && this.newSchedule.check_in < sch.check_out && this.newSchedule.day == sch.day){
+        
+        if(this.newSchedule.id != sch.id) {
+          this.newSchedule.validations.check_in = 3;
+          this.ultimateValidate = sch.check_in + ' - ' + sch.check_out;
+          this.newSchedule.validations.validate = false;
+          break;
+        }
+        
+
+      }
+
+      if(this.newSchedule.check_out > sch.check_in && this.newSchedule.check_out < sch.check_out && this.newSchedule.day == sch.day){
+
+        if(this.newSchedule.id != sch.id) {
+        
+          this.newSchedule.validations.check_in = 3;
+          this.newSchedule.validations.validate = false;
+          this.ultimateValidate = sch.check_in + ' - ' + sch.check_out;
+          break;
+
+        }
+
+      }
+
+      if(this.newSchedule.check_in == sch.check_in && this.newSchedule.check_out == sch.check_out && this.newSchedule.id == null && this.newSchedule.day == sch.day){
+        this.newSchedule.validations.check_in = 3;
+        this.newSchedule.validations.check_out = 3;
+        this.newSchedule.validations.validate = false;
+        this.ultimateValidate = sch.check_in + ' - ' + sch.check_out;
+        break;
+      }
+
+    }
+
+    if (!this.newSchedule.validations.validate) { return; }
+
+    this.request++;
+    this.newSchedule.group_id = this.group.id;
+
+    this._http.storeSchedule(this.newSchedule).then(
+
+      data => {
+
+        if(this.newSchedule.id == null){
+          this.newSchedule.id = parseFloat(data.id);
+          this.schedules.push(this.newSchedule);
+        } else {
+          for(let i = 0; i < this.schedules.length; i++){
+            if(this.schedules[i].id == this.newSchedule.id){
+              this.schedules[i].setData(this.newSchedule);
+            }
+          }
+        }
+        
+        this.newSchedule = new Schedule();
+        this.setSubjectOnSchedules();
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+      () => this.request--
+    );
+
+  }
+
+  setSubjectOnSchedules(){
+
+    for(let i = 0; i < this.schedules.length; i++){
+
+      for(let sub of this.subjects){
+
+        if(sub.id ==  this.schedules[i].id){
+
+          this.schedules[i].subject = sub.name;
+          break;
+
+        }
+
+      }
+      
+    }
+
+  }
+
+  selectUpdate(schedule){
+    this.newSchedule.setData(JSON.parse(JSON.stringify(schedule)));
+  }
+
+  resetNew() {
+    setTimeout(() => {
+
+      this.newSchedule = new Schedule();
+      this.search  = {
+        name: '',
+        patern_surname: '',
+        matern_surname: '',
+        page: 1,
+        total: 0,
+        lastPage: null
+      };
+
+    } , 10);
+    
   }
 
 }

@@ -32,6 +32,16 @@ export class Schedule {
         this.teacher_id = parseFloat(data.teacher_id);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        let str = this.check_in.split(':');
+        this.check_in = str[0] + ':' + str[1];
+
+        str = this.check_out.split(':');
+        this.check_out = str[0] + ':' + str[1];
+
+        if(data.teacher){
+            this.teacher = data.teacher;
+        }
     }
 
     setValidations() {
@@ -46,14 +56,14 @@ export class Schedule {
     }
 
     validateCheckIn() {
-        if (this.check_in = '') {
+        if (this.check_in == null) {
             this.validations.check_in = 1;
             this.validations.validate = false;
         }
     }
 
     validateCheckOut() {
-        if (this.check_out = '') {
+        if (this.check_out == null) {
             this.validations.check_out = 1;
             this.validations.validate = false;
         }
@@ -75,8 +85,8 @@ export class Schedule {
     }
 
     validateSubjectId() {
-        if (this.day == null) {
-            this.validations.day = 1;
+        if (this.subject_id == null) {
+            this.validations.subject_id = 1;
             this.validations.validate = false;
         }
     }
@@ -86,6 +96,21 @@ export class Schedule {
             this.validations.teacher_id = 1;
             this.validations.validate = false;
         }
+    }
+
+    logicValidation() {
+        this.setValidations();
+        this.validateCheckIn();
+        this.validateCheckOut();
+        
+        this.validateDay();
+        this.validateSubjectId();
+        this.validateTeacherId();
+        if(this.validations.check_in == 0 && this.validations.check_out == 0) {
+            this.validateCheckInOut();
+        }
+
+        return this.validations.validate;
     }
 
 }

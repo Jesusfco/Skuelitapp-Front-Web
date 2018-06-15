@@ -110,4 +110,10 @@ export class GroupService {
       .toPromise();
   }
 
+  storeSchedule(schedule) {
+    return this._http.post(this.link.url + 'schedules/store' + this.token.getTokenUrl(), schedule)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }
