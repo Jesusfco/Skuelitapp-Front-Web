@@ -1,8 +1,9 @@
 <div class="cardSpace">
     <div>
-        <img src="{{ url.basicUrl}}images/logo/fotografiaLiliana.png">
-
+        <img src="{{url.basicUrl}}images/logo.png">
+        <br><br>
         <h2>ERROR: Esta url no existe </h2>
+
         <a *ngIf="checkToken()" [routerLink]="['/resume']">Regresar a la Aplicacion</a>
         <a *ngIf="checkToken() == false" [routerLink]="['/login']">Regresar a la Aplicacion</a>
 

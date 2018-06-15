@@ -11,7 +11,7 @@
         <h1 align="center" *ngIf="student.id == null">Crear Usuario</h1>
 
         <h1 align="center" *ngIf="student.id != null">Crear Tutor De</h1>
-        <h2 align="center" *ngIf="student.id != null">{{ student.name }}</h2>
+        <h2 align="center" *ngIf="student.id != null">{{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h2>
 
         <div class="container">
             <form class="flexRow" (submit)="createUser()" enctype="multipart/form-data" autocomplete="off">
