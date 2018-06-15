@@ -1,7 +1,7 @@
 .botonFloat {
-    width: 30px;
-    height: 30px;
-    background-color: #ff00c8;
+    width: 25px;
+    height: 25px;
+    background-color: #f8ae37;
     margin: 5px;
     padding: 21px;
     font-size: 11px;
@@ -13,6 +13,8 @@
     right: 15px;
     bottom: 15px;
     transition: .4s;
+    cursor: pointer;
+    color: white;
 }
 
 .divSearch {
