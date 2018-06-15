@@ -195,4 +195,37 @@ export class EditUserComponent implements OnInit {
 
   }
 
+  mailWriting() {
+    this.user.lowerCaseEmail();
+    this.uniqueEmailWriting();
+  }
+
+  uniqueEmailWriting(){
+    this.timer.email++;
+
+    setTimeout(() => {
+      this.timer.email--;
+    }, 900);
+
+    setTimeout(() => {
+      if(this.timer.email == 0){
+        if(this.user.email.length > 7) this.uniqueEmail();
+      }
+    }, 950);
+
+  }
+
+  uniqueEmail(){
+    this._http.checkUniqueEmail(this.user.email).then(
+      data => {
+        if(data == false){
+          this.user.validations.email = 2;
+          this.user.validations.validate = false;
+        }  
+        else { this.user.validations.email = -1; }
+      },
+      error => sessionStorage.setItem('request', JSON.stringify(error))
+    );
+  }
+
 }
