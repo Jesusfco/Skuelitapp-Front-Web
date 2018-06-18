@@ -25,6 +25,12 @@ export class ParentsService {
     .map(data => data.json())
     .toPromise();
   }
+  
+  createPermission(permission) {
+    return this._http.post(this.link.url + 'parents/permission/create' + this.token.getTokenUrl(), permission)
+      .map(data => data.json())
+      .toPromise();
+  }
 
   savePermissionImage(image: File) { 
 

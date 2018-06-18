@@ -55,6 +55,8 @@
                 </div>
 
                 <div class="filePreviewContainer" *ngIf="files.length > 0">
+
+                    <h4 class="centerText">{{ files.length / 5 }}</h4>
                     <div *ngFor="let file of files" class="fileDiv" [ngClass]="{ 'activeDrop': file.status == 1, 'errorUpload': file.status < 0 }">
                         <img src="{{ file.bits }}" id="{{ file.id }}">
 
