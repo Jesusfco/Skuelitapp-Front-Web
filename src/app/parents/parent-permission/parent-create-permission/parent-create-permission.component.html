@@ -1,0 +1,89 @@
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Solicitar Permiso</h2>
+
+        <form (submit)="createPermission()" class="flexRow" autocomplete="off">
+
+            <div class="formData l12">
+                <label>Asunto:</label><br>
+                <input [(ngModel)]="permission.subject" name="name" type="text" [ngClass]="{ 'inputError': permission.validations.subject > 0}">
+                <small class="error" *ngIf="permission.validations.subject == 1">Requerido</small>
+            </div>
+
+            <div class="formData l6 m6">
+                <label>De la Fecha:</label><br>
+                <input [(ngModel)]="permission.from" name="from" type="date" [ngClass]="{ 'inputError': permission.validations.from > 0}">
+                <small class="error" *ngIf="permission.validations.from == 1">Requerido</small>
+                <small class="error" *ngIf="permission.validations.from == 2">Tiene que ser Menor a la primera fecha</small>
+            </div>
+
+            <div class="formData l6 m6">
+                <label>A la Fecha:</label><br>
+                <input [(ngModel)]="permission.to" name="to" type="date" [ngClass]="{ 'inputError': permission.validations.to > 0}">
+                <small class="error" *ngIf="permission.validations.to == 1">Requerido</small>
+                <small class="error" *ngIf="permission.validations.to == 2">Tiene que ser Mayor a la primera fecha</small>
+            </div>
+
+
+            <div class="formData l12">
+                <label>Descripción:</label><br>
+                <textarea [(ngModel)]="permission.description" name="description"></textarea>
+                <small class="error" *ngIf="permission.validations.description == 1">Requerido</small>
+            </div>
+
+
+            <button *ngIf="request == 0" type="submit" class="btn btnAccept">Guardar</button>
+            <button *ngIf="request !== 0" type="submit" class="btn " disabled>Guardar</button>
+
+        </form>
+
+        <div id="app">
+
+            <form class="flexRow" id="drop">
+
+
+                <div class="dropInputContainer">
+                    <input id="files" type="file" [(ngModel)]="input" name="input" (change)="getFile($event.target.files)" accept="image/*" multiple>
+                    <img src="http://www.lilianapineda.com/images/aplication/uploadIcon.png">
+                </div>
+
+                <div class="filePreviewContainer" *ngIf="files.length > 0">
+                    <div *ngFor="let file of files" class="fileDiv" [ngClass]="{ 'activeDrop': file.status == 1, 'errorUpload': file.status < 0 }">
+                        <img src="{{ file.bits }}" id="{{ file.id }}">
+
+                        <div *ngIf="file.status == 1" class="progress">
+                            <div class="percent" id="percent"></div>
+                        </div>
+                        <div *ngIf="file.status == -1" class="alertDrop">
+                            <p>Error en la carga</p>
+                        </div>
+
+                        <div *ngIf="file.status == 2" class="correctUpload">
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+</div>

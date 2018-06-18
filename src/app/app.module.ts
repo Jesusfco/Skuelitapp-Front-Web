@@ -81,6 +81,9 @@ import { ParentsService } from './parents/parents.service';
 import { TeachersScheduleComponent } from './teachers/teachers-schedule/teachers-schedule.component';
 import { TeachersQualificationsComponent } from './teachers/teachers-qualifications/teachers-qualifications.component';
 import { TeachersService } from './teachers/teachers.service';
+import { ParentPermissionComponent } from './parents/parent-permission/parent-permission.component';
+import { ParentCreatePermissionComponent } from './parents/parent-permission/parent-create-permission/parent-create-permission.component';
+import { ParentShowPermissionComponent } from './parents/parent-permission/parent-show-permission/parent-show-permission.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +115,10 @@ import { TeachersService } from './teachers/teachers.service';
     ParentsSchedulesComponent,
     ParentsQualificationsComponent,
     TeachersScheduleComponent,
-    TeachersQualificationsComponent
+    TeachersQualificationsComponent,
+    ParentPermissionComponent,
+    ParentCreatePermissionComponent,
+    ParentShowPermissionComponent
   ],
   imports: [
     BrowserModule,

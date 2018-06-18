@@ -27,12 +27,18 @@ import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
 import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
+
 import { TeachersScheduleComponent } from './teachers/teachers-schedule/teachers-schedule.component';
 import { TeachersQualificationsComponent } from './teachers/teachers-qualifications/teachers-qualifications.component';
+
 import { StudentsScheduleComponent } from './students/students-schedule/students-schedule.component';
 import { StudentsQualificationsComponent } from './students/students-qualifications/students-qualifications.component';
+
 import { ParentsSchedulesComponent } from './parents/parents-schedules/parents-schedules.component';
 import { ParentsQualificationsComponent } from './parents/parents-qualifications/parents-qualifications.component';
+import { ParentPermissionComponent } from './parents/parent-permission/parent-permission.component';
+import { ParentCreatePermissionComponent } from './parents/parent-permission/parent-create-permission/parent-create-permission.component';
+import { ParentShowPermissionComponent } from './parents/parent-permission/parent-show-permission/parent-show-permission.component';
 
 export const routes: Routes = [
     
@@ -92,6 +98,11 @@ export const routes: Routes = [
     // ALUMNOS STUDENTS
     { path: 'horario-tutores', component:  ParentsSchedulesComponent },
     { path: 'calificaciones-tutores', component:  ParentsQualificationsComponent },
+    { path: 'solicitud-permiso-tutores', component:  ParentPermissionComponent,
+        children: [
+            { path: 'crear', component: ParentCreatePermissionComponent }
+        ]
+    },
 
     // DOCENTES MAESTROS TEACHERS
     { path: 'horario-docente', component:  TeachersScheduleComponent },
