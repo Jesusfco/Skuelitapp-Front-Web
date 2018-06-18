@@ -3,12 +3,13 @@ import { PermissionRequestPhoto } from "./PermissionRequestPhoto";
 export class PermissionRequest {
 
     public id: Number;
-    public creator_id: Number;
+    public user_id: Number;
+    public user_name: String;
     public subject: String = '';
     public description: String = '';
     public from: String;
     public to: String;
-    public validate: Boolean;
+    public confirmed: Boolean;
     public created_at: String;
     public updated_at: String;
     public photos: Array<PermissionRequestPhoto> = [];
@@ -19,20 +20,29 @@ export class PermissionRequest {
         description: 0,
         from: 0,
         to: 0,
+        userId: 0
     };
 
     constructor() {}
 
+    upperSubject() {
+        this.subject = this.subject.toUpperCase();
+    }
+
     setData(data) {
         this.id = parseInt(data.id);
-        this.creator_id = parseInt(data.creator_id);
+        this.user_id = parseInt(data.user_id);
         this.subject = data.subject;
         this.description = data.description;
         this.from = data.from;
         this.to = data.to;
-        this.validate = data.validate;
+        this.confirmed = data.confirmed;
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        if(data.user_name != undefined) {
+            this.user_name = data.user_name;
+        }
 
         if(data.photos != undefined) {
 
@@ -45,7 +55,7 @@ export class PermissionRequest {
                 this.photos.push(x);
 
             }
-            
+
         }
 
     }
@@ -57,6 +67,7 @@ export class PermissionRequest {
             description: 0,
             from: 0,
             to: 0,
+            userId: 0,
         };
     }
 
@@ -79,14 +90,14 @@ export class PermissionRequest {
     }
 
     validateFrom() {
-        if(this.from == null) {
+        if(this.from == null || this.from == '') {  
             this.validations.from = 1;
             this.validations.validate = false;
         }
     }
 
     validateTo() {
-        if(this.to == null) {
+        if(this.to == null || this.to == '') {
             this.validations.to = 1;
             this.validations.validate = false;
         }
@@ -98,14 +109,32 @@ export class PermissionRequest {
 
             if(this.from > this.to) {
 
-                this.validations.to = 1;
-                this.validations.from = 1;
+                this.validations.to = 2;
+                this.validations.from = 2;
                 this.validations.validate = false;
 
             }
 
         }
 
+    }
+
+    validateUserId() {
+        if(this.user_id == null) {
+            this.validations.userId = 1;
+            this.validations.validate = false;
+        }
+    }
+
+    validateAll() {
+        this.restoreValidations();
+        this.validateUserId();
+        this.validateSubject();
+        this.validateDescription();
+        this.validateFrom();
+        this.validateTo();
+        this.validateFromTo();
+        return this.validations.validate;
     }
 
 }

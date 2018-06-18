@@ -28,6 +28,9 @@ import { CreateSubjectComponent } from './subject/create-subject/create-subject.
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
 import { ScheduleSubjectComponent } from './group/schedule-subject/schedule-subject.component';
 
+import { PermissionComponent } from './permission/permission.component';
+import { ShowPermissionComponent } from './permission/show-permission/show-permission.component';
+
 import { TeachersScheduleComponent } from './teachers/teachers-schedule/teachers-schedule.component';
 import { TeachersQualificationsComponent } from './teachers/teachers-qualifications/teachers-qualifications.component';
 
@@ -89,6 +92,12 @@ export const routes: Routes = [
             {   path: 'create', component: CreateSubjectComponent },
             {   path: 'show/:id', component: EditSubjectComponent },
         ]
+    }, 
+
+    { path: 'permisos', component:  PermissionComponent,
+        children: [
+            { path: 'ver/:id', component: ShowPermissionComponent },
+        ]
     },
 
     // ALUMNOS STUDENTS
@@ -100,7 +109,8 @@ export const routes: Routes = [
     { path: 'calificaciones-tutores', component:  ParentsQualificationsComponent },
     { path: 'solicitud-permiso-tutores', component:  ParentPermissionComponent,
         children: [
-            { path: 'crear', component: ParentCreatePermissionComponent }
+            { path: 'crear', component: ParentCreatePermissionComponent },
+            { path: 'edit/:id', component: ParentShowPermissionComponent },
         ]
     },
 

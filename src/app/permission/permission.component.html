@@ -1,14 +1,10 @@
-<h2 class="centerText">Justificantes de Faltas</h2>
-
-<select [(ngModel)]="select" name="select" (change)="setPermissions()">
-    <option *ngFor="let user of children" value="{{user.id}}"> {{ user.name }}  {{ user.patern_surname }} {{ user.matern_surname }}</option>  
-</select>
+<h2 class="centerText">Solicitudes de Falta</h2>
 
 <div class="responsive-table">
     <table align="center">
         <thead>
             <tr>
-                <!-- <th>Hijo/a</th> -->
+                <th>Usuario</th>
                 <th>Asunto</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
@@ -18,8 +14,8 @@
             <!-- <th colspan="3">Opciones</th> -->
         </thead>
         <tbody>
-            <tr *ngFor="let permission of permissions" [routerLink]="['./edit', permission.id]">
-                <!-- <td class="left">{{ permission.user_name }}</td> -->
+            <tr *ngFor="let permission of permissions" [routerLink]="['./ver', permission.id]">
+                <td class="left">{{ permission.user_name }}</td>
                 <td>{{ permission.subject }}</td>
                 <td>{{ permission.from }}</td>
                 <td>{{ permission.to }}</td>
@@ -31,11 +27,5 @@
     </table>
 
 </div>
-
-<div class="botonFloat" [routerLink]="['./crear']">
-    <a class="botonA" matTooltip="Crear"><i class="material-icons">note_add</i></a>
-</div>
-
-
 
 <router-outlet></router-outlet>

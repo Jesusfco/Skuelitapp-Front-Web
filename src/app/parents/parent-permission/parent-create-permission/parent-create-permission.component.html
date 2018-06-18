@@ -9,11 +9,18 @@
     <div class="cardModule" [@card]="state.card">
         <h2 class="centerText">Solicitar Permiso</h2>
 
-        <form (submit)="createPermission()" class="flexRow" autocomplete="off">
+        <form (submit)="formPermission()" class="flexRow" autocomplete="off" *ngIf="permission.id == null">
+
+            <div class="formData l12">
+                <label>Seleccion un hijo:</label>
+                <select [(ngModel)]="permission.user_id" name="user_id">
+                  <option *ngFor="let user of children" value="{{user.id}}"> {{ user.name }}  {{ user.patern_surname }} {{ user.matern_surname }}</option>
+                </select>
+            </div>
 
             <div class="formData l12">
                 <label>Asunto:</label><br>
-                <input [(ngModel)]="permission.subject" name="name" type="text" [ngClass]="{ 'inputError': permission.validations.subject > 0}">
+                <input (keyup)="permission.upperSubject()" [(ngModel)]="permission.subject" name="name" type="text" [ngClass]="{ 'inputError': permission.validations.subject > 0}">
                 <small class="error" *ngIf="permission.validations.subject == 1">Requerido</small>
             </div>
 
@@ -34,7 +41,7 @@
 
             <div class="formData l12">
                 <label>Descripción:</label><br>
-                <textarea [(ngModel)]="permission.description" name="description"></textarea>
+                <textarea [(ngModel)]="permission.description" name="description" [ngClass]="{ 'inputError': permission.validations.description > 0}"></textarea>
                 <small class="error" *ngIf="permission.validations.description == 1">Requerido</small>
             </div>
 
@@ -44,48 +51,8 @@
 
         </form>
 
-        <div id="app">
-
-            <form class="flexRow" id="drop">
-
-
-                <div class="dropInputContainer">
-                    <input id="files" type="file" [(ngModel)]="input" name="input" (change)="getFile($event.target.files)" accept="image/*" multiple>
-                    <img src="http://www.lilianapineda.com/images/aplication/uploadIcon.png">
-                </div>
-
-                <div class="filePreviewContainer" *ngIf="files.length > 0">
-
-                    <h4 class="centerText">{{ files.length / 5 }}</h4>
-                    <div *ngFor="let file of files" class="fileDiv" [ngClass]="{ 'activeDrop': file.status == 1, 'errorUpload': file.status < 0 }">
-                        <img src="{{ file.bits }}" id="{{ file.id }}">
-
-                        <div *ngIf="file.status == 1" class="progress">
-                            <div class="percent" id="percent"></div>
-                        </div>
-                        <div *ngIf="file.status == -1" class="alertDrop">
-                            <p>Error en la carga</p>
-                        </div>
-
-                        <div *ngIf="file.status == 2" class="correctUpload">
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </form>
-
-        </div>
-
+        <app-parent-permission-dropbox [permission]="permission" *ngIf="permission.id > 0"></app-parent-permission-dropbox>
 
     </div>
-
-
-
-
-
-
 
 </div>

@@ -1,0 +1,42 @@
+<div id="app">
+
+    <form class="flexRow" id="drop" [ngClass]="{'loadingForm': request > 0}">
+
+        <div class="dropInputContainer">
+            <input id="files" type="file" [(ngModel)]="input" name="input" (change)="getFile($event.target.files)" accept="image/*" multiple>
+            <img src="http://www.lilianapineda.com/images/aplication/uploadIcon.png">
+        </div>
+
+        <h4 class="centerText l12">{{ permission.photos.length }} / 5</h4>
+
+        <div class="filePreviewContainer" *ngIf="files.length > 0 || permission.photos.length > 0">
+
+
+
+            <div *ngFor="let photo of permission.photos" class="fileDiv">
+                <i class="material-icons">delete_forever</i>
+                <img src="{{ photo.path }}">
+            </div>
+
+            <div *ngFor="let file of files" class="fileDiv" [ngClass]="{ 'activeDrop': file.status == 1, 'errorUpload': file.status < 0 }">
+                <img src="{{ file.bits }}" id="{{ file.id }}">
+
+                <div *ngIf="file.status == 1" class="progress">
+                    <div class="percent" id="percent"></div>
+                </div>
+                <div *ngIf="file.status == -1" class="alertDrop">
+                    <p>Error en la carga</p>
+                </div>
+
+                <div *ngIf="file.status == 2" class="correctUpload">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </form>
+
+</div>

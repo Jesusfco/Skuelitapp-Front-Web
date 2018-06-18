@@ -84,6 +84,10 @@ import { TeachersService } from './teachers/teachers.service';
 import { ParentPermissionComponent } from './parents/parent-permission/parent-permission.component';
 import { ParentCreatePermissionComponent } from './parents/parent-permission/parent-create-permission/parent-create-permission.component';
 import { ParentShowPermissionComponent } from './parents/parent-permission/parent-show-permission/parent-show-permission.component';
+import { ParentPermissionDropboxComponent } from './parents/parent-permission/parent-permission-dropbox/parent-permission-dropbox.component';
+import { PermissionComponent } from './permission/permission.component';
+import { ShowPermissionComponent } from './permission/show-permission/show-permission.component';
+import { PermissionService } from './permission/permission.service';
 
 @NgModule({
   declarations: [
@@ -118,7 +122,10 @@ import { ParentShowPermissionComponent } from './parents/parent-permission/paren
     TeachersQualificationsComponent,
     ParentPermissionComponent,
     ParentCreatePermissionComponent,
-    ParentShowPermissionComponent
+    ParentShowPermissionComponent,
+    ParentPermissionDropboxComponent,
+    PermissionComponent,
+    ShowPermissionComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +178,7 @@ import { ParentShowPermissionComponent } from './parents/parent-permission/paren
     PeriodService,
     GroupService,
     SubjectService,
+    PermissionService,
     StudentsService,
     ParentsService,
     TeachersService

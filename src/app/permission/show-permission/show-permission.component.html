@@ -1,0 +1,51 @@
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Solicitud Permiso</h2>
+
+        <div class="formData l12">
+            <label>Usuario:</label>
+            <input [(ngModel)]="permission.user_name" name="user_name" type="text" disabled>
+        </div>
+
+        <div class="formData l12">
+            <label>Asunto:</label><br>
+            <input [(ngModel)]="permission.subject" name="subject" type="text" disabled>
+
+        </div>
+
+        <div class="formData l6 m6">
+            <label>De la Fecha:</label><br>
+            <input [(ngModel)]="permission.from" name="from" type="date" disabled>
+        </div>
+
+        <div class="formData l6 m6">
+            <label>A la Fecha:</label><br>
+            <input [(ngModel)]="permission.to" name="to" type="date" disabled>
+        </div>
+
+
+        <div class="formData l12">
+            <label>Descripción:</label><br>
+            <p>{{ permission.description }}</p>
+        </div>
+
+
+
+        <button type="submit" class="btn btnAccept" (click)="confirm()">Validar Permiso s</button>
+        <button type="submit" class="btn  btnCancel" (click)="negate()">Negar</button>
+
+        <h4 class="l12 centerText">FOTOS</h4>
+
+        <div class="photoContainer">
+            <img *ngFor="let photos of permission.photos" src="{{ photos.path }}">
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+.photoContainer {
+    width: 100%
+}
+
+.photoContainer img {
+    max-width: 100%;
+}
+
+textarea {
+    min-height: 125px;
+    max-width: 100%;
+}
+
+.options {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.cardModule {
+    position: relative;
+}

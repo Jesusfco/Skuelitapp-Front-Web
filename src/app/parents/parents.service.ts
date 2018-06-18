@@ -32,14 +32,28 @@ export class ParentsService {
       .toPromise();
   }
 
-  savePermissionImage(image: File) { 
+  savePermissionImage(image: File, id) { 
 
     const formFata: FormData = new FormData();
     formFata.append('image', image, image.name);
+    formFata.append('id', id);
 
     return this._http.post(this.link.url + 'parents/permission/storeImage' + this.token.getTokenUrl(), formFata)
     .map(data => data.json())
     .toPromise();
+  }
+
+  getPermissions(select) {
+    return this._http.post(this.link.url + 'parents/permission/getPermissions' + this.token.getTokenUrl(), {user_id: select})
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  showPermission(permission) {
+    return this._http.post(this.link.url + 'parents/permission/show' + this.token.getTokenUrl(), permission)
+    .map(data => data.json())
+    .toPromise();
+  
   }
 
 }

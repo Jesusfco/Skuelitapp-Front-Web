@@ -152,6 +152,8 @@ th {
     padding: 25px;
     z-index: 10;
     position: relative;
+    max-height: 90vh;
+    overflow-y: scroll;
 }
 
 

@@ -4,6 +4,7 @@ import { PermissionRequest } from '../../../class/PermissionRequest';
 import { backgroundOpacity, cardPop } from '../../../animations';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../../class/User';
 
 
 @Component({
@@ -15,11 +16,8 @@ import { HttpClient } from '@angular/common/http';
 export class ParentCreatePermissionComponent implements OnInit {
 
   public permission: PermissionRequest = new PermissionRequest();
+  public children: Array<User> = [];
   public request: number = 0;
-
-  public formats = ['image/png', 'image/jpeg', 'image/jpg'];
-  public files: any = [];
-  public input: any;
 
   public state = {
     background: 'initial',
@@ -33,7 +31,9 @@ export class ParentCreatePermissionComponent implements OnInit {
     }
   }
 
-  constructor(private _http: ParentsService, private router: Router) { }
+  constructor(private _http: ParentsService, private router: Router) {
+    this.setChildren();
+   }
 
   ngOnInit() {
     setTimeout(() => {
@@ -53,154 +53,54 @@ export class ParentCreatePermissionComponent implements OnInit {
     
   }
 
-  createPermission() {
-
-  }
-
-  getFile(files: FileList) {
-    
-      for (let i = 0; i < files.length; i++) {
-
-          if (this.validateImageFile(files[i]) ) { continue; }
-
-          this.getElementsFromFile(files[i]);
-
-      }
-
-      this.input = null;
-
-  }
-
-  validateImageFile(file: File) {
-    
-    let validation = true;
-
-    for (let i of this.formats) {
-        if (i == file.type) {
-            validation = false;
-            break;
-        }
-    }
-    return validation;
-
-  }
-
-  getElementsFromFile(file) {
-
-    let jso = {
-        formData: file,
-        bits: null,
-        status: 0,
-        id: 0,
-    };
-
-
-    let reader = new FileReader();
-    reader.onload = (e: any) => {
-        jso.bits = e.target.result;
-        this.pushFile(jso);
-    };
-
-    reader.readAsDataURL(file);
-
-  }
-
-  pushFile(jso) {
-    this.files.push(jso);
-    this.chekId();
-    this.nextFileToSend();
-  }
-
-  chekId() {
-
-    for (let i = 0; i < this.files.length; i++) {
-        this.files[i].id = 'imagePreview' + i;
-    }
-
-  }
-
-  nextFileToSend() {
-
-    for (let i = 0; i < this.files.length; i++) {
-
-        if (this.files[i].status == 0) {
-            this.sendFile(i);
-            break;
-        }
-
-    }
-
-  }
-
-  sendFile(i) {
-
-    if (this.request > 0) return;
+  formPermission() {
+    if(!this.permission.validateAll()) { return; }
 
     this.request++;
+    
+    this._http.createPermission(this.permission).then(
 
-    // const config = {
-    //     headers: {
-    //         'Content-Type': 'multipart/form-data'
-    //     },
-    //     progress: function(progressEvent) {
-    //         var percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-    //         app.progress(percent);
-    //     }
-    // }
-
-    this.files[i].status = 1;
-    // this.progress(50);
-
-    this._http.savePermissionImage(this.files[i].formData).then(
+      data => {this.permission.setData(data);
       
-      data => {
+        for(let user of this.children) {
+          if(this.permission.user_id == user.id){
+            this.permission.user_name = user.name + ' ' + user.patern_surname + ' ' + user.matern_surname;
+            break;
+          }
+        }
 
-        this.request--;
-        this.successUpload(data, i);
+        sessionStorage.setItem('newPermission', JSON.stringify(this.permission));
 
-    },
-  
-    error => {
+      },
+      error => sessionStorage.setItem('request', JSON.stringify(error))
 
-        this.request--;
-        this.errorHandler(error, i);
-
-      }
-
-    );
+    ).then( () => this.request-- );
 
   }
 
-progress(e) {
-    let element = document.getElementById('percent');
-    element.style.width = e + "%";
-}
+  setChildren() {
 
-successUpload(response, i) {
+    this.request++;
+    this._http.getChildrens().then(
 
-    response = response.data;
-    this.files[i].status = 2;
-    // this.files.splice(i, 1);
+      data => {
+        this.children = []; 
+        for(let d of data) {
+          const x: User = new User();
+          x.setData(d);
+          this.children.push(x);
+        }
 
-    // let id = response.album_clients_id;
+        if(this.children.length > 0) {
+          this.permission.user_id = this.children[0].id;
+          
+        }
 
-    // let path = response.path.split(' ').join('%20');
+      },
 
-    setTimeout(this.nextFileToSend(), 500);
-}
+      error => sessionStorage.setItem('request', JSON.stringify(error))
 
-
-errorHandler(response, i) {
-
-    if (this.files[i] == undefined) return;
-    
-        this.files[i].status = -1;
-    
-
-    console.log(response);
-
-    setTimeout(this.nextFileToSend(), 500);
-
-}
+    ).then( () => this.request-- );
+  }
 
 }
