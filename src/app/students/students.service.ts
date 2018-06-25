@@ -26,4 +26,22 @@ export class StudentsService {
     .toPromise();
   }
 
+  getContacts() {
+    return this._http.get(this.link.url + 'students/contacts' + this.token.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  getConversation(search) {
+    return this._http.post(this.link.url + 'students/chat/getConversation' + this.token.getTokenUrl(), search)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  createConversation(parameters) {
+    return this._http.post(this.link.url + 'students/chat/createConversation' + this.token.getTokenUrl(), parameters)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

@@ -2,10 +2,10 @@
 
     <div class="searchChatDiv">
 
-        <div>
+        <div class="searchPart">
 
             <div class="divSearch">
-                <input class="l6" [(ngModel)]="search" (keyup)="searchTimer($event)" placeholder="Nombres" name="search" type="search">
+                <input class="l6" [(ngModel)]="search" (keyup)="searchTimer($event)" placeholder="Buscar Contacto" name="search" type="search">
 
                 <br>
                 <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
@@ -16,17 +16,19 @@
 
         <div class="conversationsContainer">
 
-            <div class="conversation">
+            <div class="conversation" *ngFor="let contact of contactsSearch" (click)="selectConversation(contact)">
 
                 <div class="imgAvatar">
 
-                    <img src="https://www.w3schools.com/w3css/img_avatar3.png">
+                    <img *ngIf="contact.img == null" src="https://www.w3schools.com/w3css/img_avatar3.png">
+                    <img *ngIf="contact.img != null" src="{{url.basicUrl}}images/aplication/users/{{ contact.img }}">
 
                 </div>
 
                 <div class="information">
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et eius enim in aliquam </p>
+                    <h5>{{ contact.full_name}}</h5>
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et eius enim in aliquam </p> -->
 
                     <div class="conversationInf">
 
@@ -40,53 +42,7 @@
 
             </div>
 
-            <div class="conversation">
 
-                <div class="imgAvatar">
-
-                    <img src="https://www.w3schools.com/w3css/img_avatar3.png">
-
-                </div>
-
-                <div class="information">
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et eius enim in aliquam </p>
-
-                    <div class="conversationInf">
-
-                        <p>01/05/2017</p>
-                        <p>05:32 AM</p>
-                        <div>1</div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="conversation">
-
-                <div class="imgAvatar">
-
-                    <img src="https://www.w3schools.com/w3css/img_avatar3.png">
-
-                </div>
-
-                <div class="information">
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et eius enim in aliquam </p>
-
-                    <div class="conversationInf">
-
-                        <p>01/05/2017</p>
-                        <p>05:32 AM</p>
-                        <h5>1</h5>
-
-                    </div>
-
-                </div>
-
-            </div>
 
 
         </div>
@@ -95,7 +51,40 @@
 
     <div class="chatSelectedContainer">
 
-        <div class="backgroundWaitingSelect">
+        <div class="backgroundWaitingSelect" *ngIf="conversation.users.length == 0">
+
+        </div>
+
+        <div class="conversationComponent" *ngIf="conversation.users.length != 0">
+
+            <div class="chatHeader">
+
+                <div class="chatImg">
+
+                    <img *ngIf="conversation.users[0].img == null" src="https://www.w3schools.com/w3css/img_avatar3.png">
+                    <img *ngIf="conversation.users[0].img != null" src="{{url.basicUrl}}images/aplication/users/{{ conversation.users[0].img }}">
+
+                </div>
+
+                <div class="chatName">
+
+                    <h5>{{ conversation.users[0].full_name}}</h5>
+
+                </div>
+            </div>
+
+            <div class="messagesContainer">
+
+                <div class="bubbleContainer" *ngFor="let mes of conversation.messages" [ngClass]="{ 'me': mes.from_id == userLog.id}">
+                    <div class="bubble">{{ mes.message }}</div>
+                </div>
+
+            </div>
+
+            <form class="writer" (submit)="sendMessage()" autocomplete="off">
+                <input type="text" [(ngModel)]="message.message" name="message">
+                <div (click)="sendMessage()"> <i class="material-icons">send</i></div>
+            </form>
 
         </div>
 

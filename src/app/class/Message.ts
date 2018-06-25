@@ -1,20 +1,19 @@
 export class Message {
 
-    public id: Number;
+    public id: number;
+    public conversation_id: Number;
     public message: String = '';
-    public from: Number;
-    public fromName: String;
-    public to: Number;
-    public toName: String;
+    public from_id: Number = 0;
+    public from: String;
     public created_at: String;
 
     constructor() {}
 
     setData(data) {
         this.id = parseInt(data.id);
+        this.conversation_id = parseInt(data.conversation_id);
         this.message = data.message;
-        this.from = parseInt(data.from);
-        this.to = parseInt(data.to);
+        this.from_id = parseInt(data.from_id);
         this.created_at = data.created_at;
     }
 

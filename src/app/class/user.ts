@@ -5,6 +5,7 @@ export class User {
     name: String = '';
     patern_surname: String = '';
     matern_surname: String = '';
+    full_name: String;
     phone: String = '';
     email: String = '';
     CURP: String = '';
@@ -76,6 +77,10 @@ export class User {
 
         this.setGenderView();
         this.setUserTypeView();
+    }
+
+    setFullName() {
+        this.full_name = this.name + ' ' + this.patern_surname + ' ' + this.matern_surname;
     }
 
     setGenderView() {

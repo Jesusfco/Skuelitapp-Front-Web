@@ -1,13 +1,23 @@
+.divSearch {
+    width: 90%;
+}
+
+.divSearch input {
+    width: 100%;
+}
+
+.searchPart {
+    background: #fbfbfb;
+}
+
 .backgroundWaitingSelect {
-    background-image: url(https://cdn.suwalls.com/wallpapers/abstract/dar-pastel-blur-29203-1920x1080.jpg);
-    background-size: cover;
-    background-position: center;
+    background-image: url(https://thumbs.dreamstime.com/b/seamless-school-background-20246066.jpg);
     width: 100%;
     height: 100%;
 }
 
 .searchChatDiv {
-    width: 40%;
+    width: 300px;
     height: 100%;
 }
 
@@ -22,6 +32,8 @@
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
+    position: relative;
+    top: -44px;
 }
 
 .conversation {
@@ -40,9 +52,10 @@
 }
 
 .imgAvatar {
-    width: auto;
+    width: 59px;
     display: block;
     padding: 10px;
+    padding-right: 0;
 }
 
 .imgAvatar img {
@@ -53,7 +66,7 @@
 }
 
 .information {
-    /* width: 75%; */
+    width: 100%;
     padding: 10px;
     padding-right: 67px;
     position: relative;
@@ -82,4 +95,103 @@
     height: 13px;
     color: white;
     margin: 0 auto;
+}
+
+.chatHeader {
+    display: flex;
+    padding: 10px;
+    height: 70px;
+    justify-content: flex-start;
+    background: #16848b;
+}
+
+.chatImg {
+    /* padding: 7px; */
+    width: 50px;
+}
+
+.chatImg img {
+    border-radius: 50%;
+    height: 100%;
+}
+
+.chatName {
+    display: flex;
+    padding-left: 15px;
+    align-items: center;
+}
+
+.chatName h5 {
+    font-size: 21px;
+    margin: 0;
+    color: white;
+}
+
+.conversationComponent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messagesContainer {
+    height: 100%;
+    background-image: url(https://thumbs.dreamstime.com/b/seamless-school-background-20246066.jpg);
+    display: flex;
+    align-items: flex-end;
+    align-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.bubbleContainer {
+    padding: 0 10px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 7px
+}
+
+.bubble {
+    display: block;
+    max-width: 80%;
+    background: white;
+    border-radius: 8px;
+    padding: 7px;
+}
+
+.bubbleContainer.me {
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.bubbleContainer.me .bubble {
+    background: #dcf8c6;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.writer {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    background: #f5f1ee;
+}
+
+.writer input {
+    margin: 0;
+    background: white;
+}
+
+.writer div {
+    border-radius: 50%;
+    background: #48a348;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin-left: 15px;
+}
+
+.writer div i {
+    color: white;
+    position: relative;
+    top: 7px;
+    font-size: 21px;
 }

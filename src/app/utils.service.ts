@@ -26,4 +26,28 @@ export class UtilsService {
 
   }
 
+  getConversation(search) {
+    return this._http.post(this.link.url + 'chat/getConversation' + this.token.getTokenUrl(), search)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  createConversation(parameters) {
+    return this._http.post(this.link.url + 'chat/createConversation' + this.token.getTokenUrl(), parameters)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  getMessages(parameters) {
+    return this._http.post(this.link.url + 'chat/getMessages' + this.token.getTokenUrl(), parameters)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  sendMessage(message) {
+    return this._http.post(this.link.url + 'chat/sentMessage' + this.token.getTokenUrl(), message)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }
