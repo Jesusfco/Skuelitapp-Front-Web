@@ -36,6 +36,7 @@ import { TeachersQualificationsComponent } from './teachers/teachers-qualificati
 
 import { StudentsScheduleComponent } from './students/students-schedule/students-schedule.component';
 import { StudentsQualificationsComponent } from './students/students-qualifications/students-qualifications.component';
+import { StudentsChatComponent } from './students/students-chat/students-chat.component';
 
 import { ParentsSchedulesComponent } from './parents/parents-schedules/parents-schedules.component';
 import { ParentsQualificationsComponent } from './parents/parents-qualifications/parents-qualifications.component';
@@ -103,6 +104,7 @@ export const routes: Routes = [
     // ALUMNOS STUDENTS
     { path: 'horario-alumno', component:  StudentsScheduleComponent },
     { path: 'calificaciones-alumno', component:  StudentsQualificationsComponent },
+    { path: 'chat-alumno', component: StudentsChatComponent },
 
     // ALUMNOS STUDENTS
     { path: 'horario-tutores', component:  ParentsSchedulesComponent },

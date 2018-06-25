@@ -17,6 +17,13 @@
     font-family: "Gotham SSm A", "Gotham SSm B", Arial, Verdana, sans-serif;
 }
 
+#photoInput {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    opacity: 0;
+}
+
 .nav div {
     /* padding: 0 10px 0 10px; */
 }

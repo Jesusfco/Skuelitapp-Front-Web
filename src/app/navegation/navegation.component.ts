@@ -3,6 +3,7 @@ import { trigger, state, style, transition, animate, keyframes} from '@angular/a
 import { Storage } from '../class/storage';
 import { Router } from '@angular/router';
 import { Url } from '../url';
+import { UtilsService } from '../utils.service';
 // import { animations } from '../animations';
 
 @Component({
@@ -53,9 +54,12 @@ export class NavegationComponent implements OnInit {
       puntoVenta: false,
     };
 
+    public formats = ['image/png', 'image/jpeg', 'image/jpg'];
+    public inputPhotoPerfil: any;
+
     public menuBoolean: Boolean = false;
 
-    constructor( private router: Router) { }            
+    constructor( private router: Router, private _http: UtilsService) { }            
 
     sideNav(){
         if(window.screen.width < 750){
@@ -145,5 +149,40 @@ export class NavegationComponent implements OnInit {
       }
     }
 
+    getPhotoPerfil(files: FileList) {
+
+      if (this.validateImageFile(files[0]) ) { 
+        this.inputPhotoPerfil = null;
+        return; 
+      }
+
+      this._http.saveProfilePicture(files[0]).then(
+        data => {
+          let user = JSON.parse(localStorage.getItem('userData'));
+          user.img = data;
+          localStorage.setItem('userData', JSON.stringify(user));
+        },
+
+        error => sessionStorage.setItem('request', JSON.stringify(error))
+      ).then(
+        () => this.inputPhotoPerfil = null
+      );
+
+
+
+    }
+
+    validateImageFile(file: File) {
+  
+      let validation = true;
     
+      for (let i of this.formats) {
+          if (i == file.type) {
+              validation = false;
+              break;
+          }
+      }
+      return validation;
+    
+    }
 }

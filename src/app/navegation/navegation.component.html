@@ -71,6 +71,9 @@
             <li [routerLink]="['./resume']">
                 <p>Inicio</p>
             </li>
+            <li [routerLink]="['./chat-alumno']">
+                <p>Chat</p>
+            </li>
             <li [routerLink]="['./horario-alumno']">
                 <p>Mi Horario</p>
             </li>
@@ -136,7 +139,9 @@
 <div class="sideNav" [@menu]='stateMenu'>
     <div id="userInfSection">
         <div>
-            <img src="https://www.w3schools.com/w3css/img_avatar3.png">
+            <input [(ngModel)]="inputPhotoPerfil" type="file" id="photoInput" accept="image/*" (change)="getPhotoPerfil($event.target.files)">
+            <img *ngIf="userData.getUserImg() == null" src="https://www.w3schools.com/w3css/img_avatar3.png">
+            <img *ngIf="userData.getUserImg() != null" src="{{url.basicUrl}}images/aplication/users/{{ userData.getUserImg() }}">
             <p>{{userData.getName() | lowercase}} </p>
             <p id="emailInf">{{ userData.getEmail() | lowercase}}</p>
             <div id="userTypeInf">
@@ -170,6 +175,7 @@
 
     <ul *ngIf="userData.getUserType() == 1">
         <li [routerLink]="['./resume']"><button>Inicio</button></li>
+        <li [routerLink]="['./chat-alumno']"><button>Chat</button></li>
         <li [routerLink]="['./horario-alumno']"><button>Mi Horario</button></li>
         <li [routerLink]="['./calificaciones-alumno']"><button>Mis Calificaciones</button></li>
         <li [routerLink]="['./resume']"><button>Eventos</button></li>

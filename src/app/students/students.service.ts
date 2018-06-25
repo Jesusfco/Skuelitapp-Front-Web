@@ -20,4 +20,10 @@ export class StudentsService {
     .toPromise();
   }
 
+  searchConversation(search) {
+    return this._http.post(this.link.url + 'students/searchConversations' + this.token.getTokenUrl(), search)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

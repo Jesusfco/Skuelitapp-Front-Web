@@ -9,6 +9,7 @@ export class User {
     email: String = '';
     CURP: String = '';
     password: String = '';
+    img: String;
     group_id: Number;
     grade: Number;
     school_level_id: Number;
@@ -51,6 +52,7 @@ export class User {
         this.matern_surname = data.matern_surname;
         this.email = data.email;
         this.CURP = data.CURP;
+        this.img = data.img;
         this.group_id = parseFloat(data.group_id);
         this.grade = parseFloat(data.grade);
         this.school_level_id = parseFloat(data.school_level_id);

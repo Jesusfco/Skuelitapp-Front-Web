@@ -60,7 +60,8 @@ export class ParentCreatePermissionComponent implements OnInit {
     
     this._http.createPermission(this.permission).then(
 
-      data => {this.permission.setData(data);
+      data => {
+        this.permission.setData(data);
       
         for(let user of this.children) {
           if(this.permission.user_id == user.id){

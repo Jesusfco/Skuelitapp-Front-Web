@@ -43,5 +43,11 @@ export class Storage {
         return data.user_type;
     }
 
+    getUserImg(){
+        let data = JSON.parse(localStorage.getItem('userData'));
+        if(data == null || data == undefined) return '';
+        return data.img;
+    }
+
     
 }
