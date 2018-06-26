@@ -5,7 +5,7 @@
         <div class="searchPart">
 
             <div class="divSearch">
-                <input class="l6" [(ngModel)]="search" (keyup)="searchTimer($event)" placeholder="Buscar Contacto" name="search" type="search">
+                <input class="l6" [(ngModel)]="search" (keyup)="searchTimer()" placeholder="Buscar Contacto" name="search" type="search">
 
                 <br>
                 <!-- <mat-icon *ngIf="search.searchWord == ''">search</mat-icon>
@@ -28,13 +28,13 @@
                 <div class="information">
 
                     <h5>{{ contact.full_name}}</h5>
-                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et eius enim in aliquam </p> -->
+                    <!-- <p>{{ }}</p> -->
 
                     <div class="conversationInf">
 
                         <p>01/05/2017</p>
                         <p>05:32 AM</p>
-                        <div>1</div>
+                        <div *ngIf="contact.conversation.unreaded < 0"> {{ contact.conversation.unreaded }}</div>
 
                     </div>
 

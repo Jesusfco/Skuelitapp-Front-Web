@@ -146,7 +146,8 @@
     padding: 0 10px;
     display: flex;
     margin: 0 auto;
-    margin-bottom: 7px
+    margin-bottom: 7px;
+    width: 100%;
 }
 
 .bubble {
@@ -159,7 +160,6 @@
 
 .bubbleContainer.me {
     justify-content: flex-end;
-    width: 100%;
 }
 
 .bubbleContainer.me .bubble {

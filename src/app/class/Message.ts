@@ -6,6 +6,7 @@ export class Message {
     public from_id: Number = 0;
     public from: String;
     public created_at: String;
+    public checked: Boolean;
 
     constructor() {}
 
@@ -15,6 +16,7 @@ export class Message {
         this.message = data.message;
         this.from_id = parseInt(data.from_id);
         this.created_at = data.created_at;
+        this.checked = data.checked;
     }
 
 }

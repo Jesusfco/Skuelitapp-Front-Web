@@ -1,4 +1,5 @@
 import { Address } from "./Address";
+import { Conversation } from "./Conversation";
 
 export class User {
     id: Number;
@@ -28,6 +29,8 @@ export class User {
     birthday: String;
     created_at: String;
     updated_at: String;
+
+    conversation: Conversation = new Conversation();
 
     address: Address = new Address();
 

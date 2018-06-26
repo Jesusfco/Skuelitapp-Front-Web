@@ -6,6 +6,7 @@ import { UtilsService } from '../../utils.service';
 import { Conversation } from '../../class/Conversation';
 import { Message } from '../../class/Message';
 
+
 @Component({
   selector: 'app-students-chat',
   templateUrl: './students-chat.component.html',
@@ -50,9 +51,63 @@ export class StudentsChatComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.util.channel = this.util.pusher.subscribe('chat-channel.' + this.userLog.id);
+    
+    this.util.channel.bind('App\\Events\\NewMessage', data => {
+      
+      let mes = new Message();
+      mes.setData(data.message);
+
+      let conversation = new Conversation();
+      conversation.setData(data.conversation);
+
+        if(data.conversation.id == this.conversation.id) {
+
+          
+          this.conversation.messages.push(mes);
+
+        }
+
+        else {
+
+          let checkContact = false;
+
+          for(let i = 0; i < this.contacts.length; i++) {
+
+            if(this.contacts[i].conversation.id == parseInt(data.conversation.id)) {
+
+              this.contacts[i].conversation.messages.push(mes);
+              this.contacts[i].conversation.setUnreaded();
+              checkContact = true;
+              break;
+
+            } else if( this.contacts[i].id == mes.from_id ) {
+
+              this.contacts[i].conversation.setData(data.conversation);
+              this.contacts[i].conversation.setUnreaded();
+              checkContact = true;
+              break;
+
+            }
+
+          }
+
+          if(checkContact == false) {
+
+            this.getUndefinedContact(mes, conversation);
+
+          }
+
+        }
+      
+    });
+
+    
+
   }
 
-  searchTimer(e) {
+  searchTimer() {
 
     this.contactsSearch = this.searchFilterContacts();
 
@@ -248,6 +303,30 @@ export class StudentsChatComponent implements OnInit {
     }
 
     return time;
+
+  }
+
+  getMessageNotRead() {
+    
+  }
+
+  getUndefinedContact(message, conversation) {
+
+    this.util.getUndefinedContact(message.from_id).then(
+      
+      data => {
+        let user = new User();
+        user.setData(user);
+        user.conversation.setData(conversation);
+        user.conversation.messages.push(message);
+        user.conversation.setUnreaded();
+        this.contacts.push(user);
+        this.searchTimer();
+      },
+
+      error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    );
 
   }
 

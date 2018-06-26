@@ -1,18 +1,32 @@
+declare const Pusher: any;
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import "rxjs";
+import 'pusher-js';
 import { Observable } from "rxjs";
-
 import { Url } from './url';
 import { Storage } from './class/storage';
+import { environment } from './class/environment';
 
 @Injectable()
 export class UtilsService {
 
   public link: Url = new Url();
   public token: Storage = new Storage();
-  
-  constructor(private _http: Http) { }
+
+  public pusher: any;
+  public channel: any;
+
+  constructor(private _http: Http) {
+
+    
+
+    this.pusher = new Pusher(environment.pusher.key, {
+      cluster: environment.pusher.cluster,
+      encrypted: true
+    });
+
+   }
 
   saveProfilePicture(image: File) {
 
@@ -46,6 +60,12 @@ export class UtilsService {
 
   sendMessage(message) {
     return this._http.post(this.link.url + 'chat/sentMessage' + this.token.getTokenUrl(), message)
+    .map(data => data.json())
+    .toPromise();
+  }
+
+  getUndefinedContact(id) {
+    return this._http.get(this.link.url + 'chat/undefinedContact/' + id + this.token.getTokenUrl())
     .map(data => data.json())
     .toPromise();
   }
