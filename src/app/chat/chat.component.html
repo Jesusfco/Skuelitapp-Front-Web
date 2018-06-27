@@ -32,7 +32,7 @@
 
                     <div class="conversationInf">
 
-                        <p *ngIf="contact.conversation.messages.length > 0">{{ contact.conversation.getLastMessageTime() }}</p>
+                        <p *ngIf="contact.conversation.messages.length > 0">{{ contact.conversation.getLastMessageTime() | timeChat }}</p>
                         <div *ngIf="contact.conversation.unreaded > 0"> {{ contact.conversation.unreaded }}</div>
 
                     </div>

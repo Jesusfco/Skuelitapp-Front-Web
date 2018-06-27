@@ -90,6 +90,7 @@ import { ShowPermissionComponent } from './permission/show-permission/show-permi
 import { PermissionService } from './permission/permission.service';
 import { ChatComponent } from './chat/chat.component';
 import { UtilsService } from './utils.service';
+import { TimeChatPipe } from './time-chat.pipe';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { UtilsService } from './utils.service';
     PermissionComponent,
     ShowPermissionComponent,
     ChatComponent,
+    TimeChatPipe,
   ],
   imports: [
     BrowserModule,

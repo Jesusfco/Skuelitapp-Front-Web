@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 body {
     padding: 0;
     margin: 0;
@@ -9,7 +13,7 @@ body {
 
 * {
     box-sizing: border-box;
-    font-family: "ff-tisa-web-pro", Georgia, Times serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
 
@@ -18,7 +22,6 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "Gotham SSm A", "Gotham SSm B", Arial, Verdana, sans-serif;
     margin-top: 0;
     margin-bottom: 5px;
 }
