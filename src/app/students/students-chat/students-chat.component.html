@@ -28,13 +28,12 @@
                 <div class="information">
 
                     <h5>{{ contact.full_name}}</h5>
-                    <!-- <p>{{ }}</p> -->
+                    <p>{{ contact.conversation.getLastMessagePreview() }}</p>
 
                     <div class="conversationInf">
 
-                        <p>01/05/2017</p>
-                        <p>05:32 AM</p>
-                        <div *ngIf="contact.conversation.unreaded < 0"> {{ contact.conversation.unreaded }}</div>
+                        <p *ngIf="contact.conversation.messages.length > 0">{{ contact.conversation.getLastMessageTime() }}</p>
+                        <div *ngIf="contact.conversation.unreaded > 0"> {{ contact.conversation.unreaded }}</div>
 
                     </div>
 
@@ -51,32 +50,32 @@
 
     <div class="chatSelectedContainer">
 
-        <div class="backgroundWaitingSelect" *ngIf="conversation.users.length == 0">
+        <div class="backgroundWaitingSelect" *ngIf="chat.id == null">
 
         </div>
 
-        <div class="conversationComponent" *ngIf="conversation.users.length != 0">
+        <div class="conversationComponent" *ngIf="chat.id != null">
 
             <div class="chatHeader">
 
                 <div class="chatImg">
 
-                    <img *ngIf="conversation.users[0].img == null" src="https://www.w3schools.com/w3css/img_avatar3.png">
-                    <img *ngIf="conversation.users[0].img != null" src="{{url.basicUrl}}images/aplication/users/{{ conversation.users[0].img }}">
+                    <img *ngIf="chat.img == null" src="https://www.w3schools.com/w3css/img_avatar3.png">
+                    <img *ngIf="chat.img != null" src="{{url.basicUrl}}images/aplication/users/{{ chat.img }}">
 
                 </div>
 
                 <div class="chatName">
 
-                    <h5>{{ conversation.users[0].full_name}}</h5>
+                    <h5>{{ chat.full_name}}</h5>
 
                 </div>
             </div>
 
-            <div class="messagesContainer">
+            <div class="messagesContainer" id="chatS">
 
-                <div class="bubbleContainer" *ngFor="let mes of conversation.messages" [ngClass]="{ 'me': mes.from_id == userLog.id}">
-                    <div class="bubble">{{ mes.message }}</div>
+                <div class="bubbleContainer" *ngFor="let mes of chat.conversation.messages" [ngClass]="{ 'me': mes.from_id == userLog.id}">
+                    <div class="bubble" [ngClass]="{ 'chargeError': mes.id < -10 }">{{ mes.message }}</div>
                 </div>
 
             </div>

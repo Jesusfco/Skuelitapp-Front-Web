@@ -103,6 +103,7 @@
     height: 70px;
     justify-content: flex-start;
     background: #16848b;
+    z-index: 2;
 }
 
 .chatImg {
@@ -138,8 +139,9 @@
     background-image: url(https://thumbs.dreamstime.com/b/seamless-school-background-20246066.jpg);
     display: flex;
     align-items: flex-end;
-    align-content: flex-end;
+    /* align-content: flex-end; */
     flex-wrap: wrap;
+    overflow-y: scroll;
 }
 
 .bubbleContainer {
@@ -166,6 +168,10 @@
     background: #dcf8c6;
     align-self: flex-end;
     text-align: right;
+}
+
+.bubbleContainer.me .chargeError {
+    background: #f7b0b0;
 }
 
 .writer {

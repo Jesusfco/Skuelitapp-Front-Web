@@ -37,4 +37,39 @@ export class Conversation {
 
     }
 
+
+    getLastMessagePreview() {
+
+        const i = this.messages.length;
+
+        if(i > 0) {
+
+            return this.messages[i - 1].preview();
+
+        } else {
+
+            return null;
+
+        }
+
+    }
+
+    getLastMessageTime() {
+
+        const i = this.messages.length;
+
+        if(i > 0) {
+
+            let time = this.messages[i - 1].created_at;
+
+            return time;
+
+        } else {
+
+            return null;
+
+        }
+
+    }
+
 }

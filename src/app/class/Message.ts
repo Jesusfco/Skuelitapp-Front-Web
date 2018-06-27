@@ -19,4 +19,21 @@ export class Message {
         this.checked = data.checked;
     }
 
+    preview(){
+
+        if(this.message.length > 30) {
+
+            let string = this.message.substring(0, 28)  
+            string = string.replace(/\s+$/, '');
+            string += '...';
+            return string;
+
+        } else {
+
+            return this.message;
+
+        }
+
+    }
+
 }

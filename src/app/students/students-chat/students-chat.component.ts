@@ -20,9 +20,14 @@ export class StudentsChatComponent implements OnInit {
   public userLog: User = new User();
   public contactsSearch: Array<User> = [];
 
+  public creatingConversation: Boolean = false;
+
+  public audio = new Audio('assets/tone1.mp3');
+
+
   public message: Message = new Message();
 
-  public conversation: Conversation = new Conversation();
+  public chat: User = new User();
 
   public url: Url = new Url();
 
@@ -54,56 +59,60 @@ export class StudentsChatComponent implements OnInit {
 
     this.util.channel = this.util.pusher.subscribe('chat-channel.' + this.userLog.id);
     
-    this.util.channel.bind('App\\Events\\NewMessage', data => {
-      
-      let mes = new Message();
-      mes.setData(data.message);
+    this.util.channel.bind('App\\Events\\NewMessage', data => this.pusherChatLogic(data));
 
-      let conversation = new Conversation();
-      conversation.setData(data.conversation);
+  }
 
-        if(data.conversation.id == this.conversation.id) {
+  pusherChatLogic(data) {
 
-          
-          this.conversation.messages.push(mes);
+    let mes = new Message();
+    mes.setData(data.message);
 
-        }
+    let conversation = new Conversation();
+    conversation.setData(data.conversation);
 
-        else {
+      if(conversation.id == this.chat.conversation.id) {
 
-          let checkContact = false;
+        
+        this.chat.conversation.messages.push(mes);
+        this.setMessagesReaded();
 
-          for(let i = 0; i < this.contacts.length; i++) {
+      }
 
-            if(this.contacts[i].conversation.id == parseInt(data.conversation.id)) {
+      else {
 
-              this.contacts[i].conversation.messages.push(mes);
-              this.contacts[i].conversation.setUnreaded();
-              checkContact = true;
-              break;
+        let checkContact = false;
 
-            } else if( this.contacts[i].id == mes.from_id ) {
+        for(let i = 0; i < this.contacts.length; i++) {
 
-              this.contacts[i].conversation.setData(data.conversation);
-              this.contacts[i].conversation.setUnreaded();
-              checkContact = true;
-              break;
+          if(this.contacts[i].conversation.id == parseInt(data.conversation.id)) {
 
-            }
+            this.contacts[i].conversation.messages.push(mes);
+            this.contacts[i].conversation.setUnreaded();
+            checkContact = true;
+            this.audio.play();
+            break;
+
+          } else if( this.contacts[i].id == mes.from_id ) {
+
+            this.contacts[i].conversation.setData(data.conversation);
+            this.contacts[i].conversation.messages.push(mes);
+            this.contacts[i].conversation.setUnreaded();
+            checkContact = true;
+            this.audio.play();
+            break;
 
           }
 
-          if(checkContact == false) {
+        }
 
-            this.getUndefinedContact(mes, conversation);
+        if(checkContact == false) {
 
-          }
+          this.getUndefinedContact(mes, conversation);
 
         }
-      
-    });
 
-    
+      }
 
   }
 
@@ -156,64 +165,79 @@ export class StudentsChatComponent implements OnInit {
 
   selectConversation(contact) {
 
-    this.conversation = new Conversation();
+    this.chat = contact;
 
-    this.conversation.users.push(contact);
-    this.conversation.users.push(this.userLog);
+    if(this.chat.conversation.id != null) {
 
+      this.setMessages();
+      this.prepareNewMessage();
 
-    this.util.getConversation(this.conversation).then(
+    } else {
+
+      this.searchConversation();
+
+    }
+
+  }
+
+  searchConversation() {
+
+    this.util.getConversation({id1: this.chat.id , id2: this.userLog.id}).then(
 
       data => {
 
         if(data.id == undefined) {
-          // this.createConversation();
+
+          this.prepareNewMessage();
           return;
 
         }
 
-        this.conversation.id = parseInt(data.id);
-        this.message.conversation_id = this.conversation.id;
+        this.chat.conversation.id = parseInt(data.id);
+        this.prepareNewMessage();
         this.setMessages();
 
-      }, 
-      
-      error => {
-      
-        if(error.status == 405) {
-
-        }
-
-      }
-
-    );
-
-  }
-
-  createConversation() {
-
-    this.util.createConversation(this.conversation).then(
-
-      data => {
-        this.conversation.id = parseInt(data.id);
       },
-
+      
       error => sessionStorage.setItem('request', JSON.stringify(error))
 
     );
 
   }
 
+  prepareNewMessage() {
+
+    this.message = new Message();
+    this.generateRamdonId();
+
+    if(this.chat.conversation.id != null)
+      this.message.conversation_id = this.chat.conversation.id;
+
+    this.message.from_id = this.userLog.id;
+
+  }
+
   setMessages() {
 
-    this.util.getMessages(this.conversation).then(
+    this.util.getMessages(this.chat.conversation).then(
 
       data => {
 
+        this.chat.conversation.messages = [];
+
         for(let message of data) {
+
           let m: Message = new Message();
           m.setData(message);
-          this.conversation.messages.push(m);
+          this.chat.conversation.messages.push(m);
+
+        }
+
+        this.scrollBottomChat();
+
+        if(this.chat.conversation.unreaded > 0) {
+
+          this.setMessagesReaded();
         }
         
       },
@@ -227,26 +251,47 @@ export class StudentsChatComponent implements OnInit {
 
     this.message.message = this.message.message.replace(/\s+$/, '');    
 
-    if(this.message.message == '') return;
+    // tslint:disable-next-line:curly
+    if (this.message.message == '' || this.creatingConversation == true) return;
 
-    this.generateRamdonId();
     this.message.created_at = this.createdTime();
+
     let id = this.message.id;
 
     let mes = new Message();
-    Object.assign(mes, this.message)
-    this.conversation.messages.push(mes);
-    
+
+    Object.assign(mes, this.message);
+
+    this.chat.conversation.messages.push(mes);
+    this.scrollBottomChat();
+
+    if(mes.conversation_id != null) {
+
+      this.postMessage(mes, id);
+
+    } else {
+
+      this.createConversation(mes, id);
+
+    }
+
+    this.prepareNewMessage();
+
+  }
+
+  postMessage(mes, id){
 
     this.util.sendMessage(mes).then(
 
       data => {
 
-        for(let i = 0; i < this.conversation.messages.length; i++){
+        for(let i = 0; i < this.chat.conversation.messages.length; i++){
 
-          if(this.conversation.messages[i].id == id) {
+          if(this.chat.conversation.messages[i].id == id) {
 
-            this.conversation.messages[i].id = parseInt(data.id);
+            this.chat.conversation.messages[i].id = parseInt(data.id);
+            this.chat.conversation.messages[i].conversation_id = this.chat.conversation.id;
+
             break;
 
           }
@@ -257,11 +302,12 @@ export class StudentsChatComponent implements OnInit {
         
         sessionStorage.setItem('request', JSON.stringify(error));
 
-        for(let i = 0; i < this.conversation.messages.length; i++){
+        for(let i = 0; i < this.chat.conversation.messages.length; i++) {
 
-          if(this.conversation.messages[i].id == id) {
+          if(this.chat.conversation.messages[i].id == id) {
 
-            this.conversation.messages[i].id = this.conversation.messages[i].id - 10;
+            this.chat.conversation.messages[i].id = this.chat.conversation.messages[i].id - 10;
+            this.chat.conversation.messages[i].conversation_id = this.chat.conversation.id;
             break;
 
           }
@@ -272,10 +318,40 @@ export class StudentsChatComponent implements OnInit {
 
     );
 
-    this.message = new Message();
+  }
 
-    this.message.conversation_id = this.conversation.id;
-    this.message.from_id = this.userLog.id;
+  createConversation(mes, id) {
+
+    this.creatingConversation = true;
+
+    this.util.createConversation({id1: this.chat.id , id2: this.userLog.id}).then(
+
+      data => {
+
+        this.chat.conversation.setData(data);
+
+        mes.conversation_id = this.chat.conversation.id;
+
+        this.postMessage(mes, id);
+
+      }, error => {
+
+        sessionStorage.setItem('request', JSON.stringify(error));
+
+        for(let i = 0; i < this.chat.conversation.messages.length; i++) {
+
+          if(this.chat.conversation.messages[i].id == id) {
+
+            this.chat.conversation.messages[i].id = this.chat.conversation.messages[i].id - 10;
+            break;
+
+          }
+
+        }
+
+      }
+
+    ).then( () => this.creatingConversation = false );
 
   }
 
@@ -310,11 +386,31 @@ export class StudentsChatComponent implements OnInit {
     
   }
 
+  setMessagesReaded() {
+
+    for(let i = 0; i < this.chat.conversation.messages.length; i++) {
+
+      this.chat.conversation.messages[i].checked = true;
+
+    }
+
+    this.chat.conversation.setUnreaded();
+
+    this.util.messageRead(this.chat.conversation).then(
+
+      data => null,
+      error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    );
+
+  }
+
   getUndefinedContact(message, conversation) {
 
     this.util.getUndefinedContact(message.from_id).then(
       
       data => {
+
         let user = new User();
         user.setData(user);
         user.conversation.setData(conversation);
@@ -322,11 +418,21 @@ export class StudentsChatComponent implements OnInit {
         user.conversation.setUnreaded();
         this.contacts.push(user);
         this.searchTimer();
+
       },
 
       error => sessionStorage.setItem('request', JSON.stringify(error))
 
     );
+
+  }
+
+  scrollBottomChat() {
+    
+    setTimeout( () => {
+      var container = document.getElementById("chatS");
+    container.scrollTop = container.scrollHeight;
+    }, 50);
 
   }
 

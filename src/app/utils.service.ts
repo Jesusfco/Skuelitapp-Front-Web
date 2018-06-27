@@ -70,4 +70,10 @@ export class UtilsService {
     .toPromise();
   }
 
+  messageRead(conversation) {
+    return this._http.post(this.link.url + 'chat/setMessagesRead' + this.token.getTokenUrl(), conversation)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }
