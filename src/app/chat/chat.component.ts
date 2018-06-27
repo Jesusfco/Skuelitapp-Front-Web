@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentsService } from '../students.service';
-import { User } from '../../class/User';
-import { Url } from '../../url';
-import { UtilsService } from '../../utils.service';
-import { Conversation } from '../../class/Conversation';
-import { Message } from '../../class/Message';
-
+import { UtilsService } from '../utils.service';
+import { Url } from '../url';
+import { User } from '../class/User';
+import { Message } from '../class/Message';
+import { Conversation } from '../class/Conversation';
 
 @Component({
-  selector: 'app-students-chat',
-  templateUrl: './students-chat.component.html',
-  styleUrls: ['./students-chat.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class StudentsChatComponent implements OnInit {
+export class ChatComponent implements OnInit {
 
-  public search: String;
+  public search: String = '';
   public timer: number = 0;
   public contacts: Array<User> = [];
   public userLog: User = new User();
@@ -31,7 +29,7 @@ export class StudentsChatComponent implements OnInit {
 
   public url: Url = new Url();
 
-  constructor( private _http: StudentsService, private util: UtilsService) { 
+  constructor(private util: UtilsService) { 
     
     let data  = JSON.parse(localStorage.getItem('userData'));
     this.userLog.setData(data);
@@ -63,6 +61,53 @@ export class StudentsChatComponent implements OnInit {
 
   }
 
+  sortChat() {
+    this.contacts.sort((a, b) => {
+
+      if(a.conversation.getLastMessagePreview() == null && b.conversation.getLastMessagePreview() == null) {
+
+        return 0;
+
+      } else if(a.conversation.getLastMessagePreview() == null && b.conversation.getLastMessagePreview() != null) {
+
+        return 1;
+      }
+
+      else if(b.conversation.getLastMessagePreview() == null && a.conversation.getLastMessagePreview() != null) {
+
+        return -1;
+
+      }
+      
+      else if(a.conversation.getLastMessageTime() < b.conversation.getLastMessageTime()) {
+
+        return 1;
+      
+      } else {
+
+        return 0;
+
+      }
+
+    });
+
+    this.searchTimer();
+  }
+
+  sortChatCompleteName() {
+    this.contacts.sort((a, b) => {
+      if(a.full_name < b.full_name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    this.searchTimer();
+  }
+
   pusherChatLogic(data) {
 
     let mes = new Message();
@@ -75,7 +120,9 @@ export class StudentsChatComponent implements OnInit {
 
         
         this.chat.conversation.messages.push(mes);
+        this.scrollBottomChat();
         this.setMessagesReaded();
+        this.sortChat();
 
       }
 
@@ -110,6 +157,10 @@ export class StudentsChatComponent implements OnInit {
 
           this.getUndefinedContact(mes, conversation);
 
+        } else {
+
+          this.sortChat();
+
         }
 
       }
@@ -136,7 +187,7 @@ export class StudentsChatComponent implements OnInit {
 
   setContacts() {
 
-    this._http.getContacts().then(
+    this.util.getContacts().then(
 
       data => {
 
@@ -152,6 +203,8 @@ export class StudentsChatComponent implements OnInit {
           this.contacts.push(user);
 
         }
+
+        // this.sortChatCompleteName();
 
         this.contactsSearch = this.contacts;
 
@@ -177,6 +230,8 @@ export class StudentsChatComponent implements OnInit {
       this.searchConversation();
 
     }
+
+    this.scrollBottomChat();
 
   }
 
@@ -232,7 +287,7 @@ export class StudentsChatComponent implements OnInit {
           this.chat.conversation.messages.push(m);
 
         }
-
+        this.sortChat();
         this.scrollBottomChat();
 
         if(this.chat.conversation.unreaded > 0) {
@@ -254,7 +309,8 @@ export class StudentsChatComponent implements OnInit {
     // tslint:disable-next-line:curly
     if (this.message.message == '' || this.creatingConversation == true) return;
 
-    this.message.created_at = this.createdTime();
+    this.message.setCreatedAt();
+    this.chat.conversation.setUpdatedAt();
 
     let id = this.message.id;
 
@@ -263,6 +319,7 @@ export class StudentsChatComponent implements OnInit {
     Object.assign(mes, this.message);
 
     this.chat.conversation.messages.push(mes);
+    this.sortChat();
     this.scrollBottomChat();
 
     if(mes.conversation_id != null) {
@@ -418,6 +475,7 @@ export class StudentsChatComponent implements OnInit {
         user.conversation.setUnreaded();
         this.contacts.push(user);
         this.searchTimer();
+        this.sortChat();
 
       },
 
@@ -431,7 +489,7 @@ export class StudentsChatComponent implements OnInit {
     
     setTimeout( () => {
       var container = document.getElementById("chatS");
-    container.scrollTop = container.scrollHeight;
+      container.scrollTop = container.scrollHeight;
     }, 50);
 
   }

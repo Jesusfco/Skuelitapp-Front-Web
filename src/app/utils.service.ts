@@ -76,4 +76,10 @@ export class UtilsService {
     .toPromise();
   }
 
+  getContacts() {
+    return this._http.get(this.link.url + 'chat/contacts' + this.token.getTokenUrl())
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }

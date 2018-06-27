@@ -88,7 +88,7 @@ import { ParentPermissionDropboxComponent } from './parents/parent-permission/pa
 import { PermissionComponent } from './permission/permission.component';
 import { ShowPermissionComponent } from './permission/show-permission/show-permission.component';
 import { PermissionService } from './permission/permission.service';
-import { StudentsChatComponent } from './students/students-chat/students-chat.component';
+import { ChatComponent } from './chat/chat.component';
 import { UtilsService } from './utils.service';
 
 @NgModule({
@@ -128,7 +128,7 @@ import { UtilsService } from './utils.service';
     ParentPermissionDropboxComponent,
     PermissionComponent,
     ShowPermissionComponent,
-    StudentsChatComponent
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,8 +16,10 @@ export class Conversation {
     constructor() {}
 
     setData(data) {
+        
         this.id = parseInt(data.id);
         this.users_id = data.users_id;
+
     }
 
     setUnreaded(){
@@ -71,6 +73,42 @@ export class Conversation {
 
         }
 
+    }
+
+    setUpdatedAt(){
+        let x = new Date();
+        this.updated_at = x.getFullYear() + '-';
+
+        if(x.getMonth() < 9){
+            this.updated_at += '0' + (x.getMonth() + 1) + '-';
+        } else {
+            this.updated_at += (x.getMonth() + 1) + '-';
+        }
+
+        if( x.getDate() < 9){
+            this.updated_at += '0' + (x.getDate() ) + ' ';        
+        }else {
+            this.updated_at += (x.getDate() ) + ' ';
+        }
+
+        if(x.getHours() < 10){
+            this.updated_at += '0' + x.getHours() + ':';
+        }
+        else {
+            this.updated_at += x.getHours() + ':';
+        }
+
+        if( x.getMinutes() < 10) {
+            this.updated_at += '0' + x.getMinutes() + ':';
+        } else {
+            this.updated_at += x.getMinutes() + ':';
+        }
+
+        if( x.getSeconds() < 10) {
+            this.updated_at += '0' + x.getSeconds();
+        } else {
+            this.updated_at += x.getSeconds().toString();
+        }
     }
 
 }
