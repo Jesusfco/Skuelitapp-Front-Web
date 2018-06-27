@@ -6,6 +6,7 @@ export class Conversation {
 
     public id: Number;
     public users_id: String;
+    public updated_at: String;
     public users: Array<User> = [];
     public messages: Array<Message> = [];
     public page: number = 1;
