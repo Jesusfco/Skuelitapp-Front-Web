@@ -61,6 +61,7 @@ export class User {
         this.grade = parseFloat(data.grade);
         this.school_level_id = parseFloat(data.school_level_id);
         this.money = parseFloat(data.money);
+        this.phone = data.phone;
         this.students_id = data.students_id;
         this.subjects_id = data.id_subjects;
         this.user_type = parseFloat(data.user_type);
@@ -230,7 +231,7 @@ export class User {
             this.validateBirthday();
             this.validateGrade();
 
-            if(this.email.length > 1) {
+            if(this.email.length > 1 && this.id == null) {
                 this.validatePassword();
             }
             // this.validateCurp();
@@ -239,7 +240,7 @@ export class User {
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
-            if(this.email.length > 1) {
+            if(this.email.length > 1 && this.id == null) {
                 this.validatePassword();
             }
         } else if(this.user_type == 3) {
@@ -248,24 +249,31 @@ export class User {
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
-            this.validatePassword();
+            if (this.id == null)
+                this.validatePassword();
         } else if(this.user_type == 4) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
-            this.validatePassword();
+            
+            if (this.id == null)
+                this.validatePassword();
+
         } else if(this.user_type == 5) {
             this.validateName();
             this.validatePaternSurname();
             this.validateMaternSurname();
             this.validatePhone();
             this.validateEmail();
-            this.validatePassword();
+
+            if (this.id == null)
+                this.validatePassword();
         }
 
         return this.validations.validate;
+
     }
 
 }

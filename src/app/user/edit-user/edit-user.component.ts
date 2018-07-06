@@ -18,6 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EditUserComponent implements OnInit {
 
   public user: User = new User();
+  public userOld: User = new User();
   public address: Address = new Address();
   public request: number = 0;
   public schoolLevels: Array<SchoolLevel> = [];
@@ -61,6 +62,7 @@ export class EditUserComponent implements OnInit {
     this._http.showUser(this.user).then(
       data => {
         this.user.setData(data);
+        this.userOld.setData(data);
 
         if(this.user.grade > 0 && this.user.school_level_id > 0){
           this.setGroupOptions();
@@ -215,17 +217,67 @@ export class EditUserComponent implements OnInit {
 
   }
 
-  uniqueEmail(){
+  uniqueEmail() {
+
     this._http.checkUniqueEmail(this.user.email).then(
+
       data => {
-        if(data == false){
-          this.user.validations.email = 2;
-          this.user.validations.validate = false;
-        }  
-        else { this.user.validations.email = -1; }
+
+        if(data == false) {
+
+          if(this.user.email != this.userOld.email) {
+
+            this.user.validations.email = 2;
+            this.user.validations.validate = false;
+
+          } else {
+
+            this.user.validations.email = -1;
+
+          }
+          
+        } else { 
+          
+          this.user.validations.email = -1; 
+        
+        }
+
       },
+
       error => sessionStorage.setItem('request', JSON.stringify(error))
+      
     );
+  }
+
+  updateUser() {
+
+    if (!this.user.validationLogic()) { return; }
+
+    this.request++;
+
+    this._http.updateUser(this.user).then(
+
+      data => {
+
+        this.user.setData(data);
+        this.userOld.setData(data);
+
+        const not = {
+          title: 'Usuario Actualizado',
+          description: 'Datos de ' + this.user.name + ' cargados Correctamente',
+          status: 200
+        };
+
+        sessionStorage.setItem('request', JSON.stringify(not));
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+
+      () => this.request--
+
+    );
+
   }
 
 }

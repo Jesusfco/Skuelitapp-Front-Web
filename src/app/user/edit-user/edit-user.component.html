@@ -12,7 +12,7 @@
         <h3 class="centerText">{{ user.name }} {{ user.patern_surname }} {{ user.matern_surname }} {{ user.patern_surname }} {{ student.matern_surname }}</h3>
 
         <div class="container">
-            <form class="flexRow" autocomplete="off">
+            <form class="flexRow" autocomplete="off" (submit)="updateUser()">
                 <div class="flexRow l6">
                     <h2 class="l12 centerText">Datos Personales</h2>
 
