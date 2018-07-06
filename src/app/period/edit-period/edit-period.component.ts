@@ -4,6 +4,7 @@ import { Period } from '../../class/Period';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FadeAnimation, SlideAnimation } from '../../animations';
 import { PeriodType } from '../../class/PeriodType';
+import { SchoolLevel } from '../../class/SchoolLevel';
 
 @Component({
   selector: 'app-edit-period',
@@ -16,8 +17,10 @@ export class EditPeriodComponent implements OnInit {
   public original: Period = new Period();
   public edit: Period = new Period();
   public periodTypes: Array<PeriodType> = [];
-  public request: Boolean = false;
+  public request: number = 0;
   public observerRef: any;
+  public schoolLevels: Array<SchoolLevel> = [];
+  public status = [];
 
   constructor(private _http: PeriodService,
     private router: Router,
@@ -29,6 +32,9 @@ export class EditPeriodComponent implements OnInit {
     });
 
     this.setPeriodType();
+    this.setSchoolLevel();
+
+    this.status = this.edit.getStatusArrayOptions();
 
    }
 
@@ -37,29 +43,20 @@ export class EditPeriodComponent implements OnInit {
 
   getData() {
 
-    this.request = true;
+    this.request++;
 
     this._http.showPeriod(this.original.id).then(
 
       data => {
+
         this.original.setDataEdit(data);
         this.edit.setDataEdit(data);
-        console.log(this.edit);
-      }
+        
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
-    ).then(
-
-      () => this.request = false
-
-    ).catch(
-
-      error => sessionStorage.setItem('request', JSON.stringify(error))
-
-    );
+    ).then( () => this.request-- );
 
   }
-
-  
 
   editPeriod(){
 
@@ -68,7 +65,7 @@ export class EditPeriodComponent implements OnInit {
       return;
     }
 
-    this.request = true;
+    this.request++;
 
     this._http.updatePeriod(this.edit).then(
 
@@ -87,7 +84,7 @@ export class EditPeriodComponent implements OnInit {
 
     ).then(
 
-      () => this.request = false
+      () => this.request--
 
     ).catch(
 
@@ -116,6 +113,9 @@ export class EditPeriodComponent implements OnInit {
   }
 
   setPeriodType() {
+
+    this.request++;
+
     this._http.getPeriodType().then(
       
       data => {
@@ -134,7 +134,30 @@ export class EditPeriodComponent implements OnInit {
       
       error => sessionStorage.setItem('request', error)
 
-    ).then ( () => this.request = false );
+    ).then ( () => this.request-- );
+  }
+
+  setSchoolLevel() {
+
+    this.request++;
+
+    this._http.getSchoolLevels().then(
+
+      data => {
+
+        for(let d of data) {
+
+          if(d.active) {
+            this.schoolLevels.push(d);
+          }
+
+        }
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+      
+
+    ).then ( () => this.request-- );
+
   }
   
 }

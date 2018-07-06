@@ -62,4 +62,10 @@ export class UserService {
             .toPromise();
   }
 
+  getChildren(parameters) {
+    return this._http.post(this.link.url + 'user/getChildren' + this.token.getTokenUrl(), parameters)
+            .map(data => data.json())
+            .toPromise();
+  }
+
 }

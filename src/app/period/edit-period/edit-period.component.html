@@ -42,7 +42,21 @@
                     </select>
                 </div>
 
+                <div class="formData l4 m6">
+                    <label>Nivel Academico</label><br>
+                    <select [(ngModel)]="edit.school_level_id" name="school_level_id" disabled>
+                        <option *ngFor="let level of schoolLevels" value="{{level.id}}">{{ level.name }}</option>
+                    </select>
+                    <small class="error" *ngIf="edit.validations.schoolLevel == 1">Requerido</small>
+                </div>
 
+                <div class="formData l4 m6">
+                    <label>Status</label><br>
+                    <select [(ngModel)]="edit.status" name="status">
+                        <option *ngFor="let stat of status" value="{{stat.id}}">{{ stat.title }}</option>
+                    </select>
+                    <small class="error" *ngIf="edit.validations.schoolLevel == 1">Requerido</small>
+                </div>
 
 
             </form>

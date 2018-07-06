@@ -74,6 +74,10 @@ td {
     text-transform: capitalize;
 }
 
+.lowerCase {
+    text-transform: lowercase;
+}
+
 tr:hover {
     background: rgb(235, 235, 235);
     cursor: pointer;

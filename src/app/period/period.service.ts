@@ -50,4 +50,16 @@ export class PeriodService {
     .toPromise();
   }
 
+  checkDelete(period) {
+    return this._http.post(this.link.url + 'period/checkDelete' + this.token.getTokenUrl(), period)
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  delete(period) {
+    return this._http.delete(this.link.url + 'period/delete/' + period.id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

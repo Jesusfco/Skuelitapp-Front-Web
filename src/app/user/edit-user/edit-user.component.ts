@@ -23,9 +23,7 @@ export class EditUserComponent implements OnInit {
   public request: number = 0;
   public schoolLevels: Array<SchoolLevel> = [];
 
-  public student: User = new User();
-  public parents: Array<User> = [];
-
+  public users: Array<User> = [];
   public periodSelected: Number;  
   public periods: Array<Period> = [];
   public groups: Array<Group> = [];
@@ -64,9 +62,18 @@ export class EditUserComponent implements OnInit {
         this.user.setData(data);
         this.userOld.setData(data);
 
-        if(this.user.grade > 0 && this.user.school_level_id > 0){
+        if(this.user.grade > 0 && this.user.school_level_id > 0 && this.user.user_type == 1) {
+
+          this.setGroupsPeriods();
           this.setGroupOptions();
           this.setPaymentTypes();
+
+        }
+
+        if(this.user.user_type == 2) {
+
+          this.setChildrens();
+
         }
 
       },
@@ -79,7 +86,7 @@ export class EditUserComponent implements OnInit {
   setGroupsPeriods() {
 
     
-    this.user.group_id = 0;
+    // this.user.group_id = 0;
     
 
     if(this.user.grade == null || this.user.school_level_id == null) return;
@@ -271,6 +278,34 @@ export class EditUserComponent implements OnInit {
         sessionStorage.setItem('request', JSON.stringify(not));
 
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+
+      () => this.request--
+
+    );
+
+  }
+
+  setChildrens() {
+
+    this.request++;
+    
+    this._http.getChildren({id: this.user.id}).then(
+
+      data => {
+
+        this.users = [];
+
+        for(let d of data) {
+
+          let us = new User();
+          us.setData(d);
+          this.users.push(us);
+
+        }
+
+      }
 
     ).then(
 

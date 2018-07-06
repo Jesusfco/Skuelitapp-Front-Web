@@ -103,6 +103,23 @@ export class Period {
 
     }
 
+    getStatusArrayOptions() {
+        return [
+            {
+                id: 1,
+                title: 'INSCRIPCIONES',
+            },
+            {
+                id: 2,
+                title: 'ACTIVO',
+            },
+            {
+                id: 3,
+                title: 'FINALIZADO',
+            },
+        ];
+    }
+
     resetAllPartialValidation() {
         for(let i = 0; i < this.partialsArray.length; i ++) {
             this.partialsArray[i].resetValidation();

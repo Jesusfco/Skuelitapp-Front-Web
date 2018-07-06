@@ -13,6 +13,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { PeriodComponent } from './period/period.component';
 import { CreatePeriodComponent } from './period/create-period/create-period.component';
 import { EditPeriodComponent } from './period/edit-period/edit-period.component';
+import { DeletePeriodComponent } from './period/delete-period/delete-period.component';
 
 import { PaymentAdministrationComponent } from './payment-administration/payment-administration.component';
 import { CreatePaymentTypeComponent } from './payment-administration/create-payment-type/create-payment-type.component';
@@ -22,6 +23,7 @@ import { DatePaymentComponent } from './payment-administration/date-payment/date
 import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
 import { ShowGroupComponent } from './group/show-group/show-group.component';
+import { DeleteGroupComponent } from './group/delete-group/delete-group.component';
 
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './subject/create-subject/create-subject.component';
@@ -38,11 +40,13 @@ import { StudentsScheduleComponent } from './students/students-schedule/students
 import { StudentsQualificationsComponent } from './students/students-qualifications/students-qualifications.component';
 import { ChatComponent } from './chat/chat.component';
 
+
 import { ParentsSchedulesComponent } from './parents/parents-schedules/parents-schedules.component';
 import { ParentsQualificationsComponent } from './parents/parents-qualifications/parents-qualifications.component';
 import { ParentPermissionComponent } from './parents/parent-permission/parent-permission.component';
 import { ParentCreatePermissionComponent } from './parents/parent-permission/parent-create-permission/parent-create-permission.component';
 import { ParentShowPermissionComponent } from './parents/parent-permission/parent-show-permission/parent-show-permission.component';
+
 
 export const routes: Routes = [
     
@@ -63,6 +67,7 @@ export const routes: Routes = [
         children: [
             {   path: 'create', component: CreatePeriodComponent },
             {   path: 'edit/:id', component: EditPeriodComponent },
+            {   path: 'delete/:id', component: DeletePeriodComponent }
         ]
     },
 
@@ -79,6 +84,7 @@ export const routes: Routes = [
         path: 'grupos', component: GroupComponent,
         children: [
             {   path: 'admin/:id', component: CreateGroupComponent },
+            {   path: 'delete/:id', component: DeleteGroupComponent },
             {   path: 'show/:id', component: ShowGroupComponent,
                 children: [
                     { path: 'horarios', component: ScheduleSubjectComponent }

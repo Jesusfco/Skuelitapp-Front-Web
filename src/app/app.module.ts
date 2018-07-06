@@ -91,6 +91,8 @@ import { PermissionService } from './permission/permission.service';
 import { ChatComponent } from './chat/chat.component';
 import { UtilsService } from './utils.service';
 import { TimeChatPipe } from './time-chat.pipe';
+import { DeletePeriodComponent } from './period/delete-period/delete-period.component';
+import { DeleteGroupComponent } from './group/delete-group/delete-group.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +133,8 @@ import { TimeChatPipe } from './time-chat.pipe';
     ShowPermissionComponent,
     ChatComponent,
     TimeChatPipe,
+    DeletePeriodComponent,
+    DeleteGroupComponent,
   ],
   imports: [
     BrowserModule,

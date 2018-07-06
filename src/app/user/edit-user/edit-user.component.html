@@ -9,7 +9,7 @@
     <!-- [ngClass]="{'loadingForm': request == true}" -->
     <div class="form">
         <h1 align="center">Editar </h1>
-        <h3 class="centerText">{{ user.name }} {{ user.patern_surname }} {{ user.matern_surname }} {{ user.patern_surname }} {{ student.matern_surname }}</h3>
+        <h3 class="centerText">{{ user.name }} {{ user.patern_surname }} {{ user.matern_surname }}</h3>
 
         <div class="container">
             <form class="flexRow" autocomplete="off" (submit)="updateUser()">
@@ -46,18 +46,18 @@
                         <small class="error" *ngIf="user.validations.email == 2">Correo ya asignado</small>
                     </div>
 
-                    <div class="formData l6 m6" *ngIf="student.id == null">
+                    <div class="formData l6 m6" *ngIf="user.user_type > 3">
                         <label>Tipo de usuario:</label><br>
                         <select [(ngModel)]="user.user_type" name="user_type">
-                              <option value="1">Alumno</option> 
+                              <!-- <option value="1">Alumno</option> 
                               <option value="2">Tutor</option>
-                              <option value="3">Maestro</option>
+                              <option value="3">Maestro</option> -->
                               <option value="4">Cajero</option>
                               <option value="5">Adminsitrador</option>
                           </select>
                     </div>
 
-                    <div class="formData l6 m6" *ngIf="student.id != null">
+                    <div class="formData l6 m6" *ngIf="user.user_type <= 3">
                         <label>Tipo de usuario:</label><br>
                         <select [(ngModel)]="user.user_type" name="user_type" disabled>
                               <option value="1">Alumno</option> 
@@ -187,9 +187,12 @@
 
 
 
-                <button type="submit" class="btn btnAccept">Crear Usuario</button>
+                <button type="submit" class="btn btnAccept">Modificar Usuario</button>
 
             </form>
+            <br><br>
+            <h4 *ngIf="user.user_type == 2">Alumnos</h4>
+            <p *ngFor="let children of users">{{ children.name }} {{ children.patern_surname }} {{ children.matern_surname }}</p>
 
 
         </div>
