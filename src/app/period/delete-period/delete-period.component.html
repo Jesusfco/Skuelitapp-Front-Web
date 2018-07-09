@@ -1,3 +1,22 @@
-<p>
-  delete-period works!
-</p>
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Eliminar Periodo <br> {{ period.from | dateformat }} - {{ period.to | dateformat}}</h2>
+
+        <p>{{ safeDelete.message }}</p>
+
+        <div class="confirmCancel">
+            <button class="btn l4" (click)="closePop()">Cancelar</button>
+            <button class="btn l4 btnCancel" (click)="deletePeriod()">Eliminar</button>
+        </div>
+
+
+    </div>
+
+</div>

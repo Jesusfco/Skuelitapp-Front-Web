@@ -93,6 +93,7 @@ import { UtilsService } from './utils.service';
 import { TimeChatPipe } from './time-chat.pipe';
 import { DeletePeriodComponent } from './period/delete-period/delete-period.component';
 import { DeleteGroupComponent } from './group/delete-group/delete-group.component';
+import { DateformatPipe } from './dateformat.pipe';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { DeleteGroupComponent } from './group/delete-group/delete-group.componen
     TimeChatPipe,
     DeletePeriodComponent,
     DeleteGroupComponent,
+    DateformatPipe,
   ],
   imports: [
     BrowserModule,

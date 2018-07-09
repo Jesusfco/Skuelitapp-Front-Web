@@ -227,6 +227,13 @@ button:disabled {
     background: rgb(190, 0, 0);
 }
 
+.confirmCancel {
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
 .inputError {
     background: rgb(243, 181, 181)
 }

@@ -17,6 +17,8 @@ export class PeriodComponent implements OnInit {
   public newPeriodObserver: any;
   public editPeriodObserver: any;
 
+  public outletOutput: any;
+
   public parameters: any = {
     from: '',
     to: ''
@@ -27,12 +29,64 @@ export class PeriodComponent implements OnInit {
     this.setPeriodType();
     this.setNewPeriodObserver();
     this.setEditPeriodObserver();
+
+    this.outletOutput = this._http.getData().subscribe(x => {
+
+      
+      if(x.action == 'DELETE') {
+        this.splicePeriod(x.period);
+      } else if(x.action == 'UPDATE') {
+        this.refreshPeriod(x.period);
+      }
+      
+    });
+
   }
 
   ngOnInit() {
     
   }
 
+  splicePeriod(period) {
+        
+    for(let i = 0; i < this.periods.length; i++) {
+
+      if(this.periods[i].id == period.id) {
+
+        this.periods.splice(i, 1);
+        break;
+
+      }
+
+    }
+
+  }
+
+  refreshPeriod(period) {
+    for(let i = 0; i < this.periods.length; i++) {
+
+      if(this.periods[i].id == period.id) {
+
+        this.periods[i].setDataEdit(period);
+        break;
+
+      }
+
+    }
+  }
+  
+
+  deletedPer(e) {
+    console.log(e);
+  }
+
+  onActivate(e) {
+    setTimeout(() => {
+
+      e.safeDelete.message = "holi desde afuera camaradas";
+
+    }, 5000);
+  }
 
   getData() {
 

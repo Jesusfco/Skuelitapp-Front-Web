@@ -2,6 +2,7 @@ import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import "rxjs";
 import { Observable } from "rxjs";
+import { Subject } from 'rxjs/Subject';
 
 import { Url } from '../url';
 import { Storage } from '../class/storage';
@@ -11,8 +12,18 @@ export class PeriodService {
 
   public link: Url = new Url();
   public token: Storage = new Storage();
+
+  private subject = new Subject<any>();
   
   constructor(private _http: Http) { }
+
+  getData(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
+  sendData(message: any) {
+    this.subject.next(message);
+  }
 
   getPeriods(parameters) {
     return this._http.post(this.link.url + 'period/get' + this.token.getTokenUrl(), parameters)

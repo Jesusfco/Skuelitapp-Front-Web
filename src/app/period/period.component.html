@@ -9,16 +9,21 @@
                 <th>Parciales</th>
                 <th>Nivel Escolar</th>
                 <th>Tipo</th>
+                <th>Opciones</th>
             </tr>
 
         </thead>
         <tbody>
-            <tr *ngFor="let period of periods" [routerLink]="['/periodos/edit', period.id]">
-                <td class="left">{{ period.from }}</td>
-                <td>{{ period.to }}</td>
+            <tr *ngFor="let period of periods">
+                <td class="left">{{ period.from | dateformat }}</td>
+                <td>{{ period.to | dateformat }}</td>
                 <td>{{ period.partials }}</td>
                 <td>{{ period.school_level_view }}</td>
                 <td>{{ period.period_type_view }}</td>
+                <td>
+                    <i class="material-icons" [routerLink]="['./edit', period.id]">edit</i>
+                    <i class="material-icons" [routerLink]="['./delete', period.id]">delete</i>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -31,4 +36,4 @@
 </div>
 
 
-<router-outlet></router-outlet>
+<router-outlet (deletedPer)='deletedPer($event)'></router-outlet>
