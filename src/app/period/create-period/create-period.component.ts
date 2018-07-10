@@ -58,8 +58,12 @@ export class CreatePeriodComponent implements OnInit {
           status: 200
         };
 
+        this._http.sendData({
+          period: data,
+          action: 'NEW'
+        });
+
         sessionStorage.setItem('request', JSON.stringify(not));
-        sessionStorage.setItem('newPeriod', JSON.stringify(data));
 
         this.closeWindow();
         

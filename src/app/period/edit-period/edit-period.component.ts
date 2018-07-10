@@ -78,19 +78,16 @@ export class EditPeriodComponent implements OnInit {
           status: 200
         };
 
+        this._http.sendData({
+          period: this.edit,
+          action: 'UPDATE'
+        });
+
         sessionStorage.setItem('request', JSON.stringify(not));
 
-      }
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
-    ).then(
-
-      () => this.request--
-
-    ).catch(
-
-      error => sessionStorage.setItem('request', JSON.stringify(error))
-
-    );
+    ).then( () => this.request-- );
     
   }
 

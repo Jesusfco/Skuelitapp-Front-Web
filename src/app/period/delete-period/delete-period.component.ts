@@ -105,12 +105,28 @@ export class DeletePeriodComponent implements OnInit {
 
   deletePeriod() {
 
-    // this.deletedPer.emit(this.period);
-    let message = {
-      period: this.period,
-      action: 'DELETE'
-    };
-    this._http.sendData(message);
+    this.request++;
+
+    this._http.delete(this.period).then(
+
+    data => {
+
+      this._http.sendData({
+        period: this.period,
+        action: 'DELETE'
+      });
+
+      sessionStorage.setItem('request', JSON.stringify({
+        title: 'Periodo Eliminado',
+        description: 'Datos eliminados y actualizados en el servidorr',
+        status: 200
+      }));
+
+      this.closePop();
+
+    }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+  ).then( () => this.request-- );
 
   }
 

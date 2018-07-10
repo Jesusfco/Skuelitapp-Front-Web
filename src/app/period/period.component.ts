@@ -14,8 +14,7 @@ export class PeriodComponent implements OnInit {
   public request: Boolean = false;
   public periodsTypes: Array<PeriodType> = [];
 
-  public newPeriodObserver: any;
-  public editPeriodObserver: any;
+  
 
   public outletOutput: any;
 
@@ -27,25 +26,27 @@ export class PeriodComponent implements OnInit {
   constructor(private _http: PeriodService) { 
     this.getData();
     this.setPeriodType();
-    this.setNewPeriodObserver();
-    this.setEditPeriodObserver();
 
     this.outletOutput = this._http.getData().subscribe(x => {
-
       
-      if(x.action == 'DELETE') {
+      if (x.action == 'DELETE') {
+
         this.splicePeriod(x.period);
-      } else if(x.action == 'UPDATE') {
+
+      } else if (x.action == 'UPDATE') {
+
         this.refreshPeriod(x.period);
+
+      } else if (x.action == 'NEW') {
+
+        this.addNewPeriod(x.period);
       }
       
     });
 
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   splicePeriod(period) {
         
@@ -63,6 +64,7 @@ export class PeriodComponent implements OnInit {
   }
 
   refreshPeriod(period) {
+
     for(let i = 0; i < this.periods.length; i++) {
 
       if(this.periods[i].id == period.id) {
@@ -73,19 +75,15 @@ export class PeriodComponent implements OnInit {
       }
 
     }
-  }
-  
 
-  deletedPer(e) {
-    console.log(e);
   }
 
-  onActivate(e) {
-    setTimeout(() => {
+  addNewPeriod(period){
 
-      e.safeDelete.message = "holi desde afuera camaradas";
+    let p = new Period();
+    p.setDataEdit(period);
+    this.periods.unshift(p);
 
-    }, 5000);
   }
 
   getData() {
@@ -119,39 +117,6 @@ export class PeriodComponent implements OnInit {
       error => sessionStorage.setItem('request', error)
 
     );
-
-  }
-
-  setNewPeriodObserver() {
-    this.newPeriodObserver = setInterval(() => this.newPeriodObserverLogic(), 1000);
-  }
-
-  newPeriodObserverLogic(){
-    if(sessionStorage.getItem('newPeriod') == undefined) return;
-
-    let newPeriod = JSON.parse(sessionStorage.getItem('newPeriod'));
-    this.periods.unshift(newPeriod);
-    sessionStorage.removeItem('newPeriod');
-
-  }
-
-  setEditPeriodObserver() {
-    this.editPeriodObserver = setInterval(() => this.editPeriodObserverLogic(), 1000);
-  }
-
-  editPeriodObserverLogic() {
-    if(sessionStorage.getItem('editedPeriod') == undefined) return;
-
-    let editerPeriod = JSON.parse(sessionStorage.getItem('editedPeriod'));
-
-    for(let i = 0; i < this.periods.length; i++) {
-      if(this.periods[i].id == editerPeriod.id) {
-        this.periods[i] = editerPeriod;
-        break;
-      }
-    }
-
-    sessionStorage.removeItem('editedPeriod');
 
   }
 
