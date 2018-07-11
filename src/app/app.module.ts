@@ -97,6 +97,10 @@ import { DateformatPipe } from './pipes/dateformat.pipe';
 import { SchoolLevelGroupPipe } from './pipes/school-level-group.pipe';
 import { SchoolGroupPipe } from './pipes/school-group.pipe';
 import { StatusPeriodPipe } from './pipes/status-period.pipe';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { CreateReceiptComponent } from './create-receipt/create-receipt.component';
+import { ShowReceiptComponent } from './show-receipt/show-receipt.component';
+import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +147,10 @@ import { StatusPeriodPipe } from './pipes/status-period.pipe';
     SchoolLevelGroupPipe,
     SchoolGroupPipe,
     StatusPeriodPipe,
+    ReceiptComponent,
+    CreateReceiptComponent,
+    ShowReceiptComponent,
+    DeleteReceiptComponent,
   ],
   imports: [
     BrowserModule,
