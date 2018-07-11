@@ -175,7 +175,7 @@ export class CreateGroupComponent implements OnInit {
   }
  
 
-  deleteGroup(group) {
+  deleteGroup(group: Group) {
 
 
     if(group.id == null) {
@@ -184,6 +184,33 @@ export class CreateGroupComponent implements OnInit {
       this.groups.splice(i, 1);
       return;
 
+    }
+
+    if(this.period.status != 1) {
+
+      
+      const not = {
+        title: 'ACCION INVALIDA',
+        description: 'El periodo al que pertenecen se encuentra en curso',
+        status: 450
+      };
+
+      sessionStorage.setItem('request', JSON.stringify(not));
+
+      return;
+
+    } 
+    
+    if(group.students_id != null || group.students_id != '') {
+
+      const not = {
+        title: 'ACCION INVALIDA',
+        description: 'El grupo posee alumnos',
+        status: 450
+      };
+
+      sessionStorage.setItem('request', JSON.stringify(not));
+      return;
     }
 
     this.request++;

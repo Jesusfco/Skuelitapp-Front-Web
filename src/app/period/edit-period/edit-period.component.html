@@ -13,7 +13,7 @@
         <div class="container">
             <form class="flexRow" (submit)="editPeriod()" enctype="multipart/form-data" autocomplete="off">
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Cantidad de Parciales:</label><br>
                     <input [(ngModel)]="edit.partials" name="partials" disabled>
                     <small class="error" *ngIf="edit.validations.partials == 1">Requerido/ Mayor a 0</small>
@@ -21,21 +21,21 @@
 
 
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Inicio del Periodo:</label><br>
                     <input [(ngModel)]="edit.from" name="from" type="date" [ngClass]="{ 'inputError': edit.validations.from > 0 }">
                     <small class="error" *ngIf="edit.validations.from == 1">Requerido</small>
                     <small class="error" *ngIf="edit.validations.from == 2">La fecha tiene que ser menor al Fin del periodo</small>
                 </div>
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Fin del Periodo:</label><br>
                     <input [(ngModel)]="edit.to" name="to" type="date" [ngClass]="{ 'inputError': edit.validations.to > 0 }">
                     <small class="error" *ngIf="edit.validations.to == 1">Requerido</small>
                     <small class="error" *ngIf="edit.validations.to == 2">La fecha tiene que ser Mayor al Inicio del periodo</small>
                 </div>
 
-                <div class="formData l6 m6">
+                <div class="formData l4 m6">
                     <label>Tipo de Periodo:</label><br>
                     <select [(ngModel)]="edit.period_type_id" name="period_type_id" disabled>
                         <option *ngFor="let type of periodTypes" value="{{type.id}}">{{ type.name }}</option>
