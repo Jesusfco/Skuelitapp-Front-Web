@@ -89,6 +89,19 @@ export class GroupComponent implements OnInit {
 
     }
 
+    let i = 1;
+
+    for(let g of this.groups) {
+
+      if(g.grade == group.grade){
+
+        g.group = i;
+        i++;
+
+      }
+
+    }
+
   }
 
   ngOnInit() {

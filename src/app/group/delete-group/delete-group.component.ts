@@ -100,7 +100,30 @@ export class DeleteGroupComponent implements OnInit {
   }
 
   deleteGroup() {
+    this.request++;
 
+    this._http.deleteGroup(this.group).then(
+      data => {
+
+      const not = {
+        title: 'GRUPO ELIMINADO',
+        description: 'Base de datos actualizada.',
+        status: 200
+      };
+
+      sessionStorage.setItem('request', JSON.stringify(not));
+
+      this._http.sendData({action: 'DELETE', data: this.group});
+      
+      this.closePop();
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+
+    ).then(
+
+      () => this.request--
+
+    );
   }
 
   setMessage() {

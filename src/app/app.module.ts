@@ -90,13 +90,13 @@ import { ShowPermissionComponent } from './permission/show-permission/show-permi
 import { PermissionService } from './permission/permission.service';
 import { ChatComponent } from './chat/chat.component';
 import { UtilsService } from './utils.service';
-import { TimeChatPipe } from './time-chat.pipe';
+import { TimeChatPipe } from './pipes/time-chat.pipe';
 import { DeletePeriodComponent } from './period/delete-period/delete-period.component';
 import { DeleteGroupComponent } from './group/delete-group/delete-group.component';
-import { DateformatPipe } from './dateformat.pipe';
-import { SchoolLevelGroupPipe } from './school-level-group.pipe';
-import { SchoolGroupPipe } from './school-group.pipe';
-import { StatusPeriodPipe } from './status-period.pipe';
+import { DateformatPipe } from './pipes/dateformat.pipe';
+import { SchoolLevelGroupPipe } from './pipes/school-level-group.pipe';
+import { SchoolGroupPipe } from './pipes/school-group.pipe';
+import { StatusPeriodPipe } from './pipes/status-period.pipe';
 
 @NgModule({
   declarations: [
