@@ -1,3 +1,38 @@
-<p>
-  receipt works!
-</p>
+<h1>Recibos</h1>
+<div class="responsive-table">
+    <table align="center">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Monto</th>
+                <th>Tipo</th>
+                <th>Fecha de Pago</th>
+                <th>Opciones</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let receipt of receipts">
+                <td class="left">{{ receipt.user_name }}</td>
+                <td>{{ receipt.amount }}</td>
+                <td>{{ receipt.receipt_type }}</td>
+                <td>{{ receipt.created_at }}</td>
+
+                <td>
+                    <i class="material-icons" [routerLink]="['./edit', receipt.id]">edit</i>
+                    <i class="material-icons" [routerLink]="['./delete', receipt.id]">delete</i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<mat-paginator (page)="paginatorEvent($event)" [length]="pageEvent.length" [pageSize]="25" [pageSizeOptions]="lenghtArrayOptions">
+</mat-paginator>
+
+<div class="botonFloat" [routerLink]="['./create']">
+    <a class="botonA" matTooltip="Crear Recibo"><i class="material-icons">add</i></a>
+</div>
+
+
+<router-outlet></router-outlet>

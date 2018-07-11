@@ -46,6 +46,10 @@ import { ParentsQualificationsComponent } from './parents/parents-qualifications
 import { ParentPermissionComponent } from './parents/parent-permission/parent-permission.component';
 import { ParentCreatePermissionComponent } from './parents/parent-permission/parent-create-permission/parent-create-permission.component';
 import { ParentShowPermissionComponent } from './parents/parent-permission/parent-show-permission/parent-show-permission.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { ShowReceiptComponent } from './receipt/show-receipt/show-receipt.component';
+import { DeleteReceiptComponent } from './receipt/delete-receipt/delete-receipt.component';
+import { CreateReceiptComponent } from './receipt/create-receipt/create-receipt.component';
 
 
 export const routes: Routes = [
@@ -104,6 +108,14 @@ export const routes: Routes = [
     { path: 'permisos', component:  PermissionComponent,
         children: [
             { path: 'ver/:id', component: ShowPermissionComponent },
+        ]
+    },
+
+    { path: 'recibos', component:  ReceiptComponent,
+        children: [
+            { path: 'ver/:id', component: ShowReceiptComponent },
+            { path: 'delete/:id', component: DeleteReceiptComponent },
+            { path: 'create', component: CreateReceiptComponent },
         ]
     },
     //CHAT TODOS 

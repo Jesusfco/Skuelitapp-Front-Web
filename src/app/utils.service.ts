@@ -21,10 +21,10 @@ export class UtilsService {
 
     
 
-    this.pusher = new Pusher(environment.pusher.key, {
-      cluster: environment.pusher.cluster,
-      encrypted: true
-    });
+    // this.pusher = new Pusher(environment.pusher.key, {
+    //   cluster: environment.pusher.cluster,
+    //   encrypted: true
+    // });
 
    }
 

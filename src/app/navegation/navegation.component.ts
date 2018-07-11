@@ -54,6 +54,18 @@ export class NavegationComponent implements OnInit {
       puntoVenta: false,
     };
 
+    links = [
+      {link: './resume', name: 'Inicio'},
+      {link: './users', name: 'Usuarios'},
+      {link: './periodos', name: 'Periodos Escolares'},
+      {link: './administracion-de-pagos', name: 'Administración de pagos'},
+      {link: './grupos', name: 'Grupos Escolares'},
+      {link: './materias', name: 'Materias'},
+      {link: './permisos', name: 'Solicitudes de permisos'},
+      {link: './recibos', name: 'Recibos'},
+      {link: './eventos', name: 'Eventos'},
+    ];
+
     public formats = ['image/png', 'image/jpeg', 'image/jpg'];
     public inputPhotoPerfil: any;
 

@@ -190,6 +190,7 @@
                 <button type="submit" class="btn btnAccept">Modificar Usuario</button>
 
             </form>
+
             <br><br>
             <h4 *ngIf="user.user_type == 2">Alumnos</h4>
             <p *ngFor="let children of users">{{ children.name }} {{ children.patern_surname }} {{ children.matern_surname }}</p>

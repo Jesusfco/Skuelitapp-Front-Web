@@ -35,8 +35,8 @@
         <h5>APLICACIÓN</h5>
         <ul *ngIf="userData.getUserType() == 5" (click)="menuAction()">
 
-            <li [routerLink]="['/resume']">
-                <p>Inicio</p>
+            <li routerLink="{{l.link}}" *ngFor="let l of links">
+                <p>{{ l.name }}</p>
             </li>
             <li [routerLink]="['/users']">
                 <p>Usuarios</p>
@@ -58,7 +58,7 @@
                 <p>Solicitudes de permisos</p>
             </li>
 
-            <li [routerLink]="['/receipt']">
+            <li [routerLink]="['/recibos']">
                 <p>Recibos</p>
             </li>
             <li [routerLink]="['/events']">
@@ -160,15 +160,7 @@
     <h5>APLICACIÓN</h5>
     <ul *ngIf="userData.getUserType() == 5">
 
-        <li [routerLink]="['/resume']"><button>Inicio</button></li>
-        <li [routerLink]="['/users']"><button>Usuarios</button></li>
-        <li [routerLink]="['/periodos']"><button>Periodos Escolares</button></li>
-        <li [routerLink]="['/administracion-de-pagos']"><button>Administracion de Pagos</button></li>
-        <li [routerLink]="['/grupos']"><button>Grupos Escolares</button></li>
-        <li [routerLink]="['/materias']"><button>Lista de Materias</button></li>
-        <li [routerLink]="['./permisos']"><button>Solicitudes de Permisos</button></li>
-        <li [routerLink]="['/receipt']"><button>Recibos</button></li>
-        <li [routerLink]="['/events']"><button>Eventos</button></li>
+        <li routerLink="{{l.link}}" *ngFor="let l of links"><button>{{ l.name }}</button></li>
 
     </ul>
 

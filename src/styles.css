@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-/* @import "~@angular/material/prebuilt-themes/indigo-pink.css";
- */
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 body {
     padding: 0;
@@ -39,6 +36,25 @@ h5 {
 
 .routeTitle {
     text-align: center;
+}
+
+.botonFloat {
+    width: 25px;
+    height: 25px;
+    background-color: #f8ae37;
+    margin: 5px;
+    padding: 21px;
+    font-size: 11px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    float: left;
+    box-sizing: content-box;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    transition: .4s;
+    cursor: pointer;
+    color: white;
 }
 
 .center {

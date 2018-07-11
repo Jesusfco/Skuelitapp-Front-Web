@@ -13,5 +13,19 @@ export class Receipt {
 
     constructor() {}
 
+    setData(data) {
+
+        this.id = parseInt(data.id);
+        this.user_id = parseInt(data.user_id);
+        this.user_name = data.user_name;
+        this.creator_id = parseInt(data.creator_id);
+        this.amount = parseFloat(data.creator_id);
+        this.payment_date_id = parseFloat(data.payment_date_id);
+        this.receipt_type = parseInt(data.receipt_type);
+        this.created_at = data.created_at;
+        this.updated_at = data.updated_at;
+
+    }
+
 
 }

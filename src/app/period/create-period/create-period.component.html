@@ -50,6 +50,11 @@
                     <small class="error" *ngIf="period.validations.schoolLevel == 1">Requerido</small>
                 </div>
 
+                <div class="formData l4 m6">
+                    <label>Costo de Inscripción</label><br>
+                    <input type="number" [(ngModel)]="period.inscription" name="inscription" min="0">
+                </div>
+
 
                 <button type="submit" class="btn btnAccept">Crear Periodo</button>
 

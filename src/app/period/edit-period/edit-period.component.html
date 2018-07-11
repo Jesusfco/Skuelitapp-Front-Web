@@ -58,6 +58,11 @@
                     <small class="error" *ngIf="edit.validations.schoolLevel == 1">Requerido</small>
                 </div>
 
+                <div class="formData l4 m6">
+                    <label>Costo de Inscripción</label><br>
+                    <input type="number" [(ngModel)]="edit.inscription" name="inscription" min="0">
+                </div>
+
 
             </form>
 

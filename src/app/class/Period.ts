@@ -11,6 +11,7 @@ export class Period {
     public school_level_id: Number;
     public school_level_view: String;
     public status: Number;
+    public inscription: Number = 0;
     public created_at: String;
     public updated_at: String;
     public partialsArray: Array<Partial> = [];
@@ -33,6 +34,7 @@ export class Period {
         this.period_type_id = parseFloat(data.period_type_id);
         this.school_level_id = parseFloat(data.school_level_id);
         this.status = parseFloat(data.status);
+        this.inscription = parseFloat(data.inscription);
         this.created_at = data.created_at;
         this.updated_at = data.updated_ad;
 

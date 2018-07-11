@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.route';
 
-// import {
-  // MatAutocompleteModule,
+import {
+  MatAutocompleteModule,
   // MatButtonModule,
   // MatButtonToggleModule,
   // MatCardModule,
@@ -17,12 +17,12 @@ import { routes } from './app.route';
   // MatDialogModule,
   // MatExpansionModule,
   // MatGridListModule,
-  // MatIconModule,
+  MatIconModule,
   // MatInputModule,
   // MatListModule,
   // MatMenuModule,
   // MatNativeDateModule,
-  // MatPaginatorModule,
+  MatPaginatorModule,
   // MatProgressBarModule,
   // MatProgressSpinnerModule,
   // MatRadioModule,
@@ -36,8 +36,8 @@ import { routes } from './app.route';
   // MatTableModule,
   // MatTabsModule,
   // MatToolbarModule,
-  // MatTooltipModule,
-// } from '@angular/material';
+  MatTooltipModule,
+} from '@angular/material';
 
 
 
@@ -98,9 +98,11 @@ import { SchoolLevelGroupPipe } from './pipes/school-level-group.pipe';
 import { SchoolGroupPipe } from './pipes/school-group.pipe';
 import { StatusPeriodPipe } from './pipes/status-period.pipe';
 import { ReceiptComponent } from './receipt/receipt.component';
-import { CreateReceiptComponent } from './create-receipt/create-receipt.component';
-import { ShowReceiptComponent } from './show-receipt/show-receipt.component';
-import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.component';
+import { CreateReceiptComponent } from './receipt/create-receipt/create-receipt.component';
+import { ShowReceiptComponent } from './receipt/show-receipt/show-receipt.component';
+import { DeleteReceiptComponent } from './receipt/delete-receipt/delete-receipt.component';
+import { ReceiptService } from './receipt/receipt.service';
+import { ReceiptTypePipe } from './pipes/receipt-type.pipe';
 
 @NgModule({
   declarations: [
@@ -151,6 +153,7 @@ import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.componen
     CreateReceiptComponent,
     ShowReceiptComponent,
     DeleteReceiptComponent,
+    ReceiptTypePipe,
   ],
   imports: [
     BrowserModule,
@@ -161,14 +164,14 @@ import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.componen
     BrowserAnimationsModule, 
 
     
-    // MatAutocompleteModule,
+    MatAutocompleteModule,
     // MatButtonModule,
     // MatButtonToggleModule,
     // MatCardModule,
     // MatCheckboxModule,
     // MatChipsModule,
-    // MatPaginatorModule,
-    // MatIconModule,
+    MatPaginatorModule,
+    MatIconModule,
 
     // MatDatepickerModule,
     // MatDialogModule,
@@ -193,7 +196,7 @@ import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.componen
     // MatTableModule,
     // MatTabsModule,
     // MatToolbarModule,
-    // MatTooltipModule,
+    MatTooltipModule,
   ],
   providers: [
     LoginService,
@@ -204,6 +207,7 @@ import { DeleteReceiptComponent } from './delete-receipt/delete-receipt.componen
     GroupService,
     SubjectService,
     PermissionService,
+    ReceiptService,
     StudentsService,
     ParentsService,
     TeachersService,
