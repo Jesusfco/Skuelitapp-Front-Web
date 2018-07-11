@@ -1,5 +1,5 @@
+import { Group } from './../class/Group';
 import { Component, OnInit } from '@angular/core';
-import { Group } from '../class/Group';
 import { GroupService } from './group.service';
 import { Period } from '../class/Period';
 import { SchoolLevel } from '../class/SchoolLevel';
@@ -22,6 +22,7 @@ export class GroupComponent implements OnInit {
     level: '',
   };
 
+  public output: any;
   public periodObserver: any;
 
   constructor(private _http: GroupService) { 
@@ -30,6 +31,64 @@ export class GroupComponent implements OnInit {
     this.setPeriods();
     this.setPeriodType();
     this.setPeriodObserver();
+
+    this.output = this._http.getData().subscribe(x => {
+      
+      if (x.action == 'DELETE') {
+
+        this.spliceGroup(x.data);
+
+      } else if (x.action == 'UPDATE') {
+
+        this.refreshGroup(x.data);
+
+      } else if (x.action == 'NEW') {
+
+        this.addNewGroups(x.data);
+      }
+      
+    });
+
+  }
+
+  addNewGroups(groups) {
+
+    if(groups[0] == undefined || groups[0].period_id != this.search.period_id) {
+      return;
+    }
+
+    for(let g of groups) {
+
+      this.groups.push(g);
+
+    }
+
+  }
+
+  refreshGroup(group) {
+
+    for (let g of this. groups) {
+      if (g.id == group.id) {
+        g.setData(group);
+        break;
+      }
+    }
+
+  }
+
+  spliceGroup(group) {
+
+    for (let i = 0; i < this.groups.length; i++) {
+
+      if (this.groups[i].id == group.id) {
+
+        this.groups.splice(i, 1);
+        break;
+
+      }
+
+    }
+
   }
 
   ngOnInit() {
@@ -172,6 +231,15 @@ export class GroupComponent implements OnInit {
       this.periods[i].setPeriodTypeView(this.periodTypes);
 
     }
+
+  }
+
+  sendSelectGroup(group) {
+
+    setTimeout(() => 
+      this._http.sendData({action: 'SHOW', data: group}), 
+    50);
+    
 
   }
 

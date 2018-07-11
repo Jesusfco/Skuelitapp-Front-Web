@@ -1,5 +1,4 @@
 import { User } from "./User";
-import { useAnimation } from "@angular/core/src/animation/dsl";
 
 export class Group {
 

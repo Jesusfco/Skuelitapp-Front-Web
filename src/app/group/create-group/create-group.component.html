@@ -9,7 +9,9 @@
 
     <div class="form container">
         <h1 align="center">Crear Grupos</h1>
-        <h2 align="center">Del periodo {{ period.from }} / {{ period.to }} PeriodoTipo {{ period.period_type_id }}</h2>
+        <h2 align="center">Del periodo {{ period.from }} / {{ period.to }} PeriodoTipo {{ period.period_type_id }}
+            <BR> {{ newGroup.school_level_id | schoolLevelGroup }}
+        </h2>
 
         <div class="flexRow">
 
@@ -32,16 +34,11 @@
                     <!-- <small class="error" *ngIf="date.validations.date == 2">La fecha tiene que estar dentro del periodo</small> -->
                 </div>
 
-                <div class="formData l4 m4">
-                    <label>Nivel Escolar</label><br>
-                    <input [(ngModel)]="newGroup.level_view" name="level_view" disabled>
 
-
-                </div>
 
                 <div class="formData l4 m4">
                     <label>Grupo</label><br>
-                    <input [(ngModel)]="newGroup.group_view" name="group_view" disabled>
+                    <p> {{ newGroup.group | schoolGroup }}</p>
                 </div>
 
                 <button *ngIf="request == 0" type="submit" class="btn btnAccept">Crear Grupo</button>
@@ -53,13 +50,7 @@
 
         </div>
 
-
-
-
-
         <div class="container">
-
-
 
         </div>
     </div>
@@ -78,8 +69,8 @@
             <tbody>
                 <tr *ngFor="let g of groups">
                     <td>{{ g.grade }}</td>
-                    <td>{{ g.group_view }}</td>
-                    <td>{{ g.level_view }}</td>
+                    <td>{{ g.group | schoolGroup }}</td>
+                    <td>{{ g.school_level_id | schoolLevelGroup }}</td>
 
                     <td>
                         <i class="material-icons" (click)="deleteGroup(g)">delete</i>

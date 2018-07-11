@@ -57,8 +57,6 @@ export class CreateGroupComponent implements OnInit {
           }
         }
 
-        group.setGroupView();
-        group.setLevelView();
         this.groups.push(group);
 
       }
@@ -79,8 +77,6 @@ export class CreateGroupComponent implements OnInit {
           }
         }
 
-        group.setGroupView();
-        group.setLevelView();
         this.groups.push(group);
 
       }
@@ -107,8 +103,6 @@ export class CreateGroupComponent implements OnInit {
         }
       }
 
-      group.setGroupView();
-      group.setLevelView();
       this.groups.push(group);
 
     }
@@ -135,8 +129,6 @@ export class CreateGroupComponent implements OnInit {
         }
       }
 
-      group.setGroupView();
-      group.setLevelView();
       this.groups.push(group);
 
     }
@@ -160,7 +152,7 @@ export class CreateGroupComponent implements OnInit {
 
     }
 
-    this.newGroup.setGroupView();
+    
 
   }
 
@@ -168,7 +160,7 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.restoreValidation();
     this.newGroup.validateGrade();
     this.setGroupNewGroup();
-    this.newGroup.setLevelView();
+    
     
     if(!this.newGroup.validations.validate) return;
 
@@ -178,7 +170,6 @@ export class CreateGroupComponent implements OnInit {
 
     this.newGroup = new Group();
     this.newGroup.school_level_id = this.period.school_level_id;
-    this.newGroup.setLevelView();
     this.setGroupNewGroup();
 
   }
@@ -200,6 +191,11 @@ export class CreateGroupComponent implements OnInit {
     this._http.deleteGroup(group).then(
 
       data => {
+
+        this._http.sendData({
+          data: group,
+          action: 'DELETE'
+        });
 
         const i = this.groups.indexOf(group);
         this.groups.splice(i, 1);
@@ -234,6 +230,11 @@ export class CreateGroupComponent implements OnInit {
     this._http.postGroups({groups: groups}).then(
 
       data => {
+
+        this._http.sendData({
+          data: data,
+          action: 'NEW'
+        });
 
         for(let d of data) {
 
@@ -273,7 +274,6 @@ export class CreateGroupComponent implements OnInit {
       data => {
         this.period.setDataEdit(data);
         this.newGroup.school_level_id = this.period.school_level_id;
-        this.newGroup.setLevelView();
         
       },
       error => sessionStorage.setItem('request', JSON.stringify(error))

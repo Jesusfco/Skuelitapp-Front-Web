@@ -1,3 +1,22 @@
-<p>
-  delete-group works!
-</p>
+<div class="cardSpace" [@background]="state.background">
+
+    <div class="closeCardBackground" (click)="closePop()">
+        <h5 class="closeIcon">
+            <i class="material-icons">close</i>
+        </h5>
+    </div>
+
+    <div class="cardModule" [@card]="state.card">
+        <h2 class="centerText">Eliminar Grupo <br> {{ group.grade }} - {{ group.group | schoolGroup}}</h2>
+
+        <p>{{ safeDelete.message }}</p>
+
+        <div class="confirmCancel">
+            <button class="btn l4" (click)="closePop()">Cancelar</button>
+            <button class="btn l4 btnCancel" (click)="deleteGroup()" *ngIf="safeDelete.safe">Eliminar</button>
+        </div>
+
+
+    </div>
+
+</div>

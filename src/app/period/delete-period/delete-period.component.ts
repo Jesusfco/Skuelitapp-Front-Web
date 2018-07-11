@@ -1,5 +1,5 @@
 import { cardPop, backgroundOpacity } from './../../animations';
-import { Component, OnInit, HostListener, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PeriodService } from '../period.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Period } from '../../class/Period';
@@ -14,7 +14,7 @@ export class DeletePeriodComponent implements OnInit {
 
   public period: Period = new Period();
 
-  @Output() deletedPer = new EventEmitter();
+  
 
   public observerRef: any;
   public request: number = 0;

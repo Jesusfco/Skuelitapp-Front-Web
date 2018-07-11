@@ -1,8 +1,9 @@
+import { Group } from './../class/Group';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import "rxjs";
 import { Observable } from "rxjs";
-
+import { Subject } from 'rxjs/Subject';
 import { Url } from '../url';
 import { Storage } from '../class/storage';
 
@@ -11,8 +12,17 @@ export class GroupService {
 
   public link: Url = new Url();
   public token: Storage = new Storage();
+  private subject = new Subject<any>();
   
   constructor(private _http: Http) { }
+
+  getData(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
+  sendData(message: any) {
+    this.subject.next(message);
+  }
 
   getGroups(parameters) {
     return this._http.post(this.link.url + 'groups/getGroups' + this.token.getTokenUrl(), parameters)
@@ -118,6 +128,12 @@ export class GroupService {
 
   deleteSchedule(schedule) {
     return this._http.delete(this.link.url + 'schedules/delete/' + schedule.id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
+  safeDelete(group){
+    return this._http.post(this.link.url + 'groups/safeDelete' + this.token.getTokenUrl(), group)
       .map(data => data.json())
       .toPromise();
   }

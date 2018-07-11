@@ -94,6 +94,9 @@ import { TimeChatPipe } from './time-chat.pipe';
 import { DeletePeriodComponent } from './period/delete-period/delete-period.component';
 import { DeleteGroupComponent } from './group/delete-group/delete-group.component';
 import { DateformatPipe } from './dateformat.pipe';
+import { SchoolLevelGroupPipe } from './school-level-group.pipe';
+import { SchoolGroupPipe } from './school-group.pipe';
+import { StatusPeriodPipe } from './status-period.pipe';
 
 @NgModule({
   declarations: [
@@ -137,6 +140,9 @@ import { DateformatPipe } from './dateformat.pipe';
     DeletePeriodComponent,
     DeleteGroupComponent,
     DateformatPipe,
+    SchoolLevelGroupPipe,
+    SchoolGroupPipe,
+    StatusPeriodPipe,
   ],
   imports: [
     BrowserModule,

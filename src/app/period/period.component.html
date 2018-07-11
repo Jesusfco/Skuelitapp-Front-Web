@@ -6,7 +6,7 @@
             <tr>
                 <th>Inicio</th>
                 <th>Fin</th>
-                <th>Parciales</th>
+                <th>Status</th>
                 <th>Nivel Escolar</th>
                 <th>Tipo</th>
                 <th>Opciones</th>
@@ -17,8 +17,8 @@
             <tr *ngFor="let period of periods">
                 <td class="left">{{ period.from | dateformat }}</td>
                 <td>{{ period.to | dateformat }}</td>
-                <td>{{ period.partials }}</td>
-                <td>{{ period.school_level_view }}</td>
+                <td>{{ period.status | statusPeriod }}</td>
+                <td>{{ period.school_level_id | schoolLevelGroup }}</td>
                 <td>{{ period.period_type_view }}</td>
                 <td>
                     <i class="material-icons" [routerLink]="['./edit', period.id]">edit</i>

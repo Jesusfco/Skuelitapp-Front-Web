@@ -33,13 +33,13 @@
 
         </thead>
         <tbody>
-            <tr *ngFor="let g of groups" [routerLink]="['./show', g.id]">
+            <tr *ngFor="let g of groups">
                 <td class="left">{{ g.grade }}</td>
-                <td>{{ g.group_view }}</td>
-                <td>{{ g.level_view }}</td>
-                <td>
-                    <i class="material-icons">edit</i>
-                    <i class="material-icons">delete</i>
+                <td>{{ g.group | schoolGroup }}</td>
+                <td>{{ g.school_level_id | schoolLevelGroup }}</td>
+                <td (click)="sendSelectGroup(g)">
+                    <i class="material-icons" [routerLink]="['./show', g.id]">edit</i>
+                    <i class="material-icons" [routerLink]="['./delete', g.id]">delete</i>
                 </td>
             </tr>
         </tbody>
