@@ -1,15 +1,24 @@
 <h2 class="centerText">Administracion de Pagos</h2>
 
-<div *ngFor="let pay of payments" class="formWrap l6">
-    <h4> {{ pay.name }}</h4>
-    <p>Cantidad de pagos: #{{ pay.quantity }}</p>
-    <p>Monto: ${{ pay.amount }}</p>
-    <p>Tipo: {{ pay.period_type_view }}</p>
-    <p>Nivel Escolar: {{ pay.school_level_view }}</p>
+<div class="paymentsContainer">
 
-    <button class="btn btnAccept" [routerLink]="['./date', pay.id]">Administrar Fecha de Pagos</button>
+    <div *ngFor="let pay of payments" class="payment">
+        <div>
+            <h4> {{ pay.name.toUpperCase() }}</h4>
+            <p>Cantidad de pagos: <span>#{{ pay.quantity }}</span></p>
+            <p>Monto: <span>${{ pay.amount }}</span></p>
+            <p>Tipo: <span>{{ pay.period_type_view }}</span></p>
+            <p>Nivel Escolar: <span>{{ pay.school_level_view }}</span></p>
+        </div>
+
+
+        <button class="btn btnAccept" [routerLink]="['./date', pay.id]">Administrar Fecha de Pagos</button>
+
+    </div>
+
 
 </div>
+
 
 <div class="botonFloat" [routerLink]="['./create']">
     <a class="botonA" matTooltip="Crear"><i class="material-icons">add</i></a>

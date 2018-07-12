@@ -9,9 +9,15 @@
     <div class="cardModule" [@card]="state.card">
         <h2 class="centerText">Crear Recibo</h2>
 
-        <form class="flexRow" autocomplete="off">
+        <form class="flexRow" autocomplete="off" *ngIf="form == 1">
 
-            <div class="formData l12">
+            <div class="formData l3">
+                <label>ID:</label><br>
+                <input [(ngModel)]="student.id" name="id" type="number" (keyup)="getUserById($event)">
+                <small class="error" *ngIf="idMessage != null">{{ idMessage }}</small>
+            </div>
+
+            <div class="formData l9">
                 <label>Nombre:</label><br>
                 <input [(ngModel)]="student.name" name="name" type="text" [matAutocomplete]="auto" (keyup)="searchSugest($event)">
                 <!-- <small class="error" *ngIf="edit.validations.from == 1">Requerido</small>
@@ -33,16 +39,20 @@
             </div>
 
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let stu of sugestUsers" [value]="stu.id">
+                <mat-option *ngFor="let stu of sugestUsers" (onSelectionChange)="setUserSelected(stu)">
                     {{ stu.name }} {{ stu.patern_surname }} {{ stu.matern_surname }}
                 </mat-option>
             </mat-autocomplete>
 
-            <div class="formData l4 m6">
+            <div class="confirmCancel l12">
+                <button class="btn l4" (click)="cancelUserSearch()">Cancelar</button>
+                <button class="btn l4 btnAccept" (click)="continueUserSelected()">Continuar</button>
+            </div>
+
+
+            <!-- <div class="formData l4 m6">
                 <label>Monto:</label><br>
                 <input [(ngModel)]="receipt.amount" name="amount" type="number" disabled>
-                <!-- <small class="error" *ngIf="edit.validations.from == 1">Requerido</small>
-                <small class="error" *ngIf="edit.validations.from == 2">La fecha tiene que ser menor al Fin del periodo</small> -->
             </div>
 
             <div class="formData l4 m6">
@@ -51,11 +61,15 @@
                   <option value="1"> {{ 1 | receiptType }}</option>
                   <option value="2"> {{ 2 | receiptType }}</option>
                 </select>
-                <!-- <small class="error" *ngIf="edit.validations.from == 1">Requerido</small>
-                <small class="error" *ngIf="edit.validations.from == 2">La fecha tiene que ser menor al Fin del periodo</small> -->
-            </div>
+                
+            </div> -->
 
         </form>
+        <div *ngIf="form == 2">
+            <h5> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
+            <p>Grado: {{ student.grade }} </p>
+            <p>Nivel Escolar: {{ student.school_level_id | schoolLevelGroup }} </p>
+        </div>
 
     </div>
 

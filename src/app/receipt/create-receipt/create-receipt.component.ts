@@ -17,6 +17,8 @@ export class CreateReceiptComponent implements OnInit {
   public student: User = new User();
   public sugestUsers: Array<User> = [];
   public timer: number  = 0;
+  public form: number = 1;
+  public idMessage: String = null;
 
   public state = {
     background: 'initial',
@@ -55,7 +57,7 @@ export class CreateReceiptComponent implements OnInit {
 
   searchSugest(key){
 
-    if(key.keyCode >= 37 && key.keyCode <= 40 || key.keyCode == 13) return;
+    if(key.keyCode >= 37 && key.keyCode <= 40 || key.keyCode == 13 || key.keyCode == 9) return;
 
     this.timer++;    
 
@@ -77,6 +79,52 @@ export class CreateReceiptComponent implements OnInit {
       }
 
     }, 350);
+  }
+
+  setUserSelected(student) {
+
+    setTimeout(() => this.student.setData(student), 50);
+    this.form = 2;
+    
+
+  }
+
+  getUserById(e) {
+
+    if(e.keyCode == 13) {
+
+      this._http.getStudentById(this.student.id).then(
+        data => {
+
+          if(data.name != undefined) {
+
+            this.student.setData(data);
+            this.sugestUsers.push(data);
+            this.idMessage = null;
+            this.form = 2;
+
+          } else {
+
+            this.idMessage = "ID: " + this.student.id + " INEXISTENTE";
+
+          }
+          
+        }, error => console.log(error)
+      ).then(
+        // () => this.sendingData.sugest = false
+      );
+
+    }
+    
+  }
+
+  cancelUserSearch() {
+    this.student = new User();
+    this.idMessage = null;
+  }
+
+  continueUserSelected() {
+
   }
 
 }

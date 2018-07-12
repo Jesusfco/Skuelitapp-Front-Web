@@ -37,4 +37,10 @@ export class ReceiptService {
       .toPromise();
   }
 
+  getStudentById(id) {
+    return this._http.get(this.link.url + 'receipts/getStudentById/' + id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }
