@@ -44,12 +44,6 @@
                 </mat-option>
             </mat-autocomplete>
 
-            <div class="confirmCancel l12">
-                <button class="btn l4" (click)="cancelUserSearch()">Cancelar</button>
-                <button class="btn l4 btnAccept" (click)="continueUserSelected()">Continuar</button>
-            </div>
-
-
             <!-- <div class="formData l4 m6">
                 <label>Monto:</label><br>
                 <input [(ngModel)]="receipt.amount" name="amount" type="number" disabled>
@@ -65,10 +59,47 @@
             </div> -->
 
         </form>
+
+        <div class="confirmCancel l12" *ngIf="form == 1">
+            <button class="btn l4" (click)="cancelUserSearch()">Cancelar</button>
+            <button class="btn l4 btnAccept" (click)="continueUserSelected()">Continuar</button>
+        </div>
+
         <div *ngIf="form == 2">
             <h5> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
             <p>Grado: {{ student.grade }} </p>
             <p>Nivel Escolar: {{ student.school_level_id | schoolLevelGroup }} </p>
+
+            <h3>Pagos</h3>
+            <div class="responsive-table">
+                <table align="center">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Monto</th>
+                            <th>Tipo</th>
+                            <th>Fecha de Pago</th>
+                            <th>Opciones</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let receipt of receipts">
+                            <td class="left">{{ receipt.user_name }}</td>
+                            <td>{{ receipt.amount }}</td>
+                            <td>{{ receipt.receipt_type }}</td>
+                            <td>{{ receipt.created_at }}</td>
+
+                            <td>
+                                <i class="material-icons" [routerLink]="['./edit', receipt.id]">edit</i>
+                                <i class="material-icons" [routerLink]="['./delete', receipt.id]">delete</i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
         </div>
 
     </div>

@@ -43,4 +43,10 @@ export class ReceiptService {
       .toPromise();
   }
 
+  getPaymentInformation(user) {
+    return this._http.post(this.link.url + 'receipts/getPaymentInformation' + this.token.getTokenUrl(), user)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

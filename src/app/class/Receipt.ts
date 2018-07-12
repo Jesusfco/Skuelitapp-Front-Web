@@ -7,6 +7,7 @@ export class Receipt {
     creator_name: String;
     amount: Number;
     payment_date_id: Number;
+    period_id: Number;
     receipt_type: Number;
     created_at: Number;
     updated_at: String;
@@ -21,6 +22,7 @@ export class Receipt {
         this.creator_id = parseInt(data.creator_id);
         this.amount = parseFloat(data.creator_id);
         this.payment_date_id = parseFloat(data.payment_date_id);
+        this.period_id = parseInt(data.period_id);
         this.receipt_type = parseInt(data.receipt_type);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;

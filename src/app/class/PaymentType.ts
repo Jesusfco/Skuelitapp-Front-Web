@@ -13,7 +13,7 @@ export class PaymentType {
     public created_at: String;
     public updated_at: String;
 
-    public paymentDate: Array<PaymentDate> = [];
+    public paymentDates: Array<PaymentDate> = [];
 
     public validations: any = {
         validate: true,
@@ -40,6 +40,14 @@ export class PaymentType {
         this.amount = parseFloat(data.amount);
         this.created_at = data.created_at;
         this.updated_at = data.updated_at;
+
+        if(data.paymentDates != undefined) {
+            for(let d of data.paymentDates) {
+                let date: PaymentDate = new PaymentDate();
+                date.setFromData(d);
+                this.paymentDates.push(date);
+            }
+        }
 
         this.setPeriodTypeView();
         this.setSchoolLevelView();
