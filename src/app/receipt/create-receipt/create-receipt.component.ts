@@ -147,19 +147,74 @@ export class CreateReceiptComponent implements OnInit {
         
         this.paymentType.setData(data.paymentType);
         this.period.setDataEdit(data.period);
+
         this.receipts = [];
+
         for(let d of data.receipts) {
+
           let r = new Receipt();
           r.setData(d);
           r.user_name = this.student.name + " " + this.student.patern_surname + " " + this.student.matern_surname;
+
           this.receipts.push(r);
+
         }
+
+        this.setInfoTable();
+
+
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
 
     );
 
   }
 
-  
+  setInfoTable() {
+
+    this.infoTable = [];
+
+    for(let x of this.paymentType.paymentDates) {
+
+      this.infoTable.push(
+        {
+          id: x.id,
+          amount: this.paymentType.amount,
+          type: 1,
+          date: x.date,
+          payment: false
+        }
+      );
+
+    }
+
+    this.infoTable.unshift(
+      {
+        id: null,
+        amount: this.period.inscription,
+        type: 2,
+        date: null,
+        payment: false
+      }
+    );
+
+    for(let x of this.receipts) {
+
+      for(let info of this.infoTable){
+
+        if(info.id == x.payment_date_id && info.id != null) {
+
+          info.payment = true;
+
+        } else if(x.period_id == this.period.id && info.type == 2) {
+
+          info.payment = true;
+
+        }
+
+      }
+
+    } 
+
+  }
 
 }
