@@ -16,6 +16,7 @@ import { Period } from '../../class/Period';
 export class CreateReceiptComponent implements OnInit {
 
   public receipt: Receipt = new Receipt();
+  public creator: User = new User();
   public student: User = new User();
   public sugestUsers: Array<User> = [];
   public timer: number  = 0;
@@ -44,7 +45,11 @@ export class CreateReceiptComponent implements OnInit {
 
   constructor(
     private _http: ReceiptService,
-    private router: Router) { }
+    private router: Router) { 
+
+      this.creator.setUserLoged();
+
+    }
 
   ngOnInit() {
     setTimeout(() => {
@@ -144,6 +149,7 @@ export class CreateReceiptComponent implements OnInit {
     this._http.getPaymentInformation(this.student).then(
 
       data => {
+        this.paymentType = new PaymentType();
         
         this.paymentType.setData(data.paymentType);
         this.period.setDataEdit(data.period);
@@ -214,6 +220,58 @@ export class CreateReceiptComponent implements OnInit {
       }
 
     } 
+
+  }
+
+  selectPayment(re) {
+
+    if(re.payment == true) return;
+
+    this.form++;
+
+    this.receipt.amount = re.amount;
+    this.receipt.receipt_type = re.type;
+    this.receipt.user_id = this.student.id;
+    this.receipt.creator_id = this.creator.id;
+
+    if(re.type == 1) {
+
+      this.receipt.payment_date_id = re.id;
+
+    } else if (re.type == 2) {
+
+      this.receipt.period_id = this.period.id;
+
+    }
+
+  }
+
+  returnForm2() {
+
+    this.form--;
+    this.receipt.payment_date_id = null;
+    this.receipt.period_id = null;
+
+  }
+
+  createReceipt() {
+
+    this._http.postReceipt(this.receipt).then(
+      data => {
+        
+        let re = new Receipt();
+
+        re.setData(data);
+        re.user_name = this.student.name + ' ' + this.student.patern_surname + ' ' + this.student.matern_surname;
+        this.receipts.push(re);
+
+        this._http.sendData({action: 'NEW', data: re});
+
+        this.form++;
+        this.setInfoTable();
+
+      }, error => sessionStorage.setItem('request', JSON.stringify(error))
+    );
 
   }
 

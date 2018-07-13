@@ -14,6 +14,7 @@ export class ReceiptComponent implements OnInit {
   public lenghtArrayOptions: Array<number> = [ 10, 25, 50, 100, 200 ];
 
   public request: number = 1;
+  public outletOutput: any;
 
   public pageEvent: PageEvent = {
     pageIndex: 1,
@@ -24,6 +25,16 @@ export class ReceiptComponent implements OnInit {
   constructor(private _http: ReceiptService) {
 
     this.setReceipts();
+
+    this.outletOutput = this._http.getData().subscribe(x => {
+      
+      if (x.action == 'NEW') {
+
+        this.pushNewReceipt(x.data);
+
+      } 
+      
+    });
 
    }
 
@@ -55,6 +66,12 @@ export class ReceiptComponent implements OnInit {
 
       }, error => sessionStorage.setItem('request', JSON.stringify(error))
     ).then( () => this.request-- );
+
+  }
+
+  pushNewReceipt(receipt: Receipt){
+
+    this.receipts.unshift(receipt);
 
   }
 

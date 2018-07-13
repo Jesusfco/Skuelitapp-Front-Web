@@ -83,6 +83,11 @@ export class User {
         this.setUserTypeView();
     }
 
+    setUserLoged() {
+        let data = JSON.parse(localStorage.getItem('userData'));
+        this.setData(data);
+    }
+
     setFullName() {
         this.full_name = this.name + ' ' + this.patern_surname + ' ' + this.matern_surname;
     }

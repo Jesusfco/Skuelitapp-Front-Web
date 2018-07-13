@@ -66,7 +66,7 @@
         </div>
 
         <div *ngIf="form == 2">
-            <h5> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
+            <h5 class="centerText"> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
             <p>Grado: {{ student.grade }} </p>
             <p>Nivel Escolar: {{ student.school_level_id | schoolLevelGroup }} </p>
 
@@ -83,8 +83,8 @@
 
                     </thead>
                     <tbody>
-                        <tr *ngFor="let re of infoTable">
-                            <td class="left">{{ re.amount }}</td>
+                        <tr *ngFor="let re of infoTable" (click)="selectPayment(re)">
+                            <td class="left">$ {{ re.amount }}</td>
                             <td>{{ re.type }}</td>
                             <td>{{ re.date }}</td>
                             <td *ngIf="re.payment">
@@ -98,6 +98,43 @@
                 </table>
 
             </div>
+
+        </div>
+
+        <div *ngIf="form == 3">
+            <h5 class="centerText"> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
+
+            <form class="flexRow" autocomplete="off" (submit)="createReceipt()">
+
+                <div class="formData l6">
+                    <label>Monto: {{ receipt.amount }}</label>
+                </div>
+
+                <div class="formData l6">
+                    <label>Tipo: {{ receipt.receipt_type }}</label>
+                </div>
+
+                <div class="confirmCancel l12">
+                    <button class="btn l4 btnCancel" (click)="returnForm2()" type="button">Cancelar</button>
+                    <button class="btn l4 btnAccept" type="submit">Crear Recibo</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div *ngIf="form == 4">
+
+            <h3 class="centerText">Recibo creado correctamente</h3>
+            <h5 class="centerText"> {{ student.name }} {{ student.patern_surname }} {{ student.matern_surname }}</h5>
+
+
+            <div class="confirmCancel l12">
+                <button class="btn l4" (click)="returnForm2()" type="button">Realizar otro pago</button>
+                <button class="btn l4 btnAccept" type="button" (click)="closePop()">Aceptar</button>
+            </div>
+
+
 
         </div>
 

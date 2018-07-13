@@ -49,4 +49,10 @@ export class ReceiptService {
       .toPromise();
   }
 
+  postReceipt(receipt) {
+    return this._http.post(this.link.url + 'receipts/create' + this.token.getTokenUrl(), receipt)
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }
