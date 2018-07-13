@@ -26,7 +26,7 @@ export class ReceiptService {
   }
 
   getReceipts(parameters) {
-    return this._http.post(this.link.url + 'receipts/get' + this.token.getTokenUrl(), parameters)
+    return this._http.post(this.link.url + 'receipts/get?page=' + parameters.pageIndex + '&' + this.token.getTokenUrl(), parameters)
       .map(data => data.json())
       .toPromise();
   }

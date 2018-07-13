@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ReceiptTypePipe implements PipeTransform {
 
-  transform(value: number, args?: any): String {
-
-    if(value == 1) {
-      return 'Parcialidad';
-    } else if( value == 2) {
-      return 'Inscripción';
+  transform(value: number, args?: any): any {
+    if(value == 1) { return 'PARCIALIDAD'; }
+    else if(value == 2) { return 'INSCRIPCIÓN'; }
+    // else if(value == 3) { return 'FINALIZADO'; }
+    
+    else {
+      return null;
     }
-    return null;
   }
 
 }

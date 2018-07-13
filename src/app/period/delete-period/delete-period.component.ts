@@ -1,4 +1,4 @@
-import { cardPop, backgroundOpacity } from './../../animations';
+import { cardPop, backgroundOpacity } from '../../animations';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { PeriodService } from '../period.service';
 import { Router, ActivatedRoute } from '@angular/router';

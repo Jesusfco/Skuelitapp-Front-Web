@@ -248,7 +248,7 @@ export class CreateReceiptComponent implements OnInit {
 
   returnForm2() {
 
-    this.form--;
+    this.form = 2;
     this.receipt.payment_date_id = null;
     this.receipt.period_id = null;
 

@@ -20,7 +20,7 @@ export class Receipt {
         this.user_id = parseInt(data.user_id);
         this.user_name = data.user_name;
         this.creator_id = parseInt(data.creator_id);
-        this.amount = parseFloat(data.creator_id);
+        this.amount = parseFloat(data.amount);
         this.payment_date_id = parseFloat(data.payment_date_id);
         this.period_id = parseInt(data.period_id);
         this.receipt_type = parseInt(data.receipt_type);

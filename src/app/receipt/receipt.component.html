@@ -14,8 +14,8 @@
         <tbody>
             <tr *ngFor="let receipt of receipts">
                 <td class="left">{{ receipt.user_name }}</td>
-                <td>{{ receipt.amount }}</td>
-                <td>{{ receipt.receipt_type }}</td>
+                <td>$ {{ receipt.amount }}</td>
+                <td>{{ receipt.receipt_type | receiptType }}</td>
                 <td>{{ receipt.created_at }}</td>
 
                 <td>

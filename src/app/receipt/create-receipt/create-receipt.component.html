@@ -85,8 +85,8 @@
                     <tbody>
                         <tr *ngFor="let re of infoTable" (click)="selectPayment(re)">
                             <td class="left">$ {{ re.amount }}</td>
-                            <td>{{ re.type }}</td>
-                            <td>{{ re.date }}</td>
+                            <td>{{ re.type | receiptType }}</td>
+                            <td>{{ re.date | dateformat }}</td>
                             <td *ngIf="re.payment">
                                 <i class="material-icons">check_box</i>
                             </td>
