@@ -55,4 +55,10 @@ export class ReceiptService {
       .toPromise();
   }
 
+  getOneReceipt(receipt) {
+    return this._http.get(this.link.url + 'receipts/show/' + receipt.id + this.token.getTokenUrl())
+      .map(data => data.json())
+      .toPromise();
+  }
+
 }

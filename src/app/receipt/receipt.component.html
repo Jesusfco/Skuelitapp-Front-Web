@@ -13,13 +13,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let receipt of receipts">
-                <td class="left">{{ receipt.user_name }}</td>
-                <td>$ {{ receipt.amount }}</td>
-                <td>{{ receipt.receipt_type | receiptType }}</td>
-                <td>{{ receipt.created_at }}</td>
+                <td [routerLink]="['./ver', receipt.id]" class="left">{{ receipt.user_name }}</td>
+                <td [routerLink]="['./ver', receipt.id]">$ {{ receipt.amount }}</td>
+                <td [routerLink]="['./ver', receipt.id]">{{ receipt.receipt_type | receiptType }}</td>
+                <td [routerLink]="['./ver', receipt.id]">{{ receipt.created_at }}</td>
 
                 <td>
-                    <i class="material-icons" [routerLink]="['./edit', receipt.id]">edit</i>
                     <i class="material-icons" [routerLink]="['./delete', receipt.id]">delete</i>
                 </td>
             </tr>
