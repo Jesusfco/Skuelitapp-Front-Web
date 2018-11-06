@@ -34,11 +34,11 @@ export class ParentsService {
 
   savePermissionImage(image: File, id) { 
 
-    const formFata: FormData = new FormData();
-    formFata.append('image', image, image.name);
-    formFata.append('id', id);
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+    formData.append('id', id);
 
-    return this._http.post(this.link.url + 'parents/permission/storeImage' + this.token.getTokenUrl(), formFata)
+    return this._http.post(this.link.url + 'parents/permission/storeImage' + this.token.getTokenUrl(), formData)
     .map(data => data.json())
     .toPromise();
   }
